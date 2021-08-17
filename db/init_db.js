@@ -1,8 +1,9 @@
 // code to build and initialize DB goes here
+//(DD): Testing DB push
 const {
-  client
-  // other db methods 
-} = require('./index');
+  client,
+  // other db methods
+} = require("./index");
 
 async function buildTables() {
   try {
@@ -11,7 +12,6 @@ async function buildTables() {
     // drop tables in correct order
 
     // build tables in correct order
-
   } catch (error) {
     throw error;
   }
@@ -23,6 +23,10 @@ async function populateInitialData() {
   } catch (error) {
     throw error;
   }
+}
+
+async function testFunction() {
+  console.log("message");
 }
 
 buildTables()
