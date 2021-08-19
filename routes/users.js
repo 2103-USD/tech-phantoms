@@ -7,7 +7,8 @@ const {
     getAllUsers,
     getUserById,
     getUserNameByUsername, 
-    updateUser
+    updateUser,
+    getOrdersbyUser
 } = require('../db');
 
 // Declarations
@@ -166,6 +167,37 @@ usersRouter.patch('/:userId', async (req, res, next) => {
                     name: "AdminLoginRequired",
                     message: "Only admins are allowed to retrieve this information"
                 });
+            }
+        }
+        else {
+            res.status(401);
+            next({
+                name: "NotLoggedIn",
+                message: "You must log in first"
+            });
+        }
+    } catch ({ name, message }) {
+        next({ name, message })
+    }
+})
+
+usersRouter.get('/:userId/orders', async (req, res, next) => {
+    try {
+        if (req.user) {
+            // The specs call for a user to be logged in to retrieve a cart.
+            // Is this proper? or do we want to be able to allow for adding to cart before creating an account?
+            const {id} = req.user
+            const user = await getUserById(id); 
+            const orders = await getOrdersbyUser(id); // Do we want to pass in a userId or a user object? 
+            if (orders) {
+                res.send(orders)
+            }
+            else {
+                res.status(404)
+                next({
+                    name:"NoOrdersFound",
+                    message:"You do not have any orders placed."
+                })
             }
         }
         else {
