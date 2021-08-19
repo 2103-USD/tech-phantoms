@@ -6,35 +6,23 @@ import {
 	getCurrentToken,
 	clearCurrentUser,
 } from '../auth';
-import Product from './Product.js';
+import { Product } from './Product.js';
 
 const AllProducts = ({ products }) => {
+	const [products, setProducts] = useState([]);
+	const handleProducts = async () => {
+		const res = await getProducts();
+		if (res) setProducts(res);
+	};
+
 	return (
 		<div className="allProducts">
 			<h1>Products:</h1>
-			{products.map(
-				({
-					productId,
-					name,
-					description,
-					price,
-					imageURL,
-					inStock,
-					category,
-				}) => (
-					<div key={productId} className="product-card">
-						<Link to={`/product/${productId}`}>
-							<h3>Product: {name}</h3>
-						</Link>
-						<img src={imageURL} alt="product image" />
-						<h2>Product Information</h2>
-						<p>Category: {category}</p>
-						<p>description: {description}</p>
-						<p>Price: ${price}</p>
-						<p>In Stock: {inStock}</p>
-					</div>
-				)
-			)}
+			<div>
+				{products.map((product) => (
+					<Product key={product.id} product={product} />
+				))}
+			</div>
 		</div>
 	);
 };

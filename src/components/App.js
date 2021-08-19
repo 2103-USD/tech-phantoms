@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Router, Switch } from 'react-router-dom';
-import { getCurrentUser, storeCurrentUser, getCurrentToken, clearCurrentUser  } from '../auth'
+import {
+	getCurrentUser,
+	storeCurrentUser,
+	getCurrentToken,
+	clearCurrentUser,
+} from '../auth';
 import { getSomething } from '../api';
-import AllProducts from './AllProducts';
+import { NavBar, AllProducts } from '../components';
 
 const App = () => {
 	const [message, setMessage] = useState('');
@@ -19,17 +24,17 @@ const App = () => {
 
 	return (
 		<Router>
-      <nav>
-        <Link to='/products'>All Products</Link>
-      </nav>
+			<nav>
+				<NavBar currentUser />
+			</nav>
 			<div className="App">
 				<h1>Welcome to Grace Shopper</h1>
 				<h2>The place to buy your products!</h2>
-      <Switch>
-        <Route path='/products'>
-          <AllProducts products={products} />
-        </Route>
-      </Switch>
+				<Switch>
+					<Route path="/products">
+						<AllProducts products={products} />
+					</Route>
+				</Switch>
 			</div>
 		</Router>
 	);

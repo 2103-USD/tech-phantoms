@@ -10,11 +10,10 @@ export function getCurrentUser() {
 
 export function getCurrentToken() {
 	const token = JSON.parse(localStorage.getItem('token'));
-	return token
+	return token;
 }
 
 export function clearCurrentUser() {
 	localStorage.removeItem('currentUser');
 	localStorage.removeItem('token');
 }
-

@@ -1,17 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getCurrentUser, storeCurrentUser, getCurrentToken, clearCurrentUser  } from '../auth'
+import {
+	getCurrentUser,
+	storeCurrentUser,
+	getCurrentToken,
+	clearCurrentUser,
+} from '../auth';
 
-
-const Product = ({
-	productId,
-	name,
-	description,
-	price,
-	imageURL,
-	inStock,
-	category,
-}) => {
+const Product = ({ product }) => {
+	const { productId, name, description, price, imageURL, inStock, category } =
+		product;
 	return (
 		<div id={productId} className="product-card">
 			<Link to={`/product/${productId}`}>
