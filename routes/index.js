@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const apiRouter = express.Router();
 const usersRouter = require ('./users');
 const ordersRouter = require ('./orders');
-const orderProductsRouter = require ('./orders');
+const orderProductsRouter = require ('./order_products');
 const productsRouter = require ('./products');
 
 const { getUserById } = require('../db');
@@ -26,7 +26,6 @@ apiRouter.use(async (req, res, next) => {
         next();
     } else if (auth.startsWith(prefix)) {
         const token = auth.slice(prefix.length);
-a s
         try {
             const { id } = jwt.verify(token, JWT_SECRET);
             if (id) {
@@ -44,7 +43,10 @@ a s
     }
 });   
 
-
+apiRouter.use('./users.js', usersRouter)
+apiRouter.use('./orders.js', ordersRouter)
+apiRouter.use('./products.js', productsRouter)
+apiRouter.use('./order_products.js', orderProductsRouter)
 
 // Error Handler
 apiRouter.use((error, req, res, next) => {
