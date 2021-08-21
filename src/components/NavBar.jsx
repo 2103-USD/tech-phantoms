@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Router, NavLink } from 'react-router-dom';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const NavBar = ({ currentUser }) => {
 	if (currentUser) {
