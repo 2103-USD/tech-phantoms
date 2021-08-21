@@ -41,3 +41,7 @@ const App = () => {
 };
 
 export default App;
+
+
+// all products should just contain products
+// !!products.length && is the same as 
