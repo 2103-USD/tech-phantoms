@@ -26,7 +26,7 @@ productsRouter.get('/', async (req, res, next) => {
 });
 
 productsRouter.get('/:productId', async (req, res, next) => {
-    const {productId}
+    const {productId} = req.params
     try {
         const product = await getProductById(productId)
         if (product) {
@@ -44,3 +44,6 @@ productsRouter.get('/:productId', async (req, res, next) => {
         next({ name, message })
     }
 });
+
+
+module.exports = productsRouter

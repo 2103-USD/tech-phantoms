@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Router, Switch } from 'react-router-dom';
-import {
-	getCurrentUser,
-	storeCurrentUser,
-	getCurrentToken,
-	clearCurrentUser,
-} from '../auth';
+import { Switch, Route } from 'react-router-dom';
+
 import { getSomething } from '../api';
 import { NavBar, AllProducts } from '.';
 
@@ -23,7 +18,7 @@ const App = () => {
 	});
 
 	return (
-		<Router>
+        <>
 			<nav>
 				<NavBar currentUser />
 			</nav>
@@ -32,11 +27,11 @@ const App = () => {
 				<h2>The place to buy your products!</h2>
 				<Switch>
 					<Route path="/products">
-						<AllProducts products={products} />
+						<AllProducts />
 					</Route>
 				</Switch>
 			</div>
-		</Router>
+        </>
 	);
 };
 
