@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {
   getSomething
 } from '../api';
 
-const Products = () => {
+export const Product = ({product}) => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -18,12 +18,11 @@ const Products = () => {
   });
 
   return (
-    <div className="App">
-      <h1>Products</h1>
+    <div className="Product">
+      <h1>Product</h1>
       <h2>{ message }</h2>
+      <h3> {JSON.stringify(product)}</h3>
       
     </div>
   );
 }
-
-export default Products;

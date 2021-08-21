@@ -1,7 +1,7 @@
 const client = require("./index");
 
 //get product by id
-export async function getProductById(id) {
+async function getProductById(id) {
   try {
     const {
       rows: [product],
@@ -19,7 +19,7 @@ export async function getProductById(id) {
   }
 }
 
-export async function getAllProducts() {
+async function getAllProducts() {
   try {
     const { rows: products } = await client.query(
       `
@@ -33,7 +33,7 @@ export async function getAllProducts() {
   }
 }
 
-export async function createProduct({
+async function createProduct({
   name,
   description,
   price,
@@ -56,4 +56,10 @@ export async function createProduct({
   } catch (error) {
     throw Error(error);
   }
+}
+
+module.exports = {
+    getProductById,
+    getAllProducts,
+    createProduct
 }

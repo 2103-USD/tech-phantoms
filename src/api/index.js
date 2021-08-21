@@ -8,3 +8,11 @@ export async function getSomething() {
 		throw error;
 	}
 }
+export async function getProducts() {
+	try {
+		console.log("FixME!!")
+        return [];
+	} catch (error) {
+		throw error;
+	}
+}
