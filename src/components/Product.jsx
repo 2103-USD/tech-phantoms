@@ -7,15 +7,15 @@ import {
 export const Product = ({product}) => {
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    getSomething()
-      .then(response => {
-        setMessage(response.message);
-      })
-      .catch(error => {
-        setMessage(error.message);
-      });
-  });
+  // useEffect(() => {
+  //   getSomething()
+  //     .then(response => {
+  //       setMessage(response.message);
+  //     })
+  //     .catch(error => {
+  //       setMessage(error.message);
+  //     });
+  // });
 
   return (
     <div className="Product">
