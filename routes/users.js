@@ -10,6 +10,10 @@ const {
     updateUser,
     getOrdersbyUser
 } = require('../db');
+const {
+    requireUser, 
+    requireAdmin
+} = require('./utils')
 
 // Declarations
 const usersRouter = express.Router();
@@ -45,7 +49,7 @@ usersRouter.post('/register', async (req, res, next) => {
                 }, process.env.JWT_SECRET, {
                     expiresIn: '1w'
                 });
-    
+                res.status(201)
                 res.send({ 
                     user, token
                 });
@@ -89,123 +93,84 @@ usersRouter.post('/login', async (req, res, next) => {
             });
             res.send({ user, token});
         }
-
+        else {
+            res.status(401);
+            next({
+                name: "InvalidCredentials",
+                message: "Username or Password are incorrect, or this account does not exist."
+            });
+        }
     } catch ({ name, message }) {
         next({ name, message })
     }
 })
 
 
-usersRouter.get('/me', async (req, res, next) => {
+usersRouter.get('/me', requireUser, async (req, res, next) => {
     try {
-        if (req.user) {
-            const {id} = req.user
-            const user = await getUserById(id); 
+        const {id} = req.user
+        const user = await getUserById(id); 
+        if (user) {
             res.send(user)
         }
-        else {
-            res.status(401);
-            next({
-                name: "NotLoggedIn",
-                message: "You must log in first"
-            });
+    } catch ({ name, message }) {
+        next({ name, message })
+    }
+})
+
+usersRouter.get('/', requireAdmin, async (req, res, next) => {
+    try {
+        const users = await getAllUsers(); 
+        if (users) {
+            res.send(users)
         }
     } catch ({ name, message }) {
         next({ name, message })
     }
 })
 
-usersRouter.get('/', async (req, res, next) => {
+usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
     try {
-        if (req.user) {
-            const {id} = req.user
-            const user = await getUserById(id); 
-            if (user.isAdmin) {
-                const users = await getAllUsers(); 
-                res.send(users)
-            }
-            else {
-                res.status(401);
-                next({
-                    name: "AdminLoginRequired",
-                    message: "Only admins are allowed to retrieve this information"
-                });
-            }
-        }
-        else {
-            res.status(401);
-            next({
-                name: "NotLoggedIn",
-                message: "You must log in first"
-            });
+        const {userId: id} = req.params;
+        const {
+            firstName,
+            lastName,
+            email, 
+            imageURL, 
+            username,
+            password
+        } = req.body;
+
+        const user = await updateUser(
+            id,
+            firstName,
+            lastName,
+            email, 
+            imageURL, 
+            username,
+            password
+        ); 
+        if (user) {
+            res.send(user) 
         }
     } catch ({ name, message }) {
         next({ name, message })
     }
 })
 
-usersRouter.patch('/:userId', async (req, res, next) => {
+usersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
     try {
-        if (req.user) {
-            const {id, firstName, lastName, email, imageURL, username, password} = req.user
-            const user = await getUserById(id); 
-            if (user.isAdmin) {
-                const user = await updateUser(
-                    id,
-                    firstName,
-                    lastName,
-                    email, 
-                    imageURL, 
-                    username,
-                    password
-                ); 
-                res.send(user)
-            }
-            else {
-                res.status(401);
-                next({
-                    name: "AdminLoginRequired",
-                    message: "Only admins are allowed to retrieve this information"
-                });
-            }
+        const {userId: id} = req.params;
+        const orders = await getOrdersbyUser(id); // Do we want to pass in a userId or a user object? 
+        if (orders) {
+            res.send(orders)
         }
         else {
-            res.status(401);
+            res.status(404)
             next({
-                name: "NotLoggedIn",
-                message: "You must log in first"
-            });
-        }
-    } catch ({ name, message }) {
-        next({ name, message })
-    }
-})
-
-usersRouter.get('/:userId/orders', async (req, res, next) => {
-    try {
-        if (req.user) {
-            // The specs call for a user to be logged in to retrieve a cart.
-            // Is this proper? or do we want to be able to allow for adding to cart before creating an account?
-            const {id} = req.user
-            const user = await getUserById(id); 
-            const orders = await getOrdersbyUser(id); // Do we want to pass in a userId or a user object? 
-            if (orders) {
-                res.send(orders)
-            }
-            else {
-                res.status(404)
-                next({
-                    name:"NoOrdersFound",
-                    message:"You do not have any orders placed."
-                })
-            }
-        }
-        else {
-            res.status(401);
-            next({
-                name: "NotLoggedIn",
-                message: "You must log in first"
-            });
+                name:"NoOrdersFound",
+                message:"You do not have any orders placed."
+            })
         }
     } catch ({ name, message }) {
         next({ name, message })
