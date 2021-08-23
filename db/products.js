@@ -57,3 +57,9 @@ export async function createProduct({
         throw Error(error);
     }
 }
+
+module.exports = {
+    getProductById,
+    getAllProducts,
+    createProduct,
+};
