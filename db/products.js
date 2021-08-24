@@ -1,4 +1,5 @@
-const client = require("./index");
+// Requires
+const client = require('./client');
 
 //get product by id
 async function getProductById(id) {
