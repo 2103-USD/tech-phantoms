@@ -46,7 +46,7 @@ apiRouter.use(async (req, res, next) => {
 apiRouter.use('/users', usersRouter)
 apiRouter.use('/orders', ordersRouter)
 apiRouter.use('/products', productsRouter)
-// apiRouter.use('/order_products', orderProductsRouter)
+apiRouter.use('/order_products', orderProductsRouter)
 
 // Error Handler
 apiRouter.use((error, req, res, next) => {
