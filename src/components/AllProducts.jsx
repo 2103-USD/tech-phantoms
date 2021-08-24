@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Product } from '.';
-import {getProducts} from '../api'
+import {getAllProducts } from '../api'
 
 
 const AllProducts = () => {
@@ -9,7 +9,7 @@ const AllProducts = () => {
 	const [products, setProducts] = useState([]);
 
 	const handleProducts = async () => {
-		const res = await getProducts();
+		const res = await getAllProducts();
 		if (res) setProducts(res);
 	};
 
