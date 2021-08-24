@@ -57,9 +57,3 @@ const client = require("./index");
         throw Error(error);
     }
 }
-
-module.exports = {
-    getProductById,
-    getAllProducts,
-    createProduct,
-};
