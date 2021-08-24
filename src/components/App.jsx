@@ -1,12 +1,11 @@
-import React, { } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import { NavBar, AllProducts } from '.';
 
 const App = () => {
-
 	return (
-        <>
+		<>
 			<nav>
 				<NavBar currentUser />
 			</nav>
@@ -16,10 +15,10 @@ const App = () => {
 				<Switch>
 					<Route path="/products">
 						<AllProducts />
-					</Route>					
+					</Route>
 				</Switch>
 			</div>
-        </>
+		</>
 	);
 };
 

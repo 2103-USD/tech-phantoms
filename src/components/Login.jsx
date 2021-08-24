@@ -12,17 +12,13 @@ const Login = ({ setUser }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.post(
-				'',
-				{
-					username: form.username,
-					password: form.password,
-				}
-			);
+			const res = await axios.post('', {
+				username: form.username,
+				password: form.password,
+			});
 
 			setUser(res.data.user);
 			storeCurrentUser(res.data.user, res.data.token);
-			alert('Welcome to Fitness Trackr, ', res.data.user);
 		} catch (error) {
 			console.error(error);
 		}
@@ -49,4 +45,4 @@ const Login = ({ setUser }) => {
 };
 
 export default Login;
-z
+z;
