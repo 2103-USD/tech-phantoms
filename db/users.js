@@ -2,7 +2,7 @@ const client = require("./index");
 const bcrypt = require("bcrypt");
 
 //create user
-export async function createUser({
+async function createUser({
     firstName,
     lastName,
     email,
@@ -41,7 +41,7 @@ export async function createUser({
 }
 
 //get user
-export async function getUser({ username, password }) {
+async function getUser({ username, password }) {
     try {
         if (!username || !password) {
             return "";
@@ -66,7 +66,7 @@ export async function getUser({ username, password }) {
 }
 
 //get all users
-export async function getAllUsers() {
+async function getAllUsers() {
     try {
         const { rows: users } = await client.query(
             `
@@ -81,7 +81,7 @@ export async function getAllUsers() {
 }
 
 //get user by id
-export async function getUserById(id) {
+async function getUserById(id) {
     try {
         const {
             rows: [user],
@@ -101,7 +101,7 @@ export async function getUserById(id) {
 }
 
 //get user by username
-export async function getUserByUsername(username) {
+async function getUserByUsername(username) {
     try {
         const {
             rows: [user],
@@ -119,3 +119,11 @@ export async function getUserByUsername(username) {
         throw error;
     }
 }
+
+module.exports = {
+    createUser,
+    getUser,
+    getAllUsers,
+    getUserById,
+    getUserByUsername,
+};
