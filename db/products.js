@@ -34,6 +34,7 @@ async function getAllProducts() {
 }
 
 async function createProduct({
+
     name,
     description,
     price,
@@ -57,3 +58,9 @@ async function createProduct({
         throw Error(error);
     }
 }
+
+module.exports = {
+    getProductById,
+    getAllProducts,
+    createProduct,
+};
