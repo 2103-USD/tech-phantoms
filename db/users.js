@@ -1,4 +1,5 @@
-const client = require("./index");
+// Requires
+const client = require('./client');
 const bcrypt = require("bcrypt");
 
 //create user
