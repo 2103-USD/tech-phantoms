@@ -17,7 +17,7 @@ function requireUser(req, res, next) {
     next();
 }
 
-function requireAdmin(req, res, next) {
+async function requireAdmin(req, res, next) {
     if (!req.user) {
         res.status(401)
         next({

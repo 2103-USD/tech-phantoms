@@ -1,21 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import { getSomething } from '../api';
 import { NavBar, AllProducts } from '.';
 
 const App = () => {
-	const [message, setMessage] = useState('');
-
-	useEffect(() => {
-		getSomething()
-			.then((response) => {
-				setMessage(response.message);
-			})
-			.catch((error) => {
-				setMessage(error.message);
-			});
-	});
 
 	return (
         <>
@@ -28,7 +16,7 @@ const App = () => {
 				<Switch>
 					<Route path="/products">
 						<AllProducts />
-					</Route>
+					</Route>					
 				</Switch>
 			</div>
         </>
@@ -36,7 +24,3 @@ const App = () => {
 };
 
 export default App;
-
-
-// all products should just contain products
-// !!products.length && is the same as 
