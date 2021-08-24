@@ -19,7 +19,7 @@ async function buildTables() {
     CREATE TABLE products (
     id            SERIAL PRIMARY KEY,
     name          VARCHAR(255) NOT NULL,
-    description   VARCHAR(MAX) NOT NULL,
+    description   VARCHAR(500) NOT NULL,
     price         INT NOT NULL,
     "imageURL"    TEXT DEFAULT 'https://publicdomainpictures.net/pictures/40000/velka/school-bus-clipart.jpg' NOT NULL,
     "inStock"     BOOLEAN NOT NULL DEFAULT false,
@@ -57,81 +57,79 @@ async function buildTables() {
   }
 }
 
-async function populateInitialData() {}
+async function populateInitialData() {
+  try {
+    await createProduct({
+      name: "2021-2022 Bus Pass",
+      description: "Year-long bus pass.",
+      price: "150",
+      inStock: true,
+      category: "Transportation",
+      imageURL: "https://image.flaticon.com/icons/png/512/1168/1168035.png",
+    });
 
-// async function populateInitialData() {
-//   try {
-//     const defaultProducts = [
-//       {
-//       name: "2021-2022 Bus Pass",
-//       description: "Year-long bus pass.",
-//       price:"150",
-//       inStock: true,
-//       category: 'Transportation',
-//       imageURL: 'https://image.flaticon.com/icons/png/512/1168/1168035.png'
-//       },
-//       {
-//         name: "Lunch",
-//         description: "Two-week lunch pass",
-//         price:"20",
-//         inStock: true,
-//         category: 'Child Nutrition',
-//         imageURL: 'https://image.freepik.com/free-vector/boxed-lunches-set_1284-22197.jpg'
-//         }
-//     ]
+    await createProduct({
+      name: "Lunch",
+      description: "Two-week lunch pass",
+      price: "20",
+      inStock: true,
+      category: "Child Nutrition",
+      imageURL:
+        "https://image.freepik.com/free-vector/boxed-lunches-set_1284-22197.jpg",
+    });
 
-//     const defaultUsers = [
-//       {
-//         imageURL: 'https://image.flaticon.com/icons/png/512/201/201634.png',
-//         firstName: 'Teacher',
-//         lastName: 'School',
-//         email: 'school.teacher@cajonvalley.net',
-//         username: 'schoolteacher',
-//         password: 'schoolteacher',
-//         isAdmin: true
-//       },
-//       {
-//         imageURL: 'https://image.flaticon.com/icons/png/512/1156/1156940.png',
-//         firstName: 'Boy',
-//         lastName: 'School',
-//         email: 'school.boy@cajonvalley.net',
-//         username: 'schoolboy',
-//         password: 'schoolboy123',
-//         isAdmin: true
-//       },
-//       {
-//         imageURL: 'https://image.flaticon.com/icons/png/512/1156/1156992.png',
-//         firstName: 'Girl',
-//         lastName: 'School',
-//         email: 'school.girl@cajonvalley.net',
-//         username: 'schoolgirl',
-//         password: 'schoolgirl123',
-//         isAdmin: true
-//       }
-//     ],
+    // const defaultUsers = [
+    //   {
+    //     imageURL: "https://image.flaticon.com/icons/png/512/201/201634.png",
+    //     firstName: "Teacher",
+    //     lastName: "School",
+    //     email: "school.teacher@cajonvalley.net",
+    //     username: "schoolteacher",
+    //     password: "schoolteacher",
+    //     isAdmin: true,
+    //   },
+    //   {
+    //     imageURL: "https://image.flaticon.com/icons/png/512/1156/1156940.png",
+    //     firstName: "Boy",
+    //     lastName: "School",
+    //     email: "school.boy@cajonvalley.net",
+    //     username: "schoolboy",
+    //     password: "schoolboy123",
+    //     isAdmin: true,
+    //   },
+    //   {
+    //     imageURL: "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+    //     firstName: "Girl",
+    //     lastName: "School",
+    //     email: "school.girl@cajonvalley.net",
+    //     username: "schoolgirl",
+    //     password: "schoolgirl123",
+    //     isAdmin: true,
+    //   },
+    // ];
 
-//     const defaultOrders = [
-//       {
-//         status: 'created',
-//         userId: 1
-//       },
-//       {
-//         status: 'cancelled',
-//         userId: 2
-//       },
-//       {
-//         status: 'completed',
-//         userId: 3
-//       },
-//       {
-//         status: 'processing',
-//         userId: 1
-//       }
-//     ]
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+    // const defaultOrders = [
+    //   {
+    //     status: "created",
+    //     userId: 1,
+    //   },
+    //   {
+    //     status: "cancelled",
+    //     userId: 2,
+    //   },
+    //   {
+    //     status: "completed",
+    //     userId: 3,
+    //   },
+    //   {
+    //     status: "processing",
+    //     userId: 1,
+    //   },
+    // ];
+  } catch (error) {
+    throw error;
+  }
+}
 
 buildTables()
   .then(populateInitialData)
