@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //export const BASE_URL = 'https://fast-savannah-33549.herokuapp.com/api';
-export const BASE_URL = 'localhost:5000/api'
+export const BASE_URL = 'http://localhost:5000/api';
 
 export async function getSomething() {
 	try {
@@ -13,8 +13,10 @@ export async function getSomething() {
 }
 export async function getAllProducts() {
 	try {
-		const { data } = await axios.get(`${BASE_URL}/products`)
-        return data;
+		const data = await fetch(`${BASE_URL}/products`);
+		const result = await data.json();
+		console.log('this is the result', result);
+		return result;
 	} catch (error) {
 		throw error;
 	}

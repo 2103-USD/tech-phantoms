@@ -1,4 +1,5 @@
-import React, { Link } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Product = ({ product }) => {
 	const { productId, name, description, price, imageURL, inStock, category } =
@@ -11,7 +12,7 @@ export const Product = ({ product }) => {
 	// 		<h3> {JSON.stringify(product)}</h3>
 	// 	</div>
 	// );
-	console.log('this is a single product', product)
+	console.log('this is a single product', product);
 
 	return (
 		<div id={productId} className="product-card">
@@ -27,3 +28,5 @@ export const Product = ({ product }) => {
 		</div>
 	);
 };
+
+export default Product;
