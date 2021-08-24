@@ -1,7 +1,8 @@
 // code to build and initialize DB goes here
 //(DD): Testing DB push
+// Requires
+const client = require('./client');
 const {
-  client,
   createProduct,
   // other db methods
 } = require("./index");
