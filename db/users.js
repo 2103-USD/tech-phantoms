@@ -119,6 +119,8 @@ async function getUserByUsername(username) {
         throw error;
     }
 }
+
+
 module.exports = {
     createUser,
     getUser,
