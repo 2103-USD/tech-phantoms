@@ -1,6 +1,5 @@
-// Requires
-const client = require('./client');
 const bcrypt = require("bcrypt");
+const client = require("./client");
 
 //create user
 async function createUser({
@@ -120,6 +119,7 @@ async function getUserByUsername(username) {
         throw error;
     }
 }
+
 
 module.exports = {
     createUser,
