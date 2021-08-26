@@ -34,7 +34,6 @@ async function createUser({
             ]
         );
         return user;
-        //})
     } catch (error) {
         throw error;
     }
