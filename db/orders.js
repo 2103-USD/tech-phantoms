@@ -35,6 +35,14 @@ async function getOrderById(id) {
 //Get All Order Products
 async function getAllOrderProducts() {
     try {
+        //get order products
+        const { rows: orderProducts } = await client.query(
+            `
+        SELECT id, "productId", "orderId", price, quantity, name, description
+        FROM order_products op
+        JOIN products p on op."productId" = p.id
+        `
+        );
     } catch (error) {
         throw Error(error);
     }
