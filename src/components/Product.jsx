@@ -1,28 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './style.css';
 
-import {
-  getSomething
-} from '../api';
+export const Product = ({ product }) => {
+	const { productId, name, description, price, imageURL, inStock, category } =
+		product;
 
-export const Product = ({product}) => {
-  const [message, setMessage] = useState('');
+	console.log('this is a single product', product);
 
-  useEffect(() => {
-    getSomething()
-      .then(response => {
-        setMessage(response.message);
-      })
-      .catch(error => {
-        setMessage(error.message);
-      });
-  });
+	return (
+		<div id={productId} className="product-card">
+			<Link to={`/product/${productId}`}>
+				<h1>Product: {name}</h1>
+			</Link>
+			<img src={imageURL} alt="product" />
+			<h2>Product Information</h2>
+			<p>Category: {category}</p>
+			<p>description: {description}</p>
+			<p>Price: ${price}</p>
+			<p>In Stock: {inStock}</p>
+		</div>
+	);
+};
 
-  return (
-    <div className="Product">
-      <h1>Product</h1>
-      <h2>{ message }</h2>
-      <h3> {JSON.stringify(product)}</h3>
-      
-    </div>
-  );
-}
+export default Product;

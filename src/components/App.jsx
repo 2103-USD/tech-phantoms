@@ -1,24 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
-import { getSomething } from '../api';
+import './style.css';
 import { NavBar, AllProducts } from '.';
 
 const App = () => {
-	const [message, setMessage] = useState('');
-
-	useEffect(() => {
-		getSomething()
-			.then((response) => {
-				setMessage(response.message);
-			})
-			.catch((error) => {
-				setMessage(error.message);
-			});
-	});
-
 	return (
-        <>
+		<>
 			<nav>
 				<NavBar currentUser />
 			</nav>
@@ -31,7 +18,7 @@ const App = () => {
 					</Route>
 				</Switch>
 			</div>
-        </>
+		</>
 	);
 };
 

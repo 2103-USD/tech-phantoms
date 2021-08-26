@@ -1,15 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './style.css';
 
 export const NavBar = ({ currentUser }) => {
 	if (currentUser) {
 		return (
-			<nav>
+			<nav className="navBar">
 				<NavLink to="/products">All Products</NavLink>
 			</nav>
 		);
 	} else {
-        return (
+		return (
 			<nav>
 				<NavLink to="/products">All Products</NavLink>
 			</nav>
