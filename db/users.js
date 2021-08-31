@@ -140,7 +140,7 @@ async function getUserNameByEmail(email) {
     }
 }
 
-//create user
+// update user
 async function updateUser({
     id,
     firstName,
@@ -166,7 +166,7 @@ async function updateUser({
                 "imageURL" = $4, 
                 username = $5, 
                 password = $6, 
-                "isAdmin = $7"
+                "isAdmin" = $7
             WHERE id = $8
             VALUES($1, $2, $3, $4, $5, $6, $7, $8)
             ON CONFLICT (username) DO NOTHING
