@@ -62,13 +62,14 @@ reviewsRouter.post('/:productId', requireUser, async (req, res, next) => {
 reviewsRouter.patch('/:productId', requireUser, async (req, res, next) => {
     try {
         const {
+            id,
             title,
             content,
             stars,
             userId
         } = req.body
         const {productId} = req.params
-        const review = await updateReview({ productId, title, content, stars, userId })
+        const review = await updateReview({ id, productId, title, content, stars, userId })
         if (review) {
             res.send(review)
         }

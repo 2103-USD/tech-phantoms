@@ -2,15 +2,15 @@
 const client = require('./client');
 
 //get product by id
-async function getProductById(id) {
+async function getReviewsByProductId(id) {
     try {
         const {
             rows: [product],
         } = await client.query(
             `
                 SELECT *
-                FROM products
-                WHERE id = $1;
+                FROM reviews
+                WHERE "productId" = $1;
             `,
             [id]
         );
@@ -20,38 +20,69 @@ async function getProductById(id) {
     }
 }
 
-async function getAllProducts() {
+
+async function createReview({ 
+    productId, 
+    title, 
+    content, 
+    stars, 
+    userId 
+}) {
     try {
-        const { rows: products } = await client.query(
+        const {
+            rows: review,
+        } = await client.query(
             `
-                SELECT *
-                FROM products;
-            `
+                INSERT INTO reviews (title, content, stars, "userId", "productId")
+                VALUES ($1, $2, $3, $4, $5)
+                RETURNING *;
+            `,
+            [ title, content, stars, userId, productId ]
         );
-        return products;
+        return review;
     } catch (error) {
         throw error;
     }
 }
 
-async function createProduct({
-    name,
-    description,
-    price,
-    imageURL,
-    inStock,
-    category,
+async function updateReview({ 
+    id,
+    productId, 
+    title, 
+    content, 
+    stars, 
+    userId 
 }) {
     try {
         const {
-            rows: product,
+            rows: review,
         } = await client.query(
             `
-                INSERT INTO products (name, description, price, "imageURL", "inStock", category)
-                VALUES ($1, $2, $3, $4, $5, $6)
+                UPDATE reviews 
+                SET title=$2, content = $3, stars = $4
+                WHERE id = $1
                 RETURNING *;
             `,
-            [name, description, price, imageURL, inStock, category]
+            [ id, title, content, stars ]
+        );
+        return review;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function deleteReview(id) {
+    try {
+        const {
+            rows: [review],
+        } = await client.query(
+            `
+                DELETE
+                FROM reviews
+                WHERE id = $1
+                RETURNING *;
+            `,
+            [id]
         );
         return product;
     } catch (error) {
@@ -60,7 +91,8 @@ async function createProduct({
 }
 
 module.exports = {
-    getProductById,
-    getAllProducts,
-    createProduct,
+    getReviewsByProductId,
+    createReview,
+    updateReview,
+    deleteReview,
 };
