@@ -9,6 +9,7 @@ const usersRouter = require ('./users');
 const ordersRouter = require ('./orders');
 const orderProductsRouter = require ('./order_products');
 const productsRouter = require ('./products');
+const reviewsRouter = require ('./products');
 
 const { getUserById } = require('../db');
 
@@ -47,6 +48,7 @@ apiRouter.use('/users', usersRouter)
 apiRouter.use('/orders', ordersRouter)
 apiRouter.use('/products', productsRouter)
 apiRouter.use('/order_products', orderProductsRouter)
+apiRouter.use('/reviews', reviewsRouter)
 
 // Error Handler
 apiRouter.use((error, req, res, next) => {
