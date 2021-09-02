@@ -43,7 +43,7 @@ export function getCurrentToken() {
 export async function getSomething() {
     const URL = `${BASE_URL}`
 	try {
-		const { data } = await axios.get('/');
+		const { data } = await axios.get(`${URL}/`);
 		return data;
 	} catch (error) {
 		throw error;
@@ -91,14 +91,21 @@ export async function GetLoggedInUser() {
 
 // Product Functions
 export async function getAllProducts() {
-    const URL = `${BASE_URL}/users/login`
+    const URL = `${BASE_URL}/products`
 	try {
-		const data = await fetch(`${URL}/products`);
-		const result = await data.json();
-		console.log('this is the result', result);
-		return result;
+		const {data} = await axios.get(`${URL}`);
+		return data;
 	} catch (error) {
 		throw error;
 	}
 }
 
+export async function getProduct(id) {
+    const URL = `${BASE_URL}/products/${id}`
+	try {
+		const {data} = await axios.get(`${URL}`);
+		return data;
+	} catch (error) {
+		throw error;
+	}
+}
