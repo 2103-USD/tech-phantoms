@@ -30,6 +30,17 @@ productsRouter.get('/', async (req, res, next) => {
     }
 });
 
+productsRouter.get('/categories', async (req, res, next) => {
+    try {
+        const categories = await getAllCategories()
+        if (categories) {
+            res.send(categories)
+        }
+    } catch ({name, message}) {
+        next({ name, message })
+    }
+});
+
 productsRouter.post('/', requireAdmin, async (req, res, next) => {
     try {
         const {

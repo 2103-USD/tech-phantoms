@@ -34,6 +34,21 @@ async function getAllProducts() {
     }
 }
 
+async function getAllCategories() {
+    try {
+        const { rows: products } = await client.query(
+            `
+                SELECT DISTINCT
+                    category
+                FROM products;
+            `
+        );
+        return products;
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function createProduct({
     name,
     description,
@@ -203,6 +218,7 @@ module.exports = {
     getAllProductsByCategory,
     createProduct,
     destroyProduct,
-    updateProduct
+    updateProduct,
+    getAllCategories
 
 };
