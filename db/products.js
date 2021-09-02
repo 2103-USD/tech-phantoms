@@ -8,15 +8,15 @@ async function getProductById(id) {
             rows: [product],
         } = await client.query(
             `
-      SELECT *
-      FROM products
-      WHERE id = $1;
-      `,
+                SELECT *
+                FROM products
+                WHERE id = $1;
+            `,
             [id]
         );
         return product;
     } catch (error) {
-        throw Error(error);
+        throw error;
     }
 }
 
@@ -24,13 +24,13 @@ async function getAllProducts() {
     try {
         const { rows: products } = await client.query(
             `
-      SELECT *
-      FROM products;
-      `
+                SELECT *
+                FROM products;
+            `
         );
         return products;
     } catch (error) {
-        throw Error(error);
+        throw error;
     }
 }
 
@@ -44,18 +44,96 @@ async function createProduct({
 }) {
     try {
         const {
-            rows: [product],
+            rows: product,
         } = await client.query(
             `
-      INSERT INTO products (name, description, price, "imageURL", "inStock", category)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING *;
-      `,
+                INSERT INTO products (name, description, price, "imageURL", "inStock", category)
+                VALUES ($1, $2, $3, $4, $5, $6)
+                RETURNING *;
+            `,
             [name, description, price, imageURL, inStock, category]
         );
         return product;
     } catch (error) {
-        throw Error(error);
+        throw error;
+    }
+}
+
+async function getAllProductsByCategory(category) {
+    try {
+        const { rows: products } = await client.query(
+            `
+                SELECT *
+                FROM products
+                WHERE category = $1;
+            `,
+            [category]
+        );
+        return products;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function destroyProduct(id) {
+    try {
+        const {
+            rows: [product],
+        } = await client.query(
+            `
+                DELETE *
+                FROM products
+                WHERE id = $1;
+            `,
+            [id]
+        );
+        return product;
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function updateProduct({
+    id,
+    name,
+    description,
+    price,
+    imageURL,
+    inStock,
+    category,
+}) {
+    try {
+        const {
+            rows: [user],
+        } = await client.query(
+            `
+            UPDATE users
+            SET 
+                name = $1, 
+                description = $2, 
+                price = $3, 
+                "imageURL" = $4,
+                inStock = $5,
+                category = $6
+            WHERE id = $7
+            VALUES($1, $2, $3, $4, $5, $6, $7)
+            RETURNING *;
+            `,
+            
+            [
+                firstName,
+                lastName,
+                email,
+                imageURL,
+                username,
+                hashedPassword,
+                isAdmin,
+                id
+            ]
+        );
+        return user;
+    } catch (error) {
+        throw error;
     }
 }
 
@@ -122,7 +200,9 @@ async function updateProduct(product) {
 module.exports = {
     getProductById,
     getAllProducts,
+    getAllProductsByCategory,
     createProduct,
     destroyProduct,
-    updateProduct,
+    updateProduct
+
 };

@@ -1,6 +1,5 @@
-// Requires
-const client = require('./client');
 const bcrypt = require("bcrypt");
+const client = require("./client");
 
 //create user
 async function createUser({
@@ -21,9 +20,10 @@ async function createUser({
             `
             INSERT INTO users("firstName", "lastName", email, "imageURL", username, password, "isAdmin")
             VALUES($1, $2, $3, $4, $5, $6, $7)
-            ON CONFLICT (username, email) DO NOTHING
+            ON CONFLICT (username) DO NOTHING
             RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
             `,
+            
             [
                 firstName,
                 lastName,
@@ -35,7 +35,6 @@ async function createUser({
             ]
         );
         return user;
-        //})
     } catch (error) {
         throw error;
     }
@@ -121,20 +120,70 @@ async function getUserByUsername(username) {
     }
 }
 
-//update user
-async function updateUser(user) {
+//get user by email address
+async function getUserNameByEmail(email) {
     try {
-        const { id, irstName, lastName, email, imageURL, isAdmin}
-        const {rows: [user]} = await client.query(
+        const {
+            rows: [user],
+        } = await client.query(
+            `
+            SELECT *
+            FROM users
+            WHERE email = $1;
+            `,
+            [email]
+        );
+
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// update user
+async function updateUser({
+    id,
+    firstName,
+    lastName,
+    email,
+    imageURL,
+    username,
+    password,
+    isAdmin,
+}) {
+    const SALT_COUNT = 10;
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    try {
+        const {
+            rows: [user],
+        } = await client.query(
             `
             UPDATE users
-            SET "firstName" = $2, "lastName" = $3, email = $4, "imageURL" = $5,
-                "isAdmin" = $6
-            where id = $1
-            RETURNING *;
+            SET 
+                "firstName" = $1, 
+                "lastName" = $2, 
+                email = $3, 
+                "imageURL" = $4, 
+                username = $5, 
+                password = $6, 
+                "isAdmin" = $7
+            WHERE id = $8
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+            ON CONFLICT (username) DO NOTHING
+            RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
             `,
-            [id, firstName, lastName, email, imageURL, isAdmin]
-        )
+            
+            [
+                firstName,
+                lastName,
+                email,
+                imageURL,
+                username,
+                hashedPassword,
+                isAdmin,
+                id
+            ]
+        );
         return user;
     } catch (error) {
         throw error;
@@ -147,5 +196,6 @@ module.exports = {
     getAllUsers,
     getUserById,
     getUserByUsername,
-    updateUser,
+    getUserNameByEmail,
+    updateUser
 };

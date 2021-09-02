@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { storeCurrentUser } from '../auth';
-import { BASE_URL } from '../api';
 import './style.css';
+import { BASE_URL } from '../api';
 
-const Login = ({ setUser }) => {
+const Register = ({ setUser }) => {
 	const [form, setForm] = useState({ username: '', password: '' });
 
 	const handleInput = (e) => {
@@ -14,7 +14,7 @@ const Login = ({ setUser }) => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const res = await axios.post(`${BASE_URL}/login`, {
+			const res = await axios.post(`${BASE_URL}/register`, {
 				username: form.username,
 				password: form.password,
 			});
@@ -28,7 +28,7 @@ const Login = ({ setUser }) => {
 
 	return (
 		<div>
-			<h1>Login</h1>
+			<h1>Register</h1>
 
 			<form onSubmit={handleSubmit}>
 				<label>Username</label>
@@ -40,10 +40,10 @@ const Login = ({ setUser }) => {
 					onChange={handleInput}
 					type="password"
 				/>
-				<button type="submit">Login</button>
+				<button type="submit">Register</button>
 			</form>
 		</div>
 	);
 };
 
-export default Login;
+export default Register;
