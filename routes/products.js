@@ -8,6 +8,7 @@ const {
     destroyProduct,
     updateProduct,
     getOrdersByProduct,
+    getAllProductsByCategory
 } = require('../db');
 const {
     requireUser, 
@@ -58,6 +59,25 @@ productsRouter.get('/:productId', async (req, res, next) => {
     const {productId} = req.params
     try {
         const product = await getProductById(productId)
+        if (product) {
+            res.send(product)
+        }
+        else {
+            res.status(404)
+            next({
+                name: "ProductNotFound",
+                message: "The selected product was not found in the system."
+            })
+        }
+    } catch ({name, message}) {
+        next({ name, message })
+    }
+});
+
+productsRouter.get('/:category', async (req, res, next) => {
+    const {category} = req.params
+    try {
+        const product = await getAllProductsByCategory(category)
         if (product) {
             res.send(product)
         }
@@ -127,7 +147,7 @@ productsRouter.get('/:productId/orders', requireAdmin , async (req, res, next) =
     }
 });
 
-productsRouter.delete('/:productId/orders', requireAdmin , async (req, res, next) => {
+productsRouter.delete('/:productId', requireAdmin , async (req, res, next) => {
     const {productId} = req.params
     // We need to verify what the return parameter is of destroyProduct, and adjust this function accordingly.
     try {
@@ -137,8 +157,8 @@ productsRouter.delete('/:productId/orders', requireAdmin , async (req, res, next
         }
         else {
             next({
-                name: "OrdersNotFound",
-                message: "There are currently no orders with this item. Advertise more."
+                name: "ProductNotDeleted",
+                message: "The item was unable to be deleted at this time."
             })
         }
     } catch ({name, message}) {

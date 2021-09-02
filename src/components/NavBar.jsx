@@ -1,17 +1,21 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import './style.css';
 
 export const NavBar = ({ currentUser }) => {
 	if (currentUser) {
 		return (
-			<nav>
-				<NavLink to="/products">All Products</NavLink>
+			<nav className="navBar">
+				<NavLink to="/allproducts">All Products</NavLink>
+				<NavLink to='/login'>Login</NavLink>
+				<NavLink to='/register'>Register</NavLink>
+
 			</nav>
 		);
 	} else {
-        return (
+		return (
 			<nav>
-				<NavLink to="/products">All Products</NavLink>
+				<NavLink to="/allproducts">All Products</NavLink>
 			</nav>
 		);
 	}
