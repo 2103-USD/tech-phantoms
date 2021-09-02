@@ -6,13 +6,16 @@ export const NavBar = ({ currentUser }) => {
 	if (currentUser) {
 		return (
 			<nav className="navBar">
-				<NavLink to="/products">All Products</NavLink>
+				<NavLink to="/allproducts">All Products</NavLink>
+				<NavLink to='/login'>Login</NavLink>
+				<NavLink to='/register'>Register</NavLink>
+
 			</nav>
 		);
 	} else {
 		return (
 			<nav>
-				<NavLink to="/products">All Products</NavLink>
+				<NavLink to="/allproducts">All Products</NavLink>
 			</nav>
 		);
 	}

@@ -3,3 +3,11 @@
 @import 'NavBar.css';
 @import 'Login.css';
 @import 'Products.css';
+
+form {
+    margin: 5px;
+}
+
+button {
+    margin: 5px
+}
