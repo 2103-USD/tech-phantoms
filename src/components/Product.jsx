@@ -3,18 +3,16 @@ import { Link } from 'react-router-dom';
 import './style.css';
 
 export const Product = ({ product }) => {
-	const { productId, name, description, price, imageURL, inStock, category } =
+	const { id, name, description, price, imageURL, inStock, category } =
 		product;
 
-	console.log('this is a single product', product);
-
 	return (
-		<div id={productId} className="product-card">
-			<Link to={`/product/${productId}`}>
-				<h1>Product: {name}</h1>
+		<div id={`product${id}`} className="product-card">
+			<Link to={`/product/${id}`}>
+				<h3>{name}</h3>
 			</Link>
 			<img src={imageURL} alt="product" />
-			<h2>Product Information</h2>
+			<h4>Product Information</h4>
 			<p>Category: {category}</p>
 			<p>description: {description}</p>
 			<p>Price: ${price}</p>

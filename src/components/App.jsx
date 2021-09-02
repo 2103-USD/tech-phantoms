@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './style.css';
-import { NavBar, AllProducts } from '.';
+import { NavBar, AllProducts, Product, SingleProduct, Login, Register } from '.';
+
+// export const [products, setProducts] = useState([]);
+
+// useEffect(() => {
+// 	setProducts().then((products) => {
+// 		setProducts(products);
+// 	})
+// },[])
 
 const App = () => {
+	const [user, setUser] = useState('');
 	return (
 		<>
 			<nav>
 				<NavBar currentUser />
+				<Route path="/login">
+					{' '}
+					<Login setUser={setUser} />
+				</Route>
+				<Route path="/register">
+					{' '}
+					<Register setUser={setUser} />
+				</Route>
 			</nav>
 			<div className="App">
-				<h1>Welcome to Grace Shopper</h1>
-				<h2>The place to buy your products!</h2>
 				<Switch>
-					<Route path="/products">
+					<Route path="/allproducts">
 						<AllProducts />
+					</Route>
+					<Route path="/product/:id">
+						<SingleProduct />
 					</Route>
 				</Switch>
 			</div>
