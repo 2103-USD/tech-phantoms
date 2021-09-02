@@ -20,10 +20,10 @@ async function createUser({
             `
             INSERT INTO users("firstName", "lastName", email, "imageURL", username, password, "isAdmin")
             VALUES($1, $2, $3, $4, $5, $6, $7)
-            
+            ON CONFLICT (username) DO NOTHING
             RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
             `,
-            // ON CONFLICT (username, email) DO NOTHING
+            
             [
                 firstName,
                 lastName,
@@ -120,6 +120,75 @@ async function getUserByUsername(username) {
     }
 }
 
+//get user by email address
+async function getUserNameByEmail(email) {
+    try {
+        const {
+            rows: [user],
+        } = await client.query(
+            `
+            SELECT *
+            FROM users
+            WHERE email = $1;
+            `,
+            [email]
+        );
+
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
+
+// update user
+async function updateUser({
+    id,
+    firstName,
+    lastName,
+    email,
+    imageURL,
+    username,
+    password,
+    isAdmin,
+}) {
+    const SALT_COUNT = 10;
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    try {
+        const {
+            rows: [user],
+        } = await client.query(
+            `
+            UPDATE users
+            SET 
+                "firstName" = $1, 
+                "lastName" = $2, 
+                email = $3, 
+                "imageURL" = $4, 
+                username = $5, 
+                password = $6, 
+                "isAdmin" = $7
+            WHERE id = $8
+            VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+            ON CONFLICT (username) DO NOTHING
+            RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
+            `,
+            
+            [
+                firstName,
+                lastName,
+                email,
+                imageURL,
+                username,
+                hashedPassword,
+                isAdmin,
+                id
+            ]
+        );
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
 
 module.exports = {
     createUser,
@@ -127,4 +196,6 @@ module.exports = {
     getAllUsers,
     getUserById,
     getUserByUsername,
+    getUserNameByEmail,
+    updateUser
 };
