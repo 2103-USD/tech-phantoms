@@ -1,7 +1,7 @@
-export { default as App } from "./App";
+export { App } from "./App";
+export { ProductCard } from "./ProductCard";
+export { Products } from "./Products";
+export { NavBar } from "./NavBar";
 export { Product } from "./Product";
-export { default as AllProducts } from "./AllProducts";
-export { default as NavBar } from "./NavBar";
-export { SingleProduct } from "./SingleProduct";
-export { default as Login } from "./Login";
-export { default as Register } from "./Register";
+export { Login } from "./Login";
+export { Register } from "./Register";
