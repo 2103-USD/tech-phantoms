@@ -1,7 +1,7 @@
 // Requires
-const client = require('./client');
+const client = require("./client");
 
-//get product by id
+//Get all reviews for product
 async function getReviewsByProductId(id) {
     try {
         const {
@@ -15,12 +15,14 @@ async function getReviewsByProductId(id) {
             [id]
         );
         return product;
+
     } catch (error) {
         throw error;
     }
 }
 
 
+//Crete product review
 async function createReview({ 
     productId, 
     title, 
@@ -45,6 +47,8 @@ async function createReview({
     }
 }
 
+
+//Update product review
 async function updateReview({ 
     id,
     productId, 
@@ -65,26 +69,31 @@ async function updateReview({
             `,
             [ id, title, content, stars ]
         );
+
         return review;
     } catch (error) {
         throw error;
     }
 }
 
+//Destroy product review
 async function deleteReview(id) {
+
     try {
         const {
             rows: [review],
         } = await client.query(
             `
-                DELETE
-                FROM reviews
-                WHERE id = $1
-                RETURNING *;
+
+            DELETE FROM reviews
+            WHERE id = $1
+            RETURNING *;
             `,
             [id]
         );
-        return product;
+
+        return review;
+
     } catch (error) {
         throw error;
     }
