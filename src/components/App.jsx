@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./style.css";
-import { NavBar, AllProducts, SingleProduct, Login, Register } from ".";
+import { NavBar, Products, Product, Login, Register } from ".";
 
 // export const [products, setProducts] = useState([]);
 
@@ -11,7 +11,7 @@ import { NavBar, AllProducts, SingleProduct, Login, Register } from ".";
 // 	})
 // },[])
 
-const App = () => {
+export const App = () => {
     const [user, setUser] = useState("");
     return (
         <>
@@ -28,16 +28,14 @@ const App = () => {
             </nav>
             <div className="App">
                 <Switch>
-                    <Route path="/allproducts">
-                        <AllProducts />
+                    <Route path="/products">
+                        <Products />
                     </Route>
                     <Route path="/product/:productId">
-                        <SingleProduct />
+                        <Product />
                     </Route>
                 </Switch>
             </div>
         </>
     );
 };
-
-export default App;

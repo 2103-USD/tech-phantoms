@@ -1,13 +1,13 @@
-@import 'App.css';
-@import 'Login.css';
-@import 'NavBar.css';
-@import 'Login.css';
-@import 'Products.css';
+@import "./css/App.css";
+@import "./css/Login.css";
+@import "./css/NavBar.css";
+@import "./css/Login.css";
+@import "./css/Products.css";
 
 form {
     margin: 5px;
 }
 
 button {
-    margin: 5px
+    margin: 5px;
 }
