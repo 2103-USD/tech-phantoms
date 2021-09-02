@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './style.css';
-import { NavBar, AllProducts, Product, SingleProduct, Login, Register } from '.';
+import { NavBar, AllProducts, SingleProduct, Login, Register } from '.';
 
 // export const [products, setProducts] = useState([]);
 
