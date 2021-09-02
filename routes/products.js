@@ -113,7 +113,7 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
             else {
                 next({
                     name: "ProductNotUpdated",
-                    message: "The item was not able to be created."
+                    message: "The item was not able to be updated."
                 })
             }
         }
