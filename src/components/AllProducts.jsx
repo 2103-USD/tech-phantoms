@@ -1,30 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Product } from '.';
-import {getProducts} from '../api'
-
+import Product from './Product';
+import { getAllProducts } from '../api';
+import './style.css';
 
 const AllProducts = () => {
-// Let's fetch some products and render them
-
-	const [products, setProducts] = useState([]);
+	const [allProducts, setAllProducts] = useState([]);
 
 	const handleProducts = async () => {
-		const res = await getProducts();
-		if (res) setProducts(res);
+		const res = await getAllProducts();
+		if (res.length > 0) setAllProducts(res);
 	};
 
-    useEffect(() => {
-        handleProducts();
-    }, [])
-
+	useEffect(() => {
+		handleProducts();
+	}, []);
 
 	return (
 		<div className="allProducts">
+			{' '}
+			<h1>Welcome to Grace Shopper</h1>
+			<h2>The place to buy your products!</h2>
 			<h1>Products:</h1>
 			<div>
-				{!!products.length && products.map((product) => (
-					<Product key={product.id} product={product} />
-				))}
+				{!!allProducts.length &&
+					allProducts.map((product) => {
+						return <Product key={product.id} product={product} />;
+					})}
 			</div>
 		</div>
 	);
