@@ -3,6 +3,7 @@
 @import "./css/NavBar.css";
 @import "./css/Login.css";
 @import "./css/Products.css";
+@import "./css/Footer.css";
 
 form {
     margin: 5px;
@@ -10,4 +11,16 @@ form {
 
 button {
     margin: 5px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+}
+
+.header-item {
+    margin: 0.25rem;
 }
