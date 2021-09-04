@@ -1,4 +1,10 @@
-export { default as App } from './App';
-export { Product } from './Product';
-export { default as AllProducts } from './AllProducts';
-export { default as NavBar } from './NavBar';
+export { App } from "./App";
+export { Header } from "./Header";
+export { NavBar } from "./NavBar";
+export { Login } from "./Login";
+export { FeaturedItems } from "./FeaturedItems";
+export { Register } from "./Register";
+export { Products } from "./Products";
+export { ProductCard } from "./ProductCard";
+export { Product } from "./Product";
+export { Footer } from "./Footer";

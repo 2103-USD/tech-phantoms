@@ -2,7 +2,8 @@
 const express = require('express');
 const {
     getOrderById,
-    getOrderProductById
+    getOrderProductById,
+    getReviewById
 } = require('../db');
 
 
@@ -129,9 +130,52 @@ async function verifyUserIsOrderProductOwner(req, res, next) {
     next();
 }
 
+async function verifyUserIsReviewOwner(req, res, next) {
+    try {
+        if (!req.user) {
+            res.status(401)
+            next({
+                name: "NotLoggedIn",
+                message: "You must log in first."
+            });
+        }
+
+        const {reviewId} = req.params
+        const {id:UserId} = req.user;
+        const review = await getReviewById(reviewId);
+        if (order) {
+            //Check if user is order owner
+            if (review.userId == UserId) {
+                next();
+            }
+            else {
+                res.status(403)
+                next({
+                    name:"NotYourReview",
+                    message:"This is not your review."
+                })
+            }
+        }
+        else {
+            res.status(404)
+            next({
+                name:"ReviewNotFound",
+                message:"The review was not found."
+            })
+        }
+    } catch ({ name, message }) {
+        next({
+            name:"ReviewOwnerVerificationError",
+            message:"Unable to determine if user is current owner of this review."
+        })      
+    }
+    next();
+}
+
 module.exports = {
     requireUser,
     requireAdmin,
     verifyUserIsOrderOwner,
-    verifyUserIsOrderProductOwner
+    verifyUserIsOrderProductOwner,
+    verifyUserIsReviewOwner
 };

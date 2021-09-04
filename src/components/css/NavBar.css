@@ -1,0 +1,8 @@
+.nav-bar {
+    background-color: lightskyblue;
+    align-items: end;
+}
+
+.nav-item {
+    margin: 0.5rem;
+}

@@ -1,22 +1,15 @@
 import axios from 'axios';
+import {BASE_URL, getHeaders} from './auth'
+export * from './products'
+export * from './users'
+export * from './auth'
 
-//export const BASE_URL = 'https://fast-savannah-33549.herokuapp.com/api';
-export const BASE_URL = 'http://localhost:5000/api';
-
+// Site Health functions
 export async function getSomething() {
+    const URL = `${BASE_URL}`
 	try {
-		const { data } = await axios.get('/api');
+		const { data } = await axios.get(`${URL}/`);
 		return data;
-	} catch (error) {
-		throw error;
-	}
-}
-export async function getAllProducts() {
-	try {
-		const data = await fetch(`${BASE_URL}/products`);
-		const result = await data.json();
-		console.log('this is the result', result);
-		return result;
 	} catch (error) {
 		throw error;
 	}
