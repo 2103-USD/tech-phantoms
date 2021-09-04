@@ -62,7 +62,6 @@ export async function createNewItem(
             inStock,
             category
         }, getHeaders())
-        storeCurrentUser(data)
         return data
     } catch (error) {
         console.error(error)
@@ -88,7 +87,6 @@ export async function UpdateItem(
             inStock,
             category
         }, getHeaders())
-        storeCurrentUser(data)
         return data
     } catch (error) {
         console.error(error)

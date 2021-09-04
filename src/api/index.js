@@ -2,8 +2,7 @@ import axios from 'axios';
 import {BASE_URL, getHeaders} from './auth'
 export * from './products'
 export * from './users'
-
-const SectionURL = `${BASE_URL}/products`;
+export * from './auth'
 
 // Site Health functions
 export async function getSomething() {
