@@ -35,6 +35,7 @@ export const Login = ({ setUser }) => {
                     name="username"
                     value={form.username}
                     onChange={handleInput}
+                    autoComplete = "username"
                 />
                 <label>Password</label>
                 <input
@@ -42,6 +43,7 @@ export const Login = ({ setUser }) => {
                     value={form.password}
                     onChange={handleInput}
                     type="password"
+                    autoComplete = "current-password"
                 />
                 <button type="submit">Login</button>
             </form>
