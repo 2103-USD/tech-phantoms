@@ -1,7 +1,10 @@
 export { App } from "./App";
-export { ProductCard } from "./ProductCard";
-export { Products } from "./Products";
+export { Header } from "./Header";
 export { NavBar } from "./NavBar";
-export { Product } from "./Product";
 export { Login } from "./Login";
+export { FeaturedItems } from "./FeaturedItems";
 export { Register } from "./Register";
+export { Products } from "./Products";
+export { ProductCard } from "./ProductCard";
+export { Product } from "./Product";
+export { Footer } from "./Footer";
