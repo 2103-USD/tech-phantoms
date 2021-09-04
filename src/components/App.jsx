@@ -29,25 +29,25 @@ export const App = () => {
             </header>
             <nav>
                 <NavBar currentUser />
-                <Route path="/login">
+                <Route exact path="/login">
                     {" "}
                     <Login setUser={setUser} />
                 </Route>
-                <Route path="/register">
+                <Route exact path="/register">
                     {" "}
                     <Register setUser={setUser} />
                 </Route>
             </nav>
             <div className="App">
                 <Switch>
-                    <Route path="/">
+                    <Route exact path="/">
                         <h1>Welcome to the Student Store!</h1>
                         <FeaturedItems />
                     </Route>
-                    <Route path="/products">
+                    <Route exact path="/products">
                         <Products />
                     </Route>
-                    <Route path="/product/:productId">
+                    <Route exact path="/product/:productId">
                         <Product />
                     </Route>
                 </Switch>
