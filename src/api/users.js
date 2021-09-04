@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {BASE_URL, getHeaders} from './auth'
+import {BASE_URL, getHeaders, storeCurrentUser} from './auth'
 
 const SectionURL = `${BASE_URL}/users`;
 

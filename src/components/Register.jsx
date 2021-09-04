@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { storeCurrentUser } from "../auth";
 import "./style.css";
-import { BASE_URL } from "../api";
+import { BASE_URL, storeCurrentUser} from "../api";
 
 export const Register = ({ setUser }) => {
     const [form, setForm] = useState({ username: "", password: "" });

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { storeCurrentUser } from "../auth";
-import { BASE_URL } from "../api";
+import { BASE_URL, storeCurrentUser } from "../api";
 import "./style.css";
 
 export const Login = ({ setUser }) => {
