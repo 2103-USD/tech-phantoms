@@ -10,6 +10,8 @@ import {
     Register,
     FeaturedItems,
     Footer,
+    AdminOrders,
+    AdminOrder,
 } from ".";
 
 // export const [products, setProducts] = useState([]);
@@ -49,6 +51,12 @@ export const App = () => {
                     </Route>
                     <Route exact path="/product/:productId">
                         <Product />
+                    </Route>
+                    <Route exact path="/admin/orders">
+                        <AdminOrders />
+                    </Route>
+                    <Route exact path="/admin/order/:orderId">
+                        <AdminOrder />
                     </Route>
                 </Switch>
             </div>
