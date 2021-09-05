@@ -20,7 +20,8 @@ export async function registerNewUser( {
             firstName,
             lastName,
             email, 
-            imageURL
+            imageURL,
+            isAdmin:0
         })
         storeCurrentUser(data)
         return data
