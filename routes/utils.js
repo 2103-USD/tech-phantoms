@@ -1,5 +1,4 @@
 // Requires
-const express = require('express');
 const {
     getOrderById,
     getOrderProductById,
@@ -7,7 +6,7 @@ const {
 } = require('../db');
 
 
-function requireUser(req, res, next) {
+async function requireUser(req, res, next) {
     if (!req.user) {
         res.status(401)
         next({

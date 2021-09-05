@@ -1,7 +1,9 @@
 import axios from 'axios';
-import {BASE_URL, getHeaders} from './auth'
+import {BASE_URL} from './auth'
 export * from './products'
 export * from './users'
+export * from './orders'
+export * from './order_products'
 export * from './auth'
 
 // Site Health functions
