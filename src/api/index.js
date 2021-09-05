@@ -7,10 +7,10 @@ export * from './order_products'
 export * from './auth'
 
 // Site Health functions
-export async function getSomething() {
+export async function checkServerHealth() {
     const URL = `${BASE_URL}`
 	try {
-		const { data } = await axios.get(`${URL}/`);
+		const { data } = await axios.get(`${URL}/health`);
 		return data;
 	} catch (error) {
 		throw error;
