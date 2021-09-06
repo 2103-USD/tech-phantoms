@@ -81,7 +81,6 @@ export const Register = ({ setUser }) => {
                     onChange={handleInput}
                     autoComplete = "family-name"
                 />
-                <button type="submit">Register</button>
                 <button type="submit" className="reg-button">Register</button>
             </form>
         </div>
