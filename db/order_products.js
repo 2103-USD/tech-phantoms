@@ -10,7 +10,7 @@ async function getOrderProductById(id) {
                 u.username,
                 u."firstName",
                 u."lastName",
-                u.email*,
+                u.email,
                 o.*,
                 op.*
             FROM order_products op
