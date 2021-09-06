@@ -140,7 +140,7 @@ async function populateInitialData() {
             imageURL: "https://image.flaticon.com/icons/png/512/1156/1156940.png",
             username: "schoolboy",
             password: "schoolboy123",
-            isAdmin: true,
+            isAdmin: false,
         }),
         await createUser({
             firstName: "Girl",
@@ -149,7 +149,7 @@ async function populateInitialData() {
             imageURL: "https://image.flaticon.com/icons/png/512/1156/1156992.png",
             username: "schoolgirl",
             password: "schoolgirl123",
-            isAdmin: true,
+            isAdmin: false,
         });
         console.log("Users Created.")
         // const defaultOrders = [

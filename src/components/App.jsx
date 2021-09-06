@@ -13,6 +13,7 @@ import {
     AdminOrders,
     AdminOrder,
 } from ".";
+import {GetCurrentUser} from "../api"
 
 // export const [products, setProducts] = useState([]);
 
@@ -23,14 +24,14 @@ import {
 // },[])
 
 export const App = () => {
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState(GetCurrentUser());
     return (
         <>
             <header>
                 <Header />
             </header>
             <nav>
-                <NavBar currentUser />
+                <NavBar user={user} setUser={setUser} />
                 <Route exact path="/login">
                     {" "}
                     <Login setUser={setUser} />

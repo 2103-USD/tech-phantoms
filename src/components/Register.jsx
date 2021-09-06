@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useHistory } from "react-router-dom";
 import "./style.css";
 import { registerNewUser} from "../api";
 
@@ -9,6 +9,8 @@ export const Register = ({ setUser }) => {
     const handleInput = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
+    
+    const history = useHistory();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,6 +22,8 @@ export const Register = ({ setUser }) => {
                 lastName: form.lastname,
                 email: form.email,
             });
+            setUser(res.user)
+            history.push("/")
         } catch (error) {
             console.error(error);
         }

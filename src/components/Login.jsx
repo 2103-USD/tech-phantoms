@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useHistory } from "react-router-dom";
 import { loginExistingUser } from "../api";
 import "./style.css";
 
@@ -10,6 +10,8 @@ export const Login = ({ setUser }) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    const history = useHistory();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -17,9 +19,8 @@ export const Login = ({ setUser }) => {
                 username: form.username,
                 password: form.password,
             });
-
-            // setUser(res.data.user);
-            // storeCurrentUser(res.data.user, res.data.token);
+            setUser(res.user)
+            history.push("/")
         } catch (error) {
             console.error(error);
         }
