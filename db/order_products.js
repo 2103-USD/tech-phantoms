@@ -6,9 +6,17 @@ async function getOrderProductById(id) {
     try {
         const { rows: orderProducts } = await client.query(
             `
-            SELECT *
-            FROM order_products
-            WHERE id = $1
+            SELECT 
+                u.username,
+                u."firstName",
+                u."lastName",
+                u.email,
+                o.*,
+                op.*
+            FROM order_products op
+                JOIN orders o on op."orderId" = o.id
+                JOIN users u on o."userId" = u.id
+            WHERE op.id = $1
             `,
             [id]
         );
