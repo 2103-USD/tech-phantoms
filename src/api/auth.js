@@ -4,15 +4,11 @@ export const BASE_URL = 'https://fast-savannah-33549.herokuapp.com/api';
 //************* Auth Functions
 export function storeCurrentUser(data) {
     localStorage.setItem('currentUser', JSON.stringify(data.user));
-    localStorage.setItem('currentUsername', JSON.stringify(data.user.username));
-    localStorage.setItem('currentUserID', JSON.stringify(data.user.id));
     localStorage.setItem('currentToken', JSON.stringify(data.token));
 }
 
 export function clearCurrentUser() {
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('currentUsername');
-    localStorage.removeItem('currentUserID');
     localStorage.removeItem('currentToken');
 }
 
