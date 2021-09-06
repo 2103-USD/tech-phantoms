@@ -67,6 +67,17 @@ export async function getAllUsers() {
     }
 }
 
+// Get user object for self
+export async function getSpecificUser(userId) {
+    const URL = `${SectionURL}/${userId}`;
+    try {
+        const { data } = await axios.get(`${URL}`, getHeaders());
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 // Allows user to update their account information
 export async function updateCurrentUser(
     id,
