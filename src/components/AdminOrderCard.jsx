@@ -4,13 +4,13 @@ import { getUserById } from "../../db/users";
 import "./style.css";
 
 export const AdminOrderCard = ({ order }) => {
-    const { id, status, userId, datePlaced } = order;
+    const { orderId, status, userId, datePlaced } = order;
 
     const user = await getUserById(userId);
 
     return (
-        <div id={`${id}`} className="admin-order-card">
-            <h3>Order #: {id}</h3>
+        <div id={`${orderId}`} className="admin-order-card">
+            <h3>Order #: {orderId}</h3>
             <h3>Order Date: {datePlaced}</h3>
             <h3>
                 Ordered By: {user.lastName}, {user.firstName}
