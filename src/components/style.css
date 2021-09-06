@@ -1,8 +1,11 @@
+
 @import "./css/App.css";
 @import "./css/Login.css";
 @import "./css/NavBar.css";
 @import "./css/Login.css";
+@import "./css/Register.css";
 @import "./css/Products.css";
+@import "./css/User.css";
 @import "./css/Footer.css";
 
 form {
@@ -14,11 +17,10 @@ button {
 }
 
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    display:grid;
     align-items: center;
     align-content: center;
+    justify-items: center;
 }
 
 .header-item {
