@@ -248,6 +248,19 @@ usersRouter.get('/', requireAdmin, async (req, res, next) => {
     }
 })
 
+// ADMIN: Get specific user info
+usersRouter.get('/:userId', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId: id} = req.params;
+        const users = await getUserById(id); 
+        if (users) {
+            res.send(users)
+        }
+    } catch ({ name, message }) {
+        next({ name, message })
+    }
+})
+
 // ADMIN: Update a user
 usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
     try {
@@ -295,7 +308,6 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
                 password,
                 isAdmin
             ); 
-            console.log("Update Some User Result==>>",user)
             if (user){
                 const token = jwt.sign({ 
                     id: user.id, 

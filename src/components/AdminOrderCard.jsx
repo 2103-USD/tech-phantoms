@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getUserById } from "../../db/users";
+import { getSpecificUser } from "../api";
 import "./style.css";
 
 export const AdminOrderCard = ({ order }) => {
     const { orderId, status, userId, datePlaced } = order;
 
-    const user = await getUserById(userId);
+    const user = await getSpecificUser(userId);
 
     return (
         <div id={`${orderId}`} className="admin-order-card">
