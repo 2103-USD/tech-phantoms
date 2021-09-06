@@ -44,6 +44,7 @@ export const Register = ({ setUser }) => {
                     type="password"
                 />
                 <button type="submit">Register</button>
+                <button type="submit" className="reg-button">Register</button>
             </form>
         </div>
     );
