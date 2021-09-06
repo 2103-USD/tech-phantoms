@@ -68,7 +68,7 @@ export async function createNewItem(
     }
 };
 
-export async function UpdateItem( 
+export async function updateItem( 
     id,
     name,
     description,

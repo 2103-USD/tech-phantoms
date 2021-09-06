@@ -19,6 +19,7 @@ const {
 // Declarations
 const productsRouter = express.Router();
 
+// GUEST: Get list of all products
 productsRouter.get('/', async (req, res, next) => {
     try {
         const products = await getAllProducts()
@@ -30,6 +31,7 @@ productsRouter.get('/', async (req, res, next) => {
     }
 });
 
+// GUEST: Get list of categories
 productsRouter.get('/categories', async (req, res, next) => {
     try {
         const categories = await getAllCategories()
@@ -41,6 +43,47 @@ productsRouter.get('/categories', async (req, res, next) => {
     }
 });
 
+// GUEST: Get info on a specific product
+productsRouter.get('/:productId', async (req, res, next) => {
+    const {productId} = req.params
+    try {
+        const product = await getProductById(productId)
+        if (product) {
+            res.send(product)
+        }
+        else {
+            res.status(404)
+            next({
+                name: "ProductNotFound",
+                message: "The selected product was not found in the system."
+            })
+        }
+    } catch ({name, message}) {
+        next({ name, message })
+    }
+});
+
+// GUEST: Get all products in particular category
+productsRouter.get('/:category', async (req, res, next) => {
+    const {category} = req.params
+    try {
+        const product = await getAllProductsByCategory(category)
+        if (product) {
+            res.send(product)
+        }
+        else {
+            res.status(404)
+            next({
+                name: "ProductNotFound",
+                message: "The selected product was not found in the system."
+            })
+        }
+    } catch ({name, message}) {
+        next({ name, message })
+    }
+});
+
+// ADMIN: Create a new item
 productsRouter.post('/', requireAdmin, async (req, res, next) => {
     try {
         const {
@@ -66,44 +109,7 @@ productsRouter.post('/', requireAdmin, async (req, res, next) => {
     }
 })
 
-productsRouter.get('/:productId', async (req, res, next) => {
-    const {productId} = req.params
-    try {
-        const product = await getProductById(productId)
-        if (product) {
-            res.send(product)
-        }
-        else {
-            res.status(404)
-            next({
-                name: "ProductNotFound",
-                message: "The selected product was not found in the system."
-            })
-        }
-    } catch ({name, message}) {
-        next({ name, message })
-    }
-});
-
-productsRouter.get('/:category', async (req, res, next) => {
-    const {category} = req.params
-    try {
-        const product = await getAllProductsByCategory(category)
-        if (product) {
-            res.send(product)
-        }
-        else {
-            res.status(404)
-            next({
-                name: "ProductNotFound",
-                message: "The selected product was not found in the system."
-            })
-        }
-    } catch ({name, message}) {
-        next({ name, message })
-    }
-});
-
+// ADMIN: Update an item
 productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
     try {
         const {
@@ -140,6 +146,7 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
     }
 })
 
+// ADMIN: Get orders for particular product
 productsRouter.get('/:productId/orders', requireAdmin , async (req, res, next) => {
     const {productId} = req.params
     try {
@@ -158,6 +165,7 @@ productsRouter.get('/:productId/orders', requireAdmin , async (req, res, next) =
     }
 });
 
+// ADMIN: Delete an item
 productsRouter.delete('/:productId', requireAdmin , async (req, res, next) => {
     const {productId} = req.params
     // We need to verify what the return parameter is of destroyProduct, and adjust this function accordingly.
@@ -176,5 +184,6 @@ productsRouter.delete('/:productId', requireAdmin , async (req, res, next) => {
         next({ name, message })
     }
 });
+
 
 module.exports = productsRouter

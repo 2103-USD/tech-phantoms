@@ -44,6 +44,15 @@ apiRouter.use(async (req, res, next) => {
     }
 });   
 
+apiRouter.get('/health', async (req, res) => {
+    console.log(`Dr. Server says we're ok.`);
+    res.status(200);
+    res.send({
+        name:"Healthy",
+        message: "Server is up."
+    })
+});
+
 apiRouter.use('/users', usersRouter)
 apiRouter.use('/orders', ordersRouter)
 apiRouter.use('/products', productsRouter)
