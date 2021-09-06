@@ -1,8 +1,13 @@
 .nav-bar {
+    display: flex;
+    align-content: space-between;
+ 
     background-color: lightskyblue;
-    align-items: end;
+
 }
 
 .nav-item {
+    text-decoration: none;
     margin: 0.5rem;
+    color:#053F5F;
 }
