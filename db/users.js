@@ -23,7 +23,7 @@ async function createUser({
             ON CONFLICT (username) DO NOTHING
             RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
             `,
-            
+
             [
                 firstName,
                 lastName,
@@ -70,8 +70,8 @@ async function getAllUsers() {
     try {
         const { rows: users } = await client.query(
             `
-            SELECT "firstName", "lastName", email, "imageURL", username, "isAdmin"
-            FROM users
+            SELECT *
+            FROM users;
             `,
             []
         );
@@ -172,7 +172,7 @@ async function updateUser({
             ON CONFLICT (username) DO NOTHING
             RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
             `,
-            
+
             [
                 firstName,
                 lastName,
@@ -181,7 +181,7 @@ async function updateUser({
                 username,
                 hashedPassword,
                 isAdmin,
-                id
+                id,
             ]
         );
         return user;
@@ -197,5 +197,5 @@ module.exports = {
     getUserById,
     getUserByUsername,
     getUserNameByEmail,
-    updateUser
+    updateUser,
 };

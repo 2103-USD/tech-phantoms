@@ -9,8 +9,14 @@ async function getOrderById(id) {
             rows: [order],
         } = await client.query(
             `
-            SELECT *
-            FROM orders
+            SELECT 
+                u.username,
+                u."firstName",
+                u."lastName",
+                u.email,
+                o.*
+            FROM orders o 
+                JOIN users u ON o."userId" = u.id
             WHERE id = $1
       `,
             [id]
@@ -57,8 +63,14 @@ async function getAllOrders() {
         //get orders
         const { rows: orders } = await client.query(
             `
-                SELECT *
-                FROM orders;
+                SELECT 
+                    u.username,
+                    u."firstName",
+                    u."lastName",
+                    u.email,
+                    o.*
+                FROM orders o 
+                    JOIN users u ON o."userId" = u.id
             `
         );
 

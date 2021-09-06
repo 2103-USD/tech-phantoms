@@ -76,7 +76,6 @@ export const Footer = () => {
                         </a>
                     </div>
                 </div>
-             
                 <div className="copyright">
                 <>
                     2021 &copy; Cajon Valley Union School District. All rights
@@ -85,6 +84,7 @@ export const Footer = () => {
 
             </div>
             
+
             </div>
            
             

@@ -569,9 +569,9 @@ async function populateInitialData() {
         await createInitialUsers();
         console.log("Creating Products");
         await createInitialProducts();
-        console.log("Initial Products Created");
+        console.log("Creating Initial Orders");
         await createInitialOrders();
-        console.log("Initial Orders Created");
+        console.log("Creating Reviews");
         await createInitialReviews();
         console.log("Initial Reviews Created");
     } catch (error) {

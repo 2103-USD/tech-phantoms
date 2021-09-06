@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { BASE_URL, storeCurrentUser } from "../api";
+import { useHistory } from "react-router-dom";
+import { loginExistingUser } from "../api";
 import "./style.css";
 
 export const Login = ({ setUser }) => {
@@ -10,16 +10,17 @@ export const Login = ({ setUser }) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    const history = useHistory();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${BASE_URL}/login`, {
+            const res = await loginExistingUser( {
                 username: form.username,
                 password: form.password,
             });
-
-            setUser(res.data.user);
-            storeCurrentUser(res.data.user, res.data.token);
+            setUser(res.user)
+            history.push("/")
         } catch (error) {
             console.error(error);
         }
@@ -35,6 +36,7 @@ export const Login = ({ setUser }) => {
                     name="username"
                     value={form.username}
                     onChange={handleInput}
+                    autoComplete = "username"
                 />
                 <label>Password</label>
                 <input
@@ -42,6 +44,7 @@ export const Login = ({ setUser }) => {
                     value={form.password}
                     onChange={handleInput}
                     type="password"
+                    autoComplete = "current-password"
                 />
                 <button type="submit">Login</button>
                 <button type="submit" className="login-button">Login</button>

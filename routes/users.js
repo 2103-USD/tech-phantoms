@@ -9,7 +9,7 @@ const {
     getUserByUsername, 
     getUserNameByEmail,
     updateUser,
-    getOrdersbyUser
+    getOrdersByUser
 } = require('../db');
 const {
     requireUser, 
@@ -20,7 +20,7 @@ const {
 const usersRouter = express.Router();
 
 
-// User side calls
+// GUEST: Register a new user account
 usersRouter.post('/register', async (req, res, next) => {
     try {
         const { 
@@ -61,7 +61,8 @@ usersRouter.post('/register', async (req, res, next) => {
                 firstName,
                 lastName,
                 email,
-                imageURL
+                imageURL,
+                isAdmin:false
             });
             console.log("CreateUser Result==>>",user)
             if (user){
@@ -88,11 +89,12 @@ usersRouter.post('/register', async (req, res, next) => {
     } 
 });
 
-
+// GUEST: Login with an existing user ID
 usersRouter.post('/login', async (req, res, next) => {
     try {
         // request must have both username and password
         const { username, password} = req.body;
+        console.log("PassedInCreds",username, password)
         if (!username || !password) {
             res.status(401);
             next({
@@ -127,7 +129,7 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 })
 
-
+// USER: Show user's account information.
 usersRouter.get('/me', requireUser, async (req, res, next) => {
     try {
         const {id} = req.user
@@ -140,10 +142,11 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
     }
 })
 
+// USER: get a user's orders
 usersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
     try {
         const {userId: id} = req.params;
-        const orders = await getOrdersbyUser(id); // Do we want to pass in a userId or a user object? 
+        const orders = await getOrdersByUser(id);
         if (orders) {
             res.send(orders)
         }
@@ -159,6 +162,7 @@ usersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
     }
 })
 
+// USER: Update user's own info
 usersRouter.patch('/me', requireUser, async (req, res, next) => {
     // Allows user to update their own account information.
     try {
@@ -232,6 +236,7 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
     }
 })
 
+// ADMIN: Get users list
 usersRouter.get('/', requireAdmin, async (req, res, next) => {
     try {
         const users = await getAllUsers(); 
@@ -243,6 +248,20 @@ usersRouter.get('/', requireAdmin, async (req, res, next) => {
     }
 })
 
+// ADMIN: Get specific user info
+usersRouter.get('/:userId', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId: id} = req.params;
+        const users = await getUserById(id); 
+        if (users) {
+            res.send(users)
+        }
+    } catch ({ name, message }) {
+        next({ name, message })
+    }
+})
+
+// ADMIN: Update a user
 usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
     try {
         const {userId: id} = req.params;
@@ -289,7 +308,6 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
                 password,
                 isAdmin
             ); 
-            console.log("Update Some User Result==>>",user)
             if (user){
                 const token = jwt.sign({ 
                     id: user.id, 
