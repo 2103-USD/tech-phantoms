@@ -46,7 +46,6 @@ export const Login = ({ setUser }) => {
                     type="password"
                     autoComplete = "current-password"
                 />
-                <button type="submit">Login</button>
                 <button type="submit" className="login-button">Login</button>
             </form>
         </div>
