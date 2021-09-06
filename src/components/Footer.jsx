@@ -74,10 +74,10 @@ export const Footer = () => {
                 </div>
             </div>
             <div className="copyright">
-                <h7>
+                <h6>
                     2021 &copy; Cajon Valley Union School District. All rights
                     reserved.
-                </h7>
+                </h6>
             </div>
         </>
     );

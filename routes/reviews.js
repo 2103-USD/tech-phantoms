@@ -9,13 +9,13 @@ const {
 } = require('../db');
 const {
     requireUser, 
-    requireAdmin,
-    verifyUserIsOrderOwner
+    verifyUserIsReviewOwner
 } = require('./utils')
 
 // Declarations
 const reviewsRouter = express.Router();
 
+// GUEST: Get reviews for an item
 reviewsRouter.get('/:productId', async (req, res, next) => {
     const {productId} = req.params
     try {
@@ -35,6 +35,7 @@ reviewsRouter.get('/:productId', async (req, res, next) => {
     }
 });
 
+// USER: Add a review for an item.
 reviewsRouter.post('/:productId', requireUser, async (req, res, next) => {
     try {
         const {
@@ -59,7 +60,8 @@ reviewsRouter.post('/:productId', requireUser, async (req, res, next) => {
     }
 })
 
-reviewsRouter.patch('/:productId', requireUser, async (req, res, next) => {
+// USER: Update a review the user has published
+reviewsRouter.patch('/:productId', verifyUserIsReviewOwner, async (req, res, next) => {
     try {
         const {
             id,
@@ -84,9 +86,9 @@ reviewsRouter.patch('/:productId', requireUser, async (req, res, next) => {
     }
 })
 
-productsRouter.delete('/:reviewId', requireUser , async (req, res, next) => {
+// USER: Delete a review the user has published
+reviewsRouter.delete('/:reviewId', verifyUserIsReviewOwner , async (req, res, next) => {
     const {reviewId} = req.params
-    // We need to verify what the return parameter is of destroyProduct, and adjust this function accordingly.
     try {
         const review = await deleteReview({reviewId})
         if (review) {

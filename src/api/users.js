@@ -4,34 +4,35 @@ import { BASE_URL, getHeaders, storeCurrentUser } from "./auth";
 const SectionURL = `${BASE_URL}/users`;
 
 // Register new user account
-export async function registerNewUser(
-    username,
+export async function registerNewUser( {
+    username, 
     password,
     firstName,
     lastName,
     email,
     imageURL
-) {
-    const URL = `${BASE_URL}/register`;
+    }) {
+    const URL = `${SectionURL}/register`
     try {
         const { data } = await axios.post(`${URL}`, {
             username,
             password,
             firstName,
             lastName,
-            email,
+            email, 
             imageURL,
-        });
-        storeCurrentUser(data);
-        return data;
+            isAdmin:0
+        })
+        storeCurrentUser(data)
+        return data
     } catch (error) {
         console.error(error);
     }
 }
 
 // Login with pre-existing user account
-export async function loginExistingUser(username, password) {
-    const URL = `${BASE_URL}/login`;
+export async function loginExistingUser({username, password}) {
+    const URL = `${SectionURL}/login`
     try {
         const { data } = await axios.post(`${URL}`, {
             username,
@@ -46,7 +47,7 @@ export async function loginExistingUser(username, password) {
 
 // Get user object for self
 export async function getCurrentUser() {
-    const URL = `${BASE_URL}/me`;
+    const URL = `${SectionURL}/me`;
     try {
         const { data } = await axios.get(`${URL}`, getHeaders());
         return data;
@@ -57,7 +58,7 @@ export async function getCurrentUser() {
 
 // Get all users
 export async function getAllUsers() {
-    const URL = "${BASE_URL}/users";
+    const URL = `${SectionURL}/`
     try {
         const { data } = await axios.get(`${URL}`, getHeaders());
         return data;
@@ -75,8 +76,8 @@ export async function updateCurrentUser(
     lastName,
     email,
     imageURL
-) {
-    const URL = `${BASE_URL}/me`;
+    ) {
+    const URL = `${SectionURL}/me`
     try {
         const { data } = await axios.patch(
             `${URL}`,
@@ -107,8 +108,8 @@ export async function adminUpdateUser(
     email,
     imageURL,
     isAdmin
-) {
-    const URL = `${BASE_URL}/${id}`;
+    ) {
+    const URL = `${SectionURL}/${id}`
     try {
         const { data } = await axios.patch(
             `${URL}`,
