@@ -21,7 +21,9 @@ export const Products = () => {
             <h1>Welcome to Grace Shopper</h1>
             <h2>The place to buy your products!</h2>
             <h1>Products:</h1>
-            <div>
+            <div className="products-body">
+                <br></br>
+
                 {products.map((product) => {
                     return <ProductCard key={product.id} product={product} />;
                 })}
