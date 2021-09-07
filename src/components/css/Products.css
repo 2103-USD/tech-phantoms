@@ -1,8 +1,10 @@
 .products-body {
     background-color: #b7c5da;
     font-size: large;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-gap: 1rem;
+    justify-content: space-between;
 }
 
 .product-card {

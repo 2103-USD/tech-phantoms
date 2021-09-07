@@ -19,7 +19,7 @@ export const ProductCard = ({ product }) => {
             >
                 <h3>{name}</h3>
             </Link>
-            <br></br>
+
             <img src={imageURL} alt="product" />
             <h4>Product Information</h4>
             <p>Category: {category}</p>
