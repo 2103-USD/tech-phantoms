@@ -13,7 +13,9 @@ import {
     AdminOrders,
     AdminOrder,
     AdminUsers,
-    AdminUser
+    AdminUser,
+    AdminProducts,
+    AdminProduct
 } from ".";
 import {GetCurrentUser} from "../api"
 
@@ -55,6 +57,12 @@ export const App = () => {
                     </Route>
                     <Route exact path="/product/:productId">
                         <Product />
+                    </Route>
+                    <Route exact path="/admin/products">
+                        <AdminProducts />
+                    </Route>
+                    <Route exact path="/admin/product/:productId">
+                        <AdminProduct />
                     </Route>
                     <Route exact path="/admin/orders">
                         <AdminOrders />

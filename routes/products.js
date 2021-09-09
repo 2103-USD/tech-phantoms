@@ -120,10 +120,11 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
             inStock,
             category
         } = req.body
-        const {productId} = req.params
-        const product = await getProductById(productId)
+        const {productId:id} = req.params
+        const product = await getProductById(id)
+        console.log("ROUTEProduct", product)
         if (product) {
-            const updatedProduct = await updateProduct({name, description, price, imageURL, inStock, category})
+            const updatedProduct = await updateProduct({id, name, description, price, imageURL, inStock, category})
             if (updatedProduct) {
                 res.send(updatedProduct)
             }
@@ -167,10 +168,10 @@ productsRouter.get('/:productId/orders', requireAdmin , async (req, res, next) =
 
 // ADMIN: Delete an item
 productsRouter.delete('/:productId', requireAdmin , async (req, res, next) => {
-    const {productId} = req.params
+    const {productId: id } = req.params
     // We need to verify what the return parameter is of destroyProduct, and adjust this function accordingly.
     try {
-        const product = await destroyProduct({productId})
+        const product = await destroyProduct({id})
         if (product) {
             res.send(product)
         }

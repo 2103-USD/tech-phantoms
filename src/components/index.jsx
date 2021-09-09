@@ -13,3 +13,5 @@ export { AdminOrders } from "./AdminOrders";
 export { AdminOrderCard } from "./AdminOrderCard";
 export { AdminUsers } from "./AdminUsers";
 export { AdminUser } from "./AdminUser";
+export { AdminProducts } from "./AdminProducts";
+export { AdminProduct } from "./AdminProduct";

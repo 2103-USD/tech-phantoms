@@ -131,7 +131,6 @@ async function updateProduct({
                 inStock = $5,
                 category = $6
             WHERE id = $7
-            VALUES($1, $2, $3, $4, $5, $6, $7)
             RETURNING *;
             `,
             
@@ -163,14 +162,15 @@ async function destroyProduct({ id }) {
             WHERE id = $1
               AND id NOT IN (
                 SELECT "productId"
-                FROM order_products
+                FROM order_products op
+                    JOIN orders o 
+                        ON o.id = op."orderId"
                 WHERE status <> 'completed'
               )
             RETURNING *;   
             `,
             [id]
         );
-
         //If the product was deleted, delete order_products
         if (product) {
             const {
