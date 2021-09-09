@@ -45,15 +45,13 @@ async function getUser({ username, password }) {
         if (!username || !password) {
             return "";
         }
-
-        const user = await getUserByUsername(username);
+        const user = await _getUserByUsername(username);
         if (user) {
             const hashedPassword = user.password;
             const passwordsMatch = await bcrypt.compare(
                 password,
                 hashedPassword
             );
-
             if (passwordsMatch) {
                 delete user.password;
                 return user;
@@ -105,6 +103,27 @@ async function getUserById(id) {
             WHERE id = $1;
             `,
             [id]
+        );
+
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
+
+//get user by username-INTERNAL
+async function _getUserByUsername(username) {
+    try {
+        const {
+            rows: [user],
+        } = await client.query(
+            `
+            SELECT 
+                *
+            FROM users
+            WHERE username = $1;
+            `,
+            [username]
         );
 
         return user;
