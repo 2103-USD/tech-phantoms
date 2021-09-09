@@ -29,8 +29,11 @@ export const NavBar = ({ user, setUser }) => {
                         { (user.isAdmin) ?
                             (
                                 <>
-                                    <NavLink to="/AdminOrders" className="nav-item">
+                                    <NavLink to="/Admin/Orders" className="nav-item">
                                         View All Orders
+                                    </NavLink>
+                                    <NavLink to="/Admin/Users" className="nav-item">
+                                        View All Users
                                     </NavLink>
                                 </>
                             )

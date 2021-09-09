@@ -4,13 +4,13 @@ import { getSpecificUser } from "../api";
 import "./style.css";
 
 export const AdminOrderCard = ({ order }) => {
-    const { orderId, status, userId, datePlaced } = order;
+    const { id, status, userId, datePlaced } = order;
 
     // const user = await getSpecificUser(userId);
 
     return (
-        <div id={`${orderId}`} className="admin-order-card">
-            <h3>Order #: {orderId}</h3>
+        <div id={`${id}`} className="admin-order-card">
+            <h3>Order #: {id}</h3>
             <h3>Order Date: {datePlaced}</h3>
             <h3>
                 {/* Ordered By: {user.lastName}, {user.firstName} */}

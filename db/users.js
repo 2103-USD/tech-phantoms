@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const client = require("./client");
-
+const SALT_COUNT = 10;
 //create user
 async function createUser({
     firstName,
@@ -11,7 +11,6 @@ async function createUser({
     password,
     isAdmin,
 }) {
-    const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     try {
         const {
@@ -94,7 +93,14 @@ async function getUserById(id) {
             rows: [user],
         } = await client.query(
             `
-            SELECT *
+            SELECT 
+                id,
+                "firstName",
+                "lastName",
+                email,
+                "imageURL",
+                username,
+                "isAdmin"
             FROM users
             WHERE id = $1;
             `,
@@ -114,7 +120,14 @@ async function getUserByUsername(username) {
             rows: [user],
         } = await client.query(
             `
-            SELECT *
+            SELECT 
+                id,
+                "firstName",
+                "lastName",
+                email,
+                "imageURL",
+                username,
+                "isAdmin"
             FROM users
             WHERE username = $1;
             `,
@@ -134,7 +147,14 @@ async function getUserNameByEmail(email) {
             rows: [user],
         } = await client.query(
             `
-            SELECT *
+            SELECT 
+                id,
+                "firstName",
+                "lastName",
+                email,
+                "imageURL",
+                username,
+                "isAdmin"
             FROM users
             WHERE email = $1;
             `,
@@ -158,7 +178,6 @@ async function updateUser({
     password,
     isAdmin,
 }) {
-    const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     try {
         const {
@@ -197,6 +216,44 @@ async function updateUser({
     }
 }
 
+// ADMINupdate user
+async function updateUserByAdmin(
+    id,
+    firstName,
+    lastName,
+    email,
+    username,
+    isAdmin,
+) {
+    try {
+        const {
+            rows: [user],
+        } = await client.query(
+            `
+            UPDATE users
+            SET 
+                "firstName" = $1, 
+                "lastName" = $2, 
+                email = $3, 
+                username = $4, 
+                "isAdmin" = $5
+            WHERE id = $6
+            RETURNING id, "firstName", "lastName", email, username, "isAdmin";
+            `,
+            [
+                firstName,
+                lastName,
+                email,
+                username,
+                isAdmin,
+                id
+            ]
+        );
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
 module.exports = {
     createUser,
     getUser,
@@ -205,4 +262,5 @@ module.exports = {
     getUserByUsername,
     getUserNameByEmail,
     updateUser,
+    updateUserByAdmin
 };

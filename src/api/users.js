@@ -110,32 +110,27 @@ export async function updateCurrentUser(
 }
 
 // Allows admin to update a users account info
-export async function adminUpdateUser(
+export async function adminUpdateUser({
     id,
     username,
-    password,
     firstName,
     lastName,
     email,
-    imageURL,
     isAdmin
-    ) {
+}) {
     const URL = `${SectionURL}/${id}`
     try {
         const { data } = await axios.patch(
             `${URL}`,
             {
                 username,
-                password,
                 firstName,
                 lastName,
                 email,
-                imageURL,
                 isAdmin,
             },
             getHeaders()
         );
-        storeCurrentUser(data);
         return data;
     } catch (error) {
         console.error(error);
