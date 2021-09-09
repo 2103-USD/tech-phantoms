@@ -104,7 +104,7 @@ export const AdminProduct = () => {
                     name="inStock"
                     value={form.inStock}
                     onChange={handleInput}
-                    // type="number"
+                    type="number"
                 />
                 <button type="submit" className="reg-button">Update Item</button>
                 <button type="button" className="reg-button" onClick={handleDelete} >Delete Item</button>
