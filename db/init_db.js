@@ -37,7 +37,7 @@ async function buildTables() {
                 description   TEXT NOT NULL,
                 price         REAL NOT NULL,
                 "imageURL"    TEXT DEFAULT 'https://publicdomainpictures.net/pictures/40000/velka/school-bus-clipart.jpg' NOT NULL,
-                "inStock"     BOOLEAN NOT NULL DEFAULT false,
+                "inStock"     INT NOT NULL,
                 category      VARCHAR(200) NOT NULL
             ); 
 
@@ -184,7 +184,7 @@ async function createInitialProducts() {
                 price: "20",
                 imageURL:
                     "https://image.freepik.com/free-vector/boxed-lunches-set_1284-22197.jpg",
-                inStock: true,
+                inStock: 1000,
                 category: "Child Nutrition",
             },
             {
@@ -192,8 +192,8 @@ async function createInitialProducts() {
                 description: "Year-long bus pass.",
                 price: "150",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/3492/3492171.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1168/1168035.png",
+                inStock: 1000,
                 category: "Transportation",
             },
             {
@@ -202,7 +202,7 @@ async function createInitialProducts() {
                 price: "20",
                 imageURL:
                     "https://image.freepik.com/free-vector/laptop-with-rocket_23-2147503371.jpg",
-                inStock: true,
+                inStock: 1000,
                 category: "Technology",
             },
             {
@@ -210,8 +210,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "31.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -219,8 +219,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "28.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -228,8 +228,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "29.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -237,8 +237,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "21.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -246,8 +246,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "35.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -255,8 +255,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "18.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -264,8 +264,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "53.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -273,8 +273,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "146.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -282,8 +282,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "68.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -291,8 +291,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "178.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -300,8 +300,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "158.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -309,8 +309,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "35.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -318,8 +318,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "54.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -327,8 +327,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "62.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -336,8 +336,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "125.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -345,8 +345,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "34.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -354,8 +354,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "39.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -363,8 +363,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "26.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -372,8 +372,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "36.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -381,8 +381,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "35.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -390,8 +390,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "70.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -399,8 +399,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "18.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -408,8 +408,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "37.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -417,8 +417,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "54.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -426,8 +426,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "125.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -435,8 +435,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "34.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -444,8 +444,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "65.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -453,8 +453,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "59.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -462,8 +462,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "41.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -471,8 +471,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "35.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Repair",
             },
             {
@@ -480,8 +480,8 @@ async function createInitialProducts() {
                 description: "Chromebook Parts",
                 price: "0.00",
                 imageURL:
-                    "https://cdn-icons-png.flaticon.com/512/4319/4319109.png",
-                inStock: true,
+                    "https://image.flaticon.com/icons/png/512/1156/1156992.png",
+                inStock: 1000,
                 category: "Chromebook",
             },
         ];
