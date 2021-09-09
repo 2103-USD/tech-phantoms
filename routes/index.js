@@ -1,5 +1,6 @@
 // Constants
-const { JWT_SECRET } = process.env;
+// const  {JWT_SECRET}  = process.env;
+// When JWTSecret is defined here, it is unavailable for use in apiRouter. Why???
 
 // Requires
 const express = require('express');
@@ -23,6 +24,7 @@ apiRouter.get("/", (req, res, next) => {
 apiRouter.use(async (req, res, next) => {
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
+    const  {JWT_SECRET}  = process.env;
     if (!auth) { // nothing to see here
         next();
     } else if (auth.startsWith(prefix)) {

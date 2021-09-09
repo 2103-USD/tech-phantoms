@@ -178,21 +178,18 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
         const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
         if (_username) {
-            console.log("UserExistsError")
             // res.status(401);
             next({
                 name: 'UserExistsError',
                 message: 'This username already exists. Please select a new username.'
             });
         } else if (_useremail) {
-            console.log("UserExistsError")
             // res.status(401);
             next({
                 name: 'UserExistsError',
                 message: 'An account already exists for this email address. Please login instead.'
             });
         } else if (password.length < 8 ) {
-            console.log("PassLenError")
             // res.status(401);
             next({
                 name: 'password-too-short',

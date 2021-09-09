@@ -70,11 +70,18 @@ async function getAllUsers() {
     try {
         const { rows: users } = await client.query(
             `
-            SELECT *
+            SELECT 
+                id,
+                "firstName",
+                "lastName",
+                email,
+                "imageURL",
+                username,
+                "isAdmin"
             FROM users;
-            `,
-            []
+            `
         );
+        return users
     } catch (error) {
         throw error;
     }
