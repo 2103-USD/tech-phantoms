@@ -158,4 +158,5 @@ ordersRouter.get('/', requireAdmin, async (req, res, next) => {
         next({ name, message })
     }
 })
+
 module.exports = ordersRouter;
