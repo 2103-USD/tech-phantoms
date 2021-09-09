@@ -29,8 +29,14 @@ export const NavBar = ({ user, setUser }) => {
                         { (user.isAdmin) ?
                             (
                                 <>
-                                    <NavLink to="/AdminOrders" className="nav-item">
+                                    <NavLink to="/Admin/Products" className="nav-item">
+                                        Manage Products
+                                    </NavLink>
+                                    <NavLink to="/Admin/Orders" className="nav-item">
                                         View All Orders
+                                    </NavLink>
+                                    <NavLink to="/Admin/Users" className="nav-item">
+                                        View All Users
                                     </NavLink>
                                 </>
                             )
@@ -40,7 +46,7 @@ export const NavBar = ({ user, setUser }) => {
                         <Link to="/" className="nav-item" onClick={handleLogOut}>
                             Logout
                         </Link>
-                        <h1>Welcome back, {user.username}</h1>
+                        <h1 className="nav-item">Welcome back, {user.username}</h1>
                     </>
                 )
                 : (

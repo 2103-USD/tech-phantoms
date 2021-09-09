@@ -12,8 +12,13 @@ import {
     Footer,
     AdminOrders,
     AdminOrder,
+    AdminUsers,
+    AdminUser,
+    AdminProducts,
+    AdminProduct
 } from ".";
 import {GetCurrentUser} from "../api"
+
 
 // export const [products, setProducts] = useState([]);
 
@@ -53,8 +58,20 @@ export const App = () => {
                     <Route exact path="/product/:productId">
                         <Product />
                     </Route>
+                    <Route exact path="/admin/products">
+                        <AdminProducts />
+                    </Route>
+                    <Route exact path="/admin/product/:productId">
+                        <AdminProduct />
+                    </Route>
                     <Route exact path="/admin/orders">
                         <AdminOrders />
+                    </Route>
+                    <Route exact path="/admin/users">
+                        <AdminUsers />
+                    </Route>
+                    <Route exact path="/admin/user/:userId">
+                        <AdminUser />
                     </Route>
                     <Route exact path="/admin/order/:orderId">
                         <AdminOrder />

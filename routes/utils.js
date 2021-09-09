@@ -25,8 +25,7 @@ async function requireAdmin(req, res, next) {
             message: "You must log in first."
         });
     }
-    const _user = await getUserById(id); 
-    if (!_user.isAdmin){
+    if (!req.user.isAdmin){
         res.status(403)
         next({
             name: "AdminLoginRequired",

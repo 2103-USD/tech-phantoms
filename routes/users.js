@@ -9,6 +9,7 @@ const {
     getUserByUsername, 
     getUserNameByEmail,
     updateUser,
+    updateUserByAdmin,
     getOrdersByUser
 } = require('../db');
 const {
@@ -178,21 +179,18 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
         const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
         if (_username) {
-            console.log("UserExistsError")
             // res.status(401);
             next({
                 name: 'UserExistsError',
                 message: 'This username already exists. Please select a new username.'
             });
         } else if (_useremail) {
-            console.log("UserExistsError")
             // res.status(401);
             next({
                 name: 'UserExistsError',
                 message: 'An account already exists for this email address. Please login instead.'
             });
         } else if (password.length < 8 ) {
-            console.log("PassLenError")
             // res.status(401);
             next({
                 name: 'password-too-short',
@@ -269,66 +267,45 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
             firstName,
             lastName,
             email, 
-            imageURL, 
             username,
-            password,
             isAdmin
         } = req.body;
         const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
-        if (_username) {
-            console.log("UserExistsError")
-            // res.status(401);
-            next({
-                name: 'UserExistsError',
-                message: 'This username already exists. Please select a new username.'
-            });
-        } else if (_useremail) {
-            console.log("UserExistsError")
-            // res.status(401);
-            next({
-                name: 'UserExistsError',
-                message: 'An account already exists for this email address. Please login instead.'
-            });
-        } else if (password.length < 8 ) {
-            console.log("PassLenError")
-            // res.status(401);
-            next({
-                name: 'password-too-short',
-                message: 'Password is too short. 8 or more characters are required. '
-            });
-        } else {
-            const user = await updateUser(
-                id,
-                firstName,
-                lastName,
-                email, 
-                imageURL, 
-                username,
-                password,
-                isAdmin
-            ); 
-            if (user){
-                const token = jwt.sign({ 
-                    id: user.id, 
-                    username
-                }, process.env.JWT_SECRET, {
-                    expiresIn: '1w'
-                });
-                res.status(201)
-                res.send({ 
-                    user, token
-                });
-            } else {
+        if ((_username) || (_useremail)){
+            if (_username === username) {
+                console.log("UserExistsError")
+                // res.status(401);
                 next({
-                    // We need to test to see if this occurs, and what may prompt it.
-                    name: 'Uh OH',
-                    message: 'It dont work'
-                })
+                    name: 'UserExistsError',
+                    message: 'This username already exists. Please select a new username.'
+                });
             }
-        }
+            else if (_useremail === email) {
+                console.log("UserExistsError")
+                // res.status(401);
+                next({
+                    name: 'UserExistsError',
+                    message: 'An account already exists for this email address. Please login instead.'
+                });
+            }
+        } 
+        const user = await updateUserByAdmin(
+            id,
+            firstName,
+            lastName,
+            email, 
+            username,
+            isAdmin
+        ); 
         if (user) {
             res.send(user) 
+        } else {
+            next({
+                // We need to test to see if this occurs, and what may prompt it.
+                name: 'Uh OH',
+                message: 'It dont work Internal'
+            })
         }
     } catch ({ name, message }) {
         next({ name, message })

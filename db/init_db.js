@@ -37,7 +37,7 @@ async function buildTables() {
                 description   TEXT NOT NULL,
                 price         REAL NOT NULL,
                 "imageURL"    TEXT DEFAULT 'https://publicdomainpictures.net/pictures/40000/velka/school-bus-clipart.jpg' NOT NULL,
-                "inStock"     INT NOT NULL,
+                "inStock"     INT NOT NULL DEFAULT 0,
                 category      VARCHAR(200) NOT NULL
             ); 
 
@@ -481,7 +481,7 @@ async function createInitialProducts() {
                 price: "0.00",
                 imageURL:
                     "https://image.flaticon.com/icons/png/512/1156/1156992.png",
-                inStock: 1000,
+                inStock: 0,
                 category: "Chromebook",
             },
         ];

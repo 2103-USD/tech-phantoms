@@ -4,7 +4,7 @@ import "./style.css";
 import { AdminOrderCard } from "./AdminOrderCard";
 
 export const AdminOrders = ({ currentUser }) => {
-    const [orders, setOrders] = useState([]);
+    const [orders, setOrders] = useState([getAllOrders()]);
 
     const handleOrders = async () => {
         const res = await getAllOrders();
@@ -19,7 +19,7 @@ export const AdminOrders = ({ currentUser }) => {
         <div className="admin-orders">
             <div>
                 {orders.map((order) => {
-                    return <AdminOrderCard key={order.orderId} order={order} />;
+                    return <AdminOrderCard key={`orderList${order.id}`} order={order} />;
                 })}
             </div>
         </div>
