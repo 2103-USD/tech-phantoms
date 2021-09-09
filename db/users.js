@@ -194,7 +194,6 @@ async function updateUser({
                 password = $6, 
                 "isAdmin" = $7
             WHERE id = $8
-            VALUES($1, $2, $3, $4, $5, $6, $7, $8)
             ON CONFLICT (username) DO NOTHING
             RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
             `,

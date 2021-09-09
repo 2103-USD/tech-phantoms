@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getAllUsers } from "../api";
 import "./style.css";
 
-export const AdminUsers = ({ user }) => {
+export const AdminUsers = () => {
     const [siteUsers, setSiteUsers] = useState([getAllUsers()]);
 
     const handleUsers = async () => {
