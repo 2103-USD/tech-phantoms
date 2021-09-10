@@ -10,8 +10,6 @@ export const Footer = () => {
                     <img
                         src={require("../img/cajonvalleylogo.png")}
                         alt="Cajon Valley Logo"
-                        width="300px"
-                        height="300px"
                     />
                     </a>
                 </div>
@@ -34,8 +32,6 @@ export const Footer = () => {
                                 className="social-icon"
                                 src={require("../img/facebook.png")}
                                 alt="Facebook Logo"
-                                width="128px"
-                                height="128px"
                             />
                         </a>
                         <a
@@ -46,8 +42,6 @@ export const Footer = () => {
                                 className="social-icon"
                                 src={require("../img/twitter.png")}
                                 alt="Link to Cajon Valley's Twitter Feed"
-                                width="128px"
-                                height="128px"
                             />
                         </a>
                         <a
@@ -58,8 +52,6 @@ export const Footer = () => {
                                 className="social-icon"
                                 src={require("../img/youtube.png")}
                                 alt="Link to Cajon Valley's Youtube Channel"
-                                width="128px"
-                                height="128px"
                             />
                         </a>
                         <a
@@ -70,8 +62,6 @@ export const Footer = () => {
                                 className="social-icon"
                                 src={require("../img/linkedin.png")}
                                 alt="Link to Cajon Valley's Linked In Feed"
-                                width="128px"
-                                height="128px"
                             />
                         </a>
                     </div>

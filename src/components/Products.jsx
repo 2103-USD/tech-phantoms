@@ -18,9 +18,7 @@ export const Products = () => {
     return (
         <div className="products">
             {" "}
-            <h1>Welcome to Grace Shopper</h1>
-            <h2>The place to buy your products!</h2>
-            <h1>Products:</h1>
+            <h2>Products:</h2>
             <div className="products-body">
                 {products.map((product) => {
                     return <ProductCard key={product.id} product={product} />;
