@@ -7,20 +7,19 @@
 @import "./css/Products.css";
 @import "./css/User.css";
 @import "./css/Footer.css";
+@import "./css/Admin.css";
+@import "./css/Header.css";
+@import "./css/FeaturedItems.css";
 
-form {
-    margin: 5px;
+body {
+    background-color: gray;
+}
+
+div {
+    background-color: gray;
 }
 
 
-
-.header {
-    display:grid;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
-}
-
-.header-item {
-    margin: 0.25rem;
+input {
+    height: 1.5rem;
 }

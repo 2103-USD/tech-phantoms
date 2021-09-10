@@ -1,0 +1,25 @@
+.admin-users {
+    margin: 5px;
+    margin-bottom: 50px;
+}
+
+.productList {
+    border: 2px solid black;
+    width: 80%;
+}
+
+tr:hover {
+    background-color: #4eb5f1;
+}
+
+th {
+    border: 2px solid black;
+    font-size: x-large;
+    text-align: center;
+}
+
+td {
+    border: 2px solid black;
+    padding: 5px;
+    text-align: left;
+}

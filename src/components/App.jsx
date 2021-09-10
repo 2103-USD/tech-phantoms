@@ -32,9 +32,9 @@ export const App = () => {
     const [user, setUser] = useState(GetCurrentUser());
     return (
         <>
-            <header>
+            <>
                 <Header />
-            </header>
+            </>
             <nav>
                 <NavBar user={user} setUser={setUser} />
                 <Route exact path="/login">

@@ -55,6 +55,7 @@ export const FeaturedItems = () => {
     };
 
     return (
+    <div className="featured-items-div">
         <div className="featured-items-slider">
             <h2>Featured Items</h2>
             <Slider {...settings}>
@@ -72,5 +73,6 @@ export const FeaturedItems = () => {
                 })}
             </Slider>
         </div>
+    </div>
     );
 };

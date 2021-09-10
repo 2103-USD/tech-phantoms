@@ -1,0 +1,17 @@
+.header {
+    display:grid;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    margin-top: 30px;
+}
+
+.header-item {
+    margin: 0.25rem;
+}
+
+.header-logo {
+    width:150px;
+    height:150px;
+    margin-top: 10px;
+}
