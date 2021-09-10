@@ -27,7 +27,7 @@
 }
 
 .copyright {
-    grid-column: 1 / 4;
+    grid-column: 2 / 3;
     text-align: center;
     padding-bottom: .5rem ;
     width: 100%;

@@ -9,6 +9,7 @@
 @import "./css/Footer.css";
 @import "./css/Admin.css";
 @import "./css/Header.css";
+@import "./css/FeaturedItems.css";
 
 body {
     background-color: gray;
