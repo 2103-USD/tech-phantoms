@@ -24,11 +24,20 @@ async function getOrderById(id) {
 
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, op.quantity, 
-                p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join products p on op."productId" = p.id;
-            where op."orderId" = $1;
+            SELECT
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price,
+                op.quantity, 
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN products p on op."productId" = p.id;
+            WHERE op."orderId" = $1;
             `,
             [id]
         );
@@ -46,12 +55,22 @@ async function getAllOrderProducts() {
         //get order products
         const { rows: orderProducts } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join products p on op."productId" = p.id;
+            SELECT
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN products p on op."productId" = p.id;
             `
         );
+        return orderProducts;
     } catch (error) {
         throw Error(error);
     }
@@ -63,36 +82,46 @@ async function getAllOrders() {
         //get orders
         const { rows: orders } = await client.query(
             `
-                SELECT 
-                    u.username,
-                    u."firstName",
-                    u."lastName",
-                    u.email,
-                    o.*
-                FROM orders o 
-                    JOIN users u ON o."userId" = u.id
+            SELECT 
+                u.username,
+                u."firstName",
+                u."lastName",
+                u.email,
+                o.*
+            FROM orders o 
+                JOIN users u ON o."userId" = u.id
             `
         );
 
         //get products
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join products p on op."productId" = p.id;
+            SELECT 
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN products p on op."productId" = p.id;
             `
         );
-
+            console.log("DBProducts", products)
         //combine orders with their products
-        const orderProducts = orders.map((order) => {
+        const ordersWithProducts = orders.map((order) => {
             order.products = products.filter(
                 (product) => product.orderId === order.id
             );
+            console.log("DBOrder>>>",order)
             return order;
         });
 
-        return orderProducts;
+        return ordersWithProducts;
     } catch (error) {
         throw Error(error);
     }
@@ -104,22 +133,32 @@ async function getOrdersByUser({ id }) {
         //get user's orders
         const { rows: orders } = await client.query(
             `
-                SELECT *
-                FROM orders
-                WHERE "userId" = $1;
-                `,
+            SELECT 
+                *
+            FROM orders
+            WHERE "userId" = $1;
+            `,
             [id]
         );
 
         //get products
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join orders o on op."orderId" = o.id
-            join products p on op."productId" = p.id;
-            where o."userId" = $1;
+            SELECT
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN orders o on op."orderId" = o.id
+                JOIN products p on op."productId" = p.id;
+            WHERE o."userId" = $1;
             `,
             [id]
         );
@@ -144,10 +183,11 @@ async function getOrdersByProduct({ id }) {
         //get orders
         const { rows: orders } = await client.query(
             `
-            select o.*
-            from orders o
-            join order_products op on o.id = op.id
-            where op."productId" = $1;
+            SELECT 
+                o.*
+            FROM orders o
+                JOIN order_products op on o.id = op.id
+            WHERE op."productId" = $1;
             `,
             [id]
         );
@@ -155,12 +195,21 @@ async function getOrdersByProduct({ id }) {
         //get products
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join orders o on op."orderId" = o.id
-            join products p on op."productId" = p.id;
-            where op."productId" = $1;
+            SELECT
+                op.id as "orderProductId",
+                op."productId", 
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN orders o on op."orderId" = o.id
+                JOIN products p on op."productId" = p.id;
+            WHERE op."productId" = $1;
             `,
             [id]
         );
@@ -198,12 +247,21 @@ async function getCartByUser({ id }) {
         //get products
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join orders o on op."orderId" = o.id
-            join products p on op."productId" = p.id;
-            where op."userId" = $1
+            SELECT
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN orders o on op."orderId" = o.id
+                JOIN products p on op."productId" = p.id;
+            WHERE op."userId" = $1
                 AND o.status = 'created';
             `,
             [id]
