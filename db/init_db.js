@@ -2,13 +2,6 @@
 //(DD): Testing DB push
 // Requires
 const client = require("./client");
-const {
-    createProduct,
-    createUser,
-    createReview,
-    createOrder,
-    // other db methods
-} = require("./index");
 
 const {populateInitialData} = require('./seed_db');
 
@@ -51,7 +44,8 @@ async function buildTables() {
                 "imageURL"    TEXT DEFAULT 'https://image.flaticon.com/icons/png/512/1160/1160922.png' ,
                 username      VARCHAR(255) UNIQUE NOT NULL,
                 password      VARCHAR(255) NOT NULL,
-                "isAdmin"     BOOLEAN NOT NULL DEFAULT false
+                "isAdmin"     BOOLEAN NOT NULL DEFAULT false,
+                "isActive"        BOOLEAN NOT NULL DEFAULT true
             );
 
             CREATE TABLE orders (

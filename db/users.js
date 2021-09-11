@@ -74,7 +74,8 @@ async function getAllUsers() {
                 email,
                 "imageURL",
                 username,
-                "isAdmin"
+                "isAdmin",
+                "isActive"
             FROM users;
             `
         );
@@ -98,7 +99,8 @@ async function getUserById(id) {
                 email,
                 "imageURL",
                 username,
-                "isAdmin"
+                "isAdmin",
+                "isActive"
             FROM users
             WHERE id = $1;
             `,
@@ -121,7 +123,8 @@ async function _getUserByUsername(username) {
             SELECT 
                 *
             FROM users
-            WHERE username = $1;
+            WHERE username = $1
+                AND "isActive" = true;
             `,
             [username]
         );
@@ -242,6 +245,7 @@ async function updateUserByAdmin(
     email,
     username,
     isAdmin,
+    isActive
 ) {
     try {
         const {
@@ -254,9 +258,10 @@ async function updateUserByAdmin(
                 "lastName" = $2, 
                 email = $3, 
                 username = $4, 
-                "isAdmin" = $5
-            WHERE id = $6
-            RETURNING id, "firstName", "lastName", email, username, "isAdmin";
+                "isAdmin" = $5,
+                "isActive" = $6
+            WHERE id = $7
+            RETURNING id, "firstName", "lastName", email, username, "isAdmin", "isActive";
             `,
             [
                 firstName,
@@ -264,6 +269,7 @@ async function updateUserByAdmin(
                 email,
                 username,
                 isAdmin,
+                isActive,
                 id
             ]
         );

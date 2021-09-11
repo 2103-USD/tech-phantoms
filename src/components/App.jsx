@@ -75,9 +75,9 @@ export const App = () => {
 					<Route exact path="/admin/user/:userId">
 						<AdminUser />
 					</Route>
-					<Route exact path="/admin/order/:orderId">
+					{/* <Route exact path="/admin/order/:orderId">
 						<AdminOrder />
-					</Route>
+					</Route> */}
 					<Route exact path="/cart">
 						<Cart user={user} />
 					</Route>

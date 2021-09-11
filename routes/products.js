@@ -10,7 +10,6 @@ const {
     getAllProductsByCategory
 } = require('../db');
 const {
-    requireUser, 
     requireAdmin
 } = require('./utils')
 
