@@ -29,11 +29,12 @@ export const AdminUsers = () => {
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Admin?</th>
+                            <th>Active?</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {siteUsers.map(({id, username, firstName, lastName, email, isAdmin}) => {
+                        {siteUsers.map(({id, username, firstName, lastName, email, isAdmin, isActive}) => {
                             return( 
                             <tr key={`UserList${id}`}>
                                 <td>{username}</td>
@@ -41,6 +42,7 @@ export const AdminUsers = () => {
                                 <td>{lastName}</td>
                                 <td>{email}</td>
                                 <td>{isAdmin ? "Yes": ""}</td>
+                                <td>{isActive ? "Yes": "No"}</td>
                                 <td><Link to={`/Admin/User/${id}`}>Edit user details</Link></td>
                             </tr>
                             )
