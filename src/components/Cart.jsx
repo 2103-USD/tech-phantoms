@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import {
 	GetCurrentCart,
+	GetCurrentUsername,
 	getOpenCart,
-	addItemToCart,
-	getProduct,
+	removeProductFromOrder,
 	updateProductInOrder,
 } from '../api';
 import { useHistory } from 'react-router-dom';
 import './style.css';
 
-export const Cart = ({ user }) => {
+export const Cart = (props) => {
 	const [cart, setCart] = useState({});
+	const user = GetCurrentUsername();
 	const history = useHistory();
+	const { id, status, userId, datePlaced, products } = cart;
+	console.log('this is the cart', cart);
+	const orderId = GetCurrentCart();
 	const [form, setForm] = useState({
 		orderProductId: '',
 		price: 0,
-		quantity: 0,
+		quantity: cart.quantity,
 	});
-	const { id, status, userId, datePlaced, products } = cart;
 
 	useEffect(() => {
 		const callback = async () => {
@@ -35,11 +38,25 @@ export const Cart = ({ user }) => {
 	const handleSubmit = async (e) => {
 		e.preventDevault();
 		try {
-			const res = await updateProductInOrder({
-				orderProductId: form.orderProductId,
-				price: form.price,
-				quantity: form.quantity,
-			});
+			const res = await updateProductInOrder(
+				form.orderProductId,
+				form.price,
+				form.quantity
+			);
+			setCart(res.cart);
+			history.push('/cart');
+		} catch (error) {
+			throw error;
+		}
+	};
+
+	const handleRemove = async (e) => {
+		e.persist();
+		try {
+			console.log('this is the remove product order id', e.target.id);
+
+			const res = await removeProductFromOrder(e.target.id);
+			console.log('this is the remove product order id', res);
 			setCart(res.cart);
 			history.push('/cart');
 		} catch (error) {
@@ -48,11 +65,22 @@ export const Cart = ({ user }) => {
 	};
 
 	return (
-		<div>
-			<div>
-				{user ? (
-					<div className="cart-products">
-						<h2>{user.username}'s Cart</h2>
+		<div className="cart-products">
+			<h2>{user}'s Cart</h2>
+			<div key={`orderId${orderId}`}>
+				<table className="cartList">
+					<thead>
+						<tr>
+							<th>Order Product Id</th>
+							<th>Product</th>
+							<th>Category</th>
+							<th>Description</th>
+							<th>In Stock</th>
+							<th>Price</th>
+							<th>Quantity</th>
+						</tr>
+					</thead>
+					<tbody>
 						{products?.map(
 							({
 								orderProductId,
@@ -66,75 +94,45 @@ export const Cart = ({ user }) => {
 								category,
 							}) => {
 								return (
-									<div key={`cartProduct${orderProductId}`}>
-										<h2>Product: {name}</h2>
-										<h2>price: {price}</h2>
-										<h2>quantity: {quantity}</h2>
-										<h2>description: {description}</h2>
-										<h2>inStock: {inStock}</h2>
-										<h2>category: {category}</h2>
-									</div>
+									<tr key={`cartProduct${productId}`}>
+										<td>{orderProductId}</td>
+										<td>{name}</td>
+										<td>{category}</td>
+										<td>{description}</td>
+										<td>{inStock}</td>
+										<td>{price}</td>
+										<td>
+											<form onSubmit={handleSubmit}>
+												<input
+													name={`quantity${productId}`}
+													type="number"
+													min="1"
+													defaultValue={quantity}
+													value={form.quantity}
+													onChange={handleInput}
+												/>
+											</form>
+											<button
+												type="submit"
+												className="update-button"
+											>
+												Update Quantity
+											</button>
+											<button
+												type="button"
+												className="remove-button"
+												id={orderProductId}
+												onClick={handleRemove}
+											>
+												Remove Product
+											</button>
+										</td>
+									</tr>
 								);
 							}
 						)}
-						{/* <form onSubmit={handleSubmit}>
-								<label>Quantity</label>
-								<input
-									type="number"
-									value={form.quantity}
-									onChange={handleInput}
-								/>
-							</form> */}
-
-						{/* <button
-								className="quantity-button"
-								style={{ backgroundColor: '#84f01e' }}
-								onClick={addItemToCart(
-									productId,
-									price,
-									'1',
-									GetCurrentCart()
-								)}
-							>
-								+
-							</button>
-							<button
-								className="quantity-button"
-								style={{ backgroundColor: '#f14e4e' }}
-								onClick={addItemToCart(
-									productId,
-									price,
-									'1',
-									GetCurrentCart()
-								)}
-							>
-								-
-							</button> */}
-						<button
-							style={{
-								backgroundColor: 'orange',
-								margin: '5px',
-							}}
-							// onClick={}
-						>
-							Empty Cart
-						</button>
-					</div>
-				) : (
-					<>
-						<h2>Cart</h2>
-						{/* <Order cart={cart} setCart={setCart} /> */}
-						<button
-							style={{
-								backgroundColor: 'orange',
-								margin: '5px',
-							}}
-							// onClick={}
-						>
-							Empty Cart
-						</button>
-					</>
-				)}
+					</tbody>
+				</table>
 			</div>
 		</div>
 	);

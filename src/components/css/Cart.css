@@ -1,0 +1,17 @@
+.update-button {
+    background-color: #4eb5f1;
+    margin: 5px;
+}
+
+.update-button:hover{
+    background-color:#4095c6;
+    }
+
+.remove-button {
+    background-color: #4eb5f1;
+    margin: 5px;
+}
+
+.remove-button:hover{
+    background-color:#4095c6;
+    }

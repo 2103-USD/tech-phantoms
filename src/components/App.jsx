@@ -79,7 +79,7 @@ export const App = () => {
 						<AdminOrder />
 					</Route>
 					<Route exact path="/cart">
-						<Cart user={user} />
+						<Cart />
 					</Route>
 					<Route exact path="/checkout">
 						<Checkout />
