@@ -3,11 +3,10 @@ import {BASE_URL, getHeaders} from './auth'
 
 const SectionURL = `${BASE_URL}/order_products`;
 
-export async function updateProductInOrder(orderProductId, price, quantity) {
+export async function updateProductInOrder(orderProductId, quantity) {
     const URL = `${SectionURL}/${orderProductId}`
     try {
         const {data} = await axios.patch(`${URL}`,{
-            price,
             quantity
         }, getHeaders());
         return data;
