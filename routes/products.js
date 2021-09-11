@@ -1,6 +1,5 @@
 // Requires
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const {
     getProductById,
     getAllProducts,
@@ -64,7 +63,7 @@ productsRouter.get('/:productId', async (req, res, next) => {
 });
 
 // GUEST: Get all products in particular category
-productsRouter.get('/:category', async (req, res, next) => {
+productsRouter.get('/category/:category', async (req, res, next) => {
     const {category} = req.params
     try {
         const product = await getAllProductsByCategory(category)
@@ -122,7 +121,6 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
         } = req.body
         const {productId:id} = req.params
         const product = await getProductById(id)
-        console.log("ROUTEProduct", product)
         if (product) {
             const updatedProduct = await updateProduct({id, name, description, price, imageURL, inStock, category})
             if (updatedProduct) {

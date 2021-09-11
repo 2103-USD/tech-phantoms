@@ -21,6 +21,27 @@ async function getReviewsByProductId(id) {
     }
 }
 
+//Get all reviews for product
+async function getStarsByProductId(id) {
+    try {
+        const {
+            rows: [product],
+        } = await client.query(
+            `
+                SELECT 
+                    SUM(stars) / COUNT(*)
+                FROM reviews
+                WHERE "productId" = $1;
+            `,
+            [id]
+        );
+        return product;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
 //Get review by ID
 async function getReviewById(id) {
     try {
@@ -123,5 +144,6 @@ module.exports = {
     createReview,
     updateReview,
     deleteReview,
-    getReviewById
+    getReviewById,
+    getStarsByProductId
 };

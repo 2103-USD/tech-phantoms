@@ -1,6 +1,5 @@
 // Requires
 const express = require('express');
-const jwt = require('jsonwebtoken');
 const {
     getOrderById,
     getAllOrders,
@@ -9,7 +8,8 @@ const {
     createOrder,
     addProductToOrder,
     updateOrder,
-    cancelOrder
+    cancelOrder,
+    emptyCart
 } = require('../db');
 const {
     requireUser, 
@@ -46,6 +46,25 @@ ordersRouter.get('/cart', requireUser, async (req, res, next) => {
         const order = await getCartByUser({id});
         if (order) {
             res.send(order)
+        }
+        else {
+            next({
+                name:"CartNotFound",
+                message:"You do not have an active cart."
+            })
+        }
+    } catch ({ name, message }) {
+        next({ name, message })
+    }
+})
+
+// USER: empty a user's cart
+ordersRouter.post('/:orderId/empty', verifyUserIsOrderOwner, async (req, res, next) => {
+    try {
+        const {orderId: id} = req.params
+        const cart = await emptyCart({id});
+        if (cart) {
+            res.send(cart)
         }
         else {
             next({

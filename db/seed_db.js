@@ -575,9 +575,9 @@ async function createInitialReviews() {
         },
         {
             productId: 3,
-            title: "Excellent Device",
-            content: "Works well for all my students.",
-            stars: 5,
+            title: "Works ok",
+            content: "Nothing too fancy.",
+            stars: 3,
             userId: 1,
         },
         {

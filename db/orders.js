@@ -17,7 +17,7 @@ async function getOrderById(id) {
                 o.*
             FROM orders o 
                 JOIN users u ON o."userId" = u.id
-            WHERE id = $1
+            WHERE o.id = $1
       `,
             [id]
         );
@@ -43,8 +43,10 @@ async function getOrderById(id) {
         );
 
         order.products = products;
+        console.log("getOrderById_Order", order)
         return order;
     } catch (error) {
+        console.log("getOrderById_Error", error)
         throw Error(error);
     }
 }
@@ -338,6 +340,42 @@ async function completeOrder({ id }) {
     }
 }
 
+//empty shopping cart
+async function emptyCart({ id }) {
+    try {
+        //Get the parent order
+        const {
+            rows: [order],
+        } = await client.query(
+            `
+                SELECT *
+                FROM orders
+                WHERE id = $1
+                    AND status = 'created';
+                `,
+            [id]
+        );
+        
+        if (order) {
+            //get newly-emptied item list
+            const { rows: products } = await client.query(
+                `
+                DELETE 
+                FROM order_products op
+                WHERE op."orderId" = $1
+                RETURNING *
+                `,
+                [id]
+            );
+            order.products = products;
+        }
+        return order;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
 //cancel order
 async function cancelOrder({ id }) {
     try {
@@ -370,4 +408,5 @@ module.exports = {
     updateOrder,
     completeOrder,
     cancelOrder,
+    emptyCart
 };
