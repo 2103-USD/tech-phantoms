@@ -63,8 +63,8 @@ async function buildTables() {
 
             CREATE TABLE order_products (
                 id            SERIAL PRIMARY KEY,
-                "productId"   INT,
-                "orderId"     INT,
+                "productId"   INT NOT NULL,
+                "orderId"     INT NOT NULL,
                 price         REAL NOT NULL,
                 quantity      INT NOT NULL DEFAULT 0,
                 CONSTRAINT fk_products
@@ -72,7 +72,9 @@ async function buildTables() {
                         REFERENCES products(id),
                 CONSTRAINT fk_orders
                     FOREIGN KEY ("orderId")
-                        REFERENCES orders(id)
+                        REFERENCES orders(id),
+                CONSTRAINT idx_orderProducts
+                    UNIQUE ( "orderId", "productId" )
             );
 
             CREATE TABLE reviews (

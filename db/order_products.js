@@ -33,6 +33,9 @@ async function addProductToOrder({ orderId, productId, price, quantity }) {
             `
             INSERT INTO order_products ("orderId", "productId", price, quantity)
             VALUES ($1, $2, $3, $4)
+            ON CONFLICT ON CONSTRAINT idx_orderProducts
+            DO UPDATE
+            SET quantity = order_products.quantity + 1
             RETURNING *;
             `,
             [orderId, productId, price, quantity]
