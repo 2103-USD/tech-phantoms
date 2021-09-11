@@ -88,9 +88,10 @@ async function verifyUserIsOrderProductOwner(req, res, next) {
         }
 
         const {orderProductId} = req.params
-        const orderProduct = await getOrderProductById(orderProductId)
+        const [orderProduct] = await getOrderProductById(orderProductId)
         if (orderProduct) {
             const {id:UserId} = req.user;
+            const orderId = orderProduct.orderId
             const order = await getOrderById(orderId);
             if (order) {
                 //Check if user is order owner
@@ -98,7 +99,7 @@ async function verifyUserIsOrderProductOwner(req, res, next) {
                     next();
                 }
                 else {
-                    res.status(403)
+                    // res.status(403)
                     next({
                         name:"NotYourOrder",
                         message:"This is not your order."
@@ -106,7 +107,7 @@ async function verifyUserIsOrderProductOwner(req, res, next) {
                 }
             }
             else {
-                res.status(404)
+                // res.status(404)
                 next({
                     name:"OrderNotFound",
                     message:"The order was not found."

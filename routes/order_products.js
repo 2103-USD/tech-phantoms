@@ -16,9 +16,9 @@ const orderProductsRouter = express.Router();
 // USER: Update an order product
 orderProductsRouter.patch('/:orderProductId', verifyUserIsOrderProductOwner, async (req, res, next) => {
     try {
-        const {price, quantity} = req.body
-        const {orderProductId} = req.params
-        const updatedProduct = await updateOrderProduct({orderProductId, price, quantity})
+        const { quantity } = req.body
+        const { orderProductId } = req.params
+        const updatedProduct = await updateOrderProduct({id:orderProductId, quantity})
         if (updatedProduct) {
             res.send(updatedProduct)
         }

@@ -23,13 +23,13 @@ export function GetCurrentUser() {
 }
 
 export function GetCurrentUserID() {
-    const userID = localStorage.getItem('currentUserID');
-    return userID;
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user.id;
 }
 
 export function GetCurrentUsername() {
-    const userName = JSON.parse(localStorage.getItem('currentUsername'));
-    return userName;
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user.username;
 }
 
 export function getCurrentToken() {

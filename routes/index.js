@@ -10,7 +10,7 @@ const usersRouter = require ('./users');
 const ordersRouter = require ('./orders');
 const orderProductsRouter = require ('./order_products');
 const productsRouter = require ('./products');
-const reviewsRouter = require ('./products');
+const reviewsRouter = require ('./reviews');
 
 const { getUserById } = require('../db');
 
