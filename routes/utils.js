@@ -88,9 +88,10 @@ async function verifyUserIsOrderProductOwner(req, res, next) {
         }
 
         const {orderProductId} = req.params
-        const orderProduct = await getOrderProductById(orderProductId)
+        const [orderProduct] = await getOrderProductById(orderProductId)
         if (orderProduct) {
             const {id:UserId} = req.user;
+            const orderId = orderProduct.orderId
             const order = await getOrderById(orderId);
             if (order) {
                 //Check if user is order owner
