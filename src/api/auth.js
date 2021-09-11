@@ -7,9 +7,14 @@ export function storeCurrentUser(data) {
     localStorage.setItem('currentToken', JSON.stringify(data.token));
 }
 
+export function storeCurrentCart(data) {
+    localStorage.setItem('currentCart', JSON.stringify(data.id));
+}
+
 export function clearCurrentUser() {
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentToken');
+    localStorage.removeItem('currentCart');
 }
 
 export function GetCurrentUser() {
@@ -32,6 +37,11 @@ export function getCurrentToken() {
     return token;
 }
 
+export function GetCurrentCart() {
+    const user = JSON.parse(localStorage.getItem('currentCart'));
+    return user;
+}
+
 export function getHeaders() {
     return {
         headers: {
@@ -40,3 +50,6 @@ export function getHeaders() {
         }
     }
 }
+
+
+

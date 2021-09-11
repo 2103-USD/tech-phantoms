@@ -1,5 +1,6 @@
 import axios from "axios";
-import { BASE_URL, getHeaders, storeCurrentUser } from "./auth";
+import { BASE_URL, getHeaders, storeCurrentUser, storeCurrentCart } from "./auth";
+import { getOpenCart, createNewOrder } from "./orders"
 
 const SectionURL = `${BASE_URL}/users`;
 
@@ -24,6 +25,15 @@ export async function registerNewUser( {
             isAdmin:0
         })
         storeCurrentUser(data)
+        
+        const cart = await getOpenCart()
+        if (cart.id) {
+            storeCurrentCart(cart)
+        } else {
+            const newCart = await createNewOrder()
+            storeCurrentCart(newCart)
+        }
+
         return data
     } catch (error) {
         console.error(error);
@@ -38,7 +48,17 @@ export async function loginExistingUser({username, password}) {
             username,
             password,
         });
+
         storeCurrentUser(data);
+        
+        const cart = await getOpenCart()
+        if (cart.id) {
+            storeCurrentCart(cart)
+        } else {
+            const newCart = await createNewOrder()
+            storeCurrentCart(newCart)
+        }
+
         return data;
     } catch (error) {
         console.error(error);

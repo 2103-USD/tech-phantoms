@@ -36,7 +36,7 @@ async function getOrderById(id) {
                 p."inStock",
                 p.category
             FROM order_products op
-                JOIN products p on op."productId" = p.id;
+                JOIN products p on op."productId" = p.id
             WHERE op."orderId" = $1;
             `,
             [id]
@@ -157,7 +157,7 @@ async function getOrdersByUser({ id }) {
                 p.category
             FROM order_products op
                 JOIN orders o on op."orderId" = o.id
-                JOIN products p on op."productId" = p.id;
+                JOIN products p on op."productId" = p.id
             WHERE o."userId" = $1;
             `,
             [id]
@@ -208,7 +208,7 @@ async function getOrdersByProduct({ id }) {
                 p.category
             FROM order_products op
                 JOIN orders o on op."orderId" = o.id
-                JOIN products p on op."productId" = p.id;
+                JOIN products p on op."productId" = p.id
             WHERE op."productId" = $1;
             `,
             [id]
@@ -231,7 +231,7 @@ async function getOrdersByProduct({ id }) {
 //get cart by user
 async function getCartByUser({ id }) {
     try {
-        //get user's orders
+        //get user's order cart
         const {
             rows: [order],
         } = await client.query(
@@ -243,31 +243,33 @@ async function getCartByUser({ id }) {
                 `,
             [id]
         );
+        
+        if (order) {
+            //get products
+            const { rows: products } = await client.query(
+                `
+                SELECT
+                    op.id as "orderProductId",
+                    op."productId",
+                    op."orderId",
+                    op.price, 
+                    op.quantity,
+                    p.name,
+                    p.description,
+                    p."imageURL",
+                    p."inStock",
+                    p.category
+                FROM order_products op
+                    JOIN orders o on op."orderId" = o.id
+                    JOIN products p on op."productId" = p.id
+                WHERE o."userId" = $1
+                    AND o.status = 'created';
+                `,
+                [id]
+            );
+            order.products = products;
+        }
 
-        //get products
-        const { rows: products } = await client.query(
-            `
-            SELECT
-                op.id as "orderProductId",
-                op."productId",
-                op."orderId",
-                op.price, 
-                op.quantity,
-                p.name,
-                p.description,
-                p."imageURL",
-                p."inStock",
-                p.category
-            FROM order_products op
-                JOIN orders o on op."orderId" = o.id
-                JOIN products p on op."productId" = p.id;
-            WHERE op."userId" = $1
-                AND o.status = 'created';
-            `,
-            [id]
-        );
-
-        order.products = products;
         return order;
     } catch (error) {
         throw error;

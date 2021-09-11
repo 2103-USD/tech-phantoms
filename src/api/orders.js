@@ -15,13 +15,15 @@ export async function getAllOrders() {
 	}
 }
 
-export async function createNewOrder(status) {
+export async function createNewOrder() {
     const URL = `${SectionURL}/`
+    const status = "created"
     try {
-        const {data} = await axios.post(`${URL}`,{
+		const {data:cart} = await axios.post(`${URL}`,{
             status
-        }, getHeaders());
-        return data;
+        },
+            getHeaders());
+        return cart;
     }
     catch (error) {
         throw error;
@@ -31,9 +33,9 @@ export async function createNewOrder(status) {
 export async function getOpenCart() {
     const URL = `${SectionURL}/cart`
 	try {
-		const {data} = await axios.get(`${URL}`,
+		const {data:cart} = await axios.get(`${URL}`,
             getHeaders());
-		return data;
+		return cart;
 	} catch (error) {
 		throw error;
 	}
