@@ -17,7 +17,7 @@ async function getOrderById(id) {
                 o.*
             FROM orders o 
                 JOIN users u ON o."userId" = u.id
-            WHERE id = $1
+            WHERE o.id = $1
       `,
             [id]
         );
