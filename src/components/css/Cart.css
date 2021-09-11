@@ -1,17 +1,30 @@
 .update-button {
-    background-color: #4eb5f1;
-    margin: 5px;
+	background-color: #4eb5f1;
+	margin: 5px;
 }
 
-.update-button:hover{
-    background-color:#4095c6;
-    }
+.update-button:hover {
+	background-color: #4095c6;
+}
 
 .remove-button {
-    background-color: #4eb5f1;
-    margin: 5px;
+	background-color: #4eb5f1;
+	margin: 5px;
 }
 
-.remove-button:hover{
-    background-color:#4095c6;
-    }
+.remove-button:hover {
+	background-color: #4095c6;
+}
+
+.checkout-button {
+	background-color: #4eb5f1;
+	font: bold;
+	font-size: larger;
+	height: 40px;
+	width: 100px;
+	margin: 5px;
+}
+
+.checkout-button:hover {
+	background-color: orange;
+}

@@ -3,21 +3,25 @@ import { addItemToCart, GetCurrentCart } from '../api';
 import { Link } from 'react-router-dom';
 import './style.css';
 
-export const ProductCard = ({ product }) => {
-
+export const ProductCard = ({ product, user }) => {
 	const { id, name, description, price, imageURL, inStock, category } =
 		product;
 
-        const productId = product.id
+	const productId = product.id;
 
 	const addProductToCart = async () => {
-       const cartItem = await addItemToCart(productId, price, '1', GetCurrentCart());
-		console.log('cartitem', cartItem)
-       if(cartItem) {
-        alert('Product successfully added to cart!') 
-     } else {
-         alert('Error adding product to cart!')
-     }
+		const cartItem = await addItemToCart(
+			productId,
+			price,
+			'1',
+			GetCurrentCart()
+		);
+		console.log('cartitem', cartItem);
+		if (cartItem) {
+			alert('Product successfully added to cart!');
+		} else {
+			alert('Error adding product to cart!');
+		}
 	};
 
 	return (
@@ -39,14 +43,20 @@ export const ProductCard = ({ product }) => {
 			<p>Price: ${price}</p>
 			<p>In Stock: {inStock}</p>
 			<br></br>
-			<span>Add to Cart</span>
-			<button
-				className="quantity-button"
-				style={{ backgroundColor: '#84f01e' }}
-                onClick={addProductToCart}
-			>
-				+
-			</button>
+			{user ? (
+				<>
+					<span>Add to Cart</span>
+					<button
+						className="quantity-button"
+						style={{ backgroundColor: '#84f01e' }}
+						onClick={addProductToCart}
+					>
+						+
+					</button>
+				</>
+			) : (
+				''
+			)}
 		</div>
 	);
 };

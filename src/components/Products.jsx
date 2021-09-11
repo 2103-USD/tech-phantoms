@@ -3,7 +3,7 @@ import { ProductCard } from "./ProductCard";
 import { getAllProducts } from "../api";
 import "./style.css";
 
-export const Products = () => {
+export const Products = ({user}) => {
     const [products, setProducts] = useState([]);
 
     const handleProducts = async () => {
@@ -21,7 +21,7 @@ export const Products = () => {
             <h2>Products:</h2>
             <div className="products-body">
                 {products.map((product) => {
-                    return <ProductCard key={product.id} product={product} />;
+                    return <ProductCard key={product.id} product={product} user={user} />;
                 })}
             </div>
         </div>
