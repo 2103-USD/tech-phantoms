@@ -1,6 +1,6 @@
 import React from 'react';
 import { addItemToCart, GetCurrentCart } from '../api';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 export const ProductCard = ({ product }) => {
