@@ -5,16 +5,12 @@ import { adminUpdateUser, getSpecificUser} from "../api";
 
 export const AdminUser = () => {
     const {userId} = useParams();
-    const [user, setUser] = useState([]);
     const history = useHistory();
     const [form, setForm] = useState({ username: "", email:"", firstname: "", lastname: "", admin:false, isActive:true });
     
     useEffect(() => {
         const callback = async () => {
             const usr = await getSpecificUser(userId)
-            console.log(usr)
-            setUser(usr);
-            console.log(usr.isActive)
             setForm({ username: usr.username, email:usr.email, firstname: usr.firstName , lastname: usr.lastName, admin:usr.isAdmin, isActive:usr.isActive })
         }
         callback();
@@ -26,7 +22,6 @@ export const AdminUser = () => {
         const name = e.target.name
         if (name === "admin" || name ==="isActive") {
             value = Boolean(e.target.checked)
-            console.log("target", e.target.checked, e.target.value)
         }
         setForm({ ...form, [name]: value });
     };
@@ -34,7 +29,7 @@ export const AdminUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await adminUpdateUser( {
+            await adminUpdateUser( {
                 id: userId,
                 username: form.username,
                 firstName: form.firstname,
@@ -43,7 +38,6 @@ export const AdminUser = () => {
                 isAdmin: form.admin,
                 isActive: form.isActive
             });
-            setUser(res.user)
             history.push("/admin/users")
         } catch (error) {
             console.error(error);

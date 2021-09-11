@@ -12,7 +12,6 @@ import {
 	FeaturedItems,
 	Footer,
 	AdminOrders,
-	AdminOrder,
 	AdminUsers,
 	AdminUser,
 	AdminProducts,
