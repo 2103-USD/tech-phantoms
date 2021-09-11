@@ -1,83 +1,78 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
 	GetCurrentCart,
-	GetCurrentUsername,
 	getOpenCart,
 	removeProductFromOrder,
 	updateProductInOrder,
 } from '../api';
-import { useHistory } from 'react-router-dom';
 import './style.css';
 
 export const Cart = (props) => {
 	const [cart, setCart] = useState({});
-	const user = GetCurrentUsername();
-	const history = useHistory();
-	const { id, status, userId, datePlaced, products } = cart;
-	console.log('this is the cart', cart);
+	const { id, status, userId, datePlaced, products } = cart || {};
 	const orderId = GetCurrentCart();
 	const [form, setForm] = useState({
 		orderProductId: '',
-		price: 0,
-		quantity: cart.quantity,
+		quantity: cart?.quantity,
 	});
 
 	useEffect(() => {
 		const callback = async () => {
 			const _cart = await getOpenCart();
 			setCart(_cart);
-			setForm({ quantity: _cart.quantity });
 		};
 		callback();
 	}, []);
 
-	const handleInput = (e) => {
-		setForm({ ...form, [e.target.name]: e.target.value });
+	const handleInput = (e, productId) => {
+		setForm({ ...form, [e.target.name]: e.target.value, orderProductId: productId });
 	};
 
 	const handleSubmit = async (e) => {
-		e.preventDevault();
+		e.preventDefault();
 		try {
-			const res = await updateProductInOrder(
+			console.log('this is the form', form)
+			await updateProductInOrder(
 				form.orderProductId,
-				form.price,
-				form.quantity
+				Number(form.quantity)
 			);
-			setCart(res.cart);
-			history.push('/cart');
+			const res = await getOpenCart();
+
+			setCart(res);
 		} catch (error) {
 			throw error;
 		}
 	};
 
 	const handleRemove = async (e) => {
-		e.persist();
-		try {
-			console.log('this is the remove product order id', e.target.id);
+			try {
+				console.log('this is the remove product order id', e.target.id);
 
-			const res = await removeProductFromOrder(e.target.id);
-			console.log('this is the remove product order id', res);
-			setCart(res.cart);
-			history.push('/cart');
-		} catch (error) {
-			throw error;
-		}
+				await removeProductFromOrder(e.target.id);
+				const res = await getOpenCart();
+
+				setCart(res);
+			} catch (error) {
+				throw error;
+			}
 	};
 
 	return (
 		<div className="cart-products">
-			<h2>{user}'s Cart</h2>
+			<h2>Your Cart!</h2>
+			<Link to='/checkout'><button className='checkout-button' >Checkout</button></Link>
 			<div key={`orderId${orderId}`}>
 				<table className="cartList">
 					<thead>
 						<tr>
-							<th>Order Product Id</th>
 							<th>Product</th>
 							<th>Category</th>
 							<th>Description</th>
 							<th>In Stock</th>
 							<th>Price</th>
 							<th>Quantity</th>
+							<th>Total</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -95,31 +90,30 @@ export const Cart = (props) => {
 							}) => {
 								return (
 									<tr key={`cartProduct${productId}`}>
-										<td>{orderProductId}</td>
 										<td>{name}</td>
 										<td>{category}</td>
 										<td>{description}</td>
 										<td>{inStock}</td>
-										<td>{price}</td>
+										<td>${price}</td>
 										<td>
 											<form onSubmit={handleSubmit}>
 												<input
-													name={`quantity${productId}`}
+													name='quantity'
 													type="number"
 													min="1"
 													defaultValue={quantity}
-													value={form.quantity}
-													onChange={handleInput}
+													// value={form.quantity}
+													onChange={(e) => handleInput(e, orderProductId)}
 												/>
-											</form>
+											<br></br>
 											<button
 												type="submit"
 												className="update-button"
 											>
 												Update Quantity
 											</button>
+											</form>
 											<button
-												type="button"
 												className="remove-button"
 												id={orderProductId}
 												onClick={handleRemove}
@@ -127,6 +121,7 @@ export const Cart = (props) => {
 												Remove Product
 											</button>
 										</td>
+										<td>${quantity * price}</td>
 									</tr>
 								);
 							}

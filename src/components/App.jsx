@@ -55,10 +55,10 @@ export const App = () => {
 						<FeaturedItems />
 					</Route>
 					<Route exact path="/products">
-						<Products />
+						<Products user={user} />
 					</Route>
 					<Route exact path="/product/:productId">
-						<Product />
+						<Product user={user} />
 					</Route>
 					<Route exact path="/admin/products">
 						<AdminProducts />
