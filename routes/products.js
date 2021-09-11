@@ -121,7 +121,6 @@ productsRouter.patch('/:productId', requireAdmin, async (req, res, next) => {
         } = req.body
         const {productId:id} = req.params
         const product = await getProductById(id)
-        console.log("ROUTEProduct", product)
         if (product) {
             const updatedProduct = await updateProduct({id, name, description, price, imageURL, inStock, category})
             if (updatedProduct) {
