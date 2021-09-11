@@ -63,7 +63,7 @@ productsRouter.get('/:productId', async (req, res, next) => {
 });
 
 // GUEST: Get all products in particular category
-productsRouter.get('/:category', async (req, res, next) => {
+productsRouter.get('/category/:category', async (req, res, next) => {
     const {category} = req.params
     try {
         const product = await getAllProductsByCategory(category)
