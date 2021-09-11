@@ -95,7 +95,6 @@ usersRouter.post('/login', async (req, res, next) => {
     try {
         // request must have both username and password
         const { username, password} = req.body;
-        console.log("PassedInCreds",username, password)
         if (!username || !password) {
             res.status(401);
             next({

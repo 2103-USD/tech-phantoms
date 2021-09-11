@@ -1,15 +1,19 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {clearCurrentUser} from '../api/auth'
 import "./style.css";
 
 export const NavBar = ({ user, setUser }) => {
 
+    const history = useHistory();
+    
     const handleLogOut = async (e) => {
         e.preventDefault();
         try {
             clearCurrentUser()
             setUser(null);
+            history.push("/")
         } catch (error) {
             console.error(error)
         }

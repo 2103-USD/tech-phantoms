@@ -29,7 +29,6 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
             res.send(order)
         }
         else {
-            res.status(404)
             next({
                 name:"OrderNotFound",
                 message:"The order was not able to be created."
@@ -44,12 +43,11 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
 ordersRouter.get('/cart', requireUser, async (req, res, next) => {
     try {
         const {id} = req.user
-        const order = await getCartByUser(id);
+        const order = await getCartByUser({id});
         if (order) {
             res.send(order)
         }
         else {
-            res.status(404)
             next({
                 name:"CartNotFound",
                 message:"You do not have an active cart."
@@ -69,7 +67,6 @@ ordersRouter.get('/orders', requireUser, async (req, res, next) => {
             res.send(order)
         }
         else {
-            res.status(404)
             next({
                 name:"OrdersNotFound",
                 message:"You do not have any orders placed. Why not shop around?"
