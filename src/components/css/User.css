@@ -6,21 +6,23 @@
     justify-content: left;
     flex-wrap: wrap;
     align-items: top;
-    font-family: 'Marmelad', sans-serif;
+    font-family: "Marmelad", sans-serif;
     color: #333;
     padding: 2rem;
-    padding-bottom: 0rem;
+    overflow: auto;
+    padding-bottom: 180px;
     margin-left: 4rem;
-  }
-
-h2 { color: white;
-     margin-left: '1rem' 
 }
-  .user .user-card {
+
+h2 {
+    color: white;
+    margin-left: "1rem";
+}
+.user .user-card {
     display: flex;
     min-width: 900px;
     max-width: 900px;
-    background: #FFF;
+    background: #fff;
     flex-direction: row;
     font-size: 1rem;
     border: 1px solid #999;
@@ -30,58 +32,57 @@ h2 { color: white;
     margin: 1rem;
     margin-bottom: 5rem;
     margin-left: 1rem;
-  }
-  
-  .user .user-card h2 {
-    margin-bottom: .8rem;
-    margin-top: .5rem;
-  }
-  
-  .user .user-card .description {
-    font-family: 'Marmelad', sans-serif;
-    font-size: 1.2rem;
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-    color: #333;
-  }
+}
 
-  
-  .user-data {
+.user .user-card h2 {
+    margin-bottom: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.user .user-card .description {
+    font-family: "Marmelad", sans-serif;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.user-data {
     width: 350px;
     padding: 1.5rem;
-  }
-  
-  .order-history {
+}
+
+.order-history {
     width: 550px;
     padding: 1.5rem;
-  }
-  
-  .user .user-card .button {
+}
+
+.user .user-card .button {
     display: inline-block;
     width: 95%;
     justify-content: center;
     text-align: center;
     font-size: 1.2rem;
-    padding: .6rem;
-    margin-left: .5rem;
-    margin-right: .5rem;
+    padding: 0.6rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     margin-top: 1rem;
-    letter-spacing: .1rem;
+    letter-spacing: 0.1rem;
     text-decoration: none;
     color: lightblue;
     background-color: #ff6606;
     border-radius: 7px;
     border: 1px solid #666;
-  }
-  
-  .user .user-card .button:hover {
+}
+
+.user .user-card .button:hover {
     background-color: black;
     color: white;
     border: 1px solid white;
-  }
-  
-  .description {
+}
+
+.description {
     margin-bottom: 1rem;
     color: green;
     font-size: 1.2rem;
-  }
+}

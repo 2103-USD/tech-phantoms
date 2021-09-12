@@ -6,10 +6,12 @@
     grid-template-columns: repeat(auto-fill, 300px);
     grid-gap: 1rem;
     justify-content: space-evenly;
+    overflow: auto;
+    padding-bottom: 180px;
 }
 
 .products h2 {
-    color: gray;
+    color: #053f5f;
     font-size: xx-large;
 }
 
@@ -21,7 +23,9 @@
     padding: 5px;
     text-decoration: none;
 }
-
+.product-card img {
+    border-radius: 0%;
+}
 h3.product-card {
     text-decoration: none;
 }

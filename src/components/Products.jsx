@@ -6,8 +6,8 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
 const animatedComponents = makeAnimated();
-
 const options = [
+    { value: "", label: "All" },
     { value: "Child Nutrition", label: "👩‍🍳 Child Nutrition" },
     { value: "Transportation", label: "🚌 Transportation" },
     { value: "Technology", label: "🧑‍💻 Technology" },
@@ -27,10 +27,12 @@ export default function AnimatedMulti() {
 export const Products = ({ user }) => {
     const [products, setProducts] = useState([]);
     const [selectedCategory] = useState();
+    const [inStock] = useState();
 
     const handleProducts = async (e) => {
+        console.log(e);
         const res = await getAllProducts();
-        if (e) {
+        if (e && e.value > "") {
             const filteredRes = res.filter(
                 (product) => product.category === e.value
             );
@@ -49,7 +51,6 @@ export const Products = ({ user }) => {
             ...theme,
             colors: {
                 primary25: "#B7C5DA",
-                primary: "#053F5F",
             },
         };
     }
