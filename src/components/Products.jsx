@@ -29,7 +29,6 @@ export const Products = ({ user }) => {
     const [selectedCategory] = useState();
 
     const handleProducts = async (e) => {
-        console.log(e);
         const res = await getAllProducts();
         if (e && e.value > "") {
             const filteredRes = res.filter(
