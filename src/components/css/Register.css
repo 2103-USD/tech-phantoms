@@ -27,7 +27,7 @@ input {
     }
 }
 .register-form {
-    height: 75vh;
+    min-height: 50vh;
     margin: 4rem 0 0 1.5rem;
 }
 .actual-register-form {
