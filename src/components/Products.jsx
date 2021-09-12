@@ -27,7 +27,6 @@ export default function AnimatedMulti() {
 export const Products = ({ user }) => {
     const [products, setProducts] = useState([]);
     const [selectedCategory] = useState();
-    const [inStock] = useState();
 
     const handleProducts = async (e) => {
         console.log(e);

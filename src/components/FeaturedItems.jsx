@@ -28,6 +28,7 @@ export const FeaturedItems = () => {
         slidesToScroll: 1,
         initialSlide: 1,
         arrows: false,
+
         responsive: [
             {
                 breakpoint: 1024,
@@ -77,6 +78,7 @@ export const FeaturedItems = () => {
                                             alt="product"
                                             width="300px"
                                             height="300px"
+                                            className="slick-slide-image"
                                         />
                                     </Link>
                                 </div>

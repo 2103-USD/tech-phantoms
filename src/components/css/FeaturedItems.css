@@ -53,9 +53,6 @@ ul#featured-content-image-links {
     max-width: 296px;
 }
 
-.lower-featured {
-}
-
 .lower-featured ul {
     display: inline;
 }
@@ -184,4 +181,7 @@ ul {
 }
 #featured-content-wrapper .region {
     padding-bottom: 42px;
+}
+.slick-slide-image {
+    border-radius: 0% !important;
 }
