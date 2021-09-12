@@ -236,7 +236,13 @@ async function getCartByUser({ id }) {
             rows: [order],
         } = await client.query(
             `
-                SELECT *
+                SELECT 
+                    orders.*,
+                    (
+                        SELECT SUM( price * quantity)
+                        FROM order_products op
+                        WHERE op."orderId" = orders.id
+                    ) AS total
                 FROM orders
                 WHERE "userId" = $1
                     AND status = 'created';
