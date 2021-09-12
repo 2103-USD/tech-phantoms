@@ -1,25 +1,25 @@
-
-@import "./css/App.css";
-@import "./css/Login.css";
-@import "./css/NavBar.css";
-@import "./css/Login.css";
-@import "./css/Register.css";
-@import "./css/Products.css";
-@import "./css/User.css";
-@import "./css/Footer.css";
-@import "./css/Admin.css";
-@import "./css/Header.css";
-@import "./css/FeaturedItems.css";
+@import './css/App.css';
+@import './css/Login.css';
+@import './css/NavBar.css';
+@import './css/Login.css';
+@import './css/Register.css';
+@import './css/Products.css';
+@import './css/User.css';
+@import './css/Footer.css';
+@import './css/Admin.css';
+@import './css/Header.css';
+@import './css/FeaturedItems.css';
+@import './css/Cart.css';
+@import './css/Order.css';
 
 body {
-    background-color: gray;
+	background-color: whitesmoke;
 }
 
 div {
-    background-color: gray;
+	background-color: whitesmoke;
 }
 
-
 input {
-    height: 1.5rem;
+	height: 1.5rem;
 }

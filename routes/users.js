@@ -267,7 +267,8 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
             lastName,
             email, 
             username,
-            isAdmin
+            isAdmin,
+            isActive
         } = req.body;
         const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
@@ -295,7 +296,8 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
             lastName,
             email, 
             username,
-            isAdmin
+            isAdmin,
+            isActive
         ); 
         if (user) {
             res.send(user) 

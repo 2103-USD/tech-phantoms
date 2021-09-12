@@ -10,7 +10,6 @@ const {
     getAllProductsByCategory
 } = require('../db');
 const {
-    requireUser, 
     requireAdmin
 } = require('./utils')
 
@@ -46,7 +45,7 @@ productsRouter.get('/categories', async (req, res, next) => {
 productsRouter.get('/:productId', async (req, res, next) => {
     const {productId} = req.params
     try {
-        const product = await getProductById(productId)
+        const [product] = await getProductById(productId)
         if (product) {
             res.send(product)
         }

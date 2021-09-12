@@ -48,16 +48,16 @@ async function addProductToOrder({ orderId, productId, price, quantity }) {
 }
 
 //update Order product
-async function updateOrderProduct({ id, price, quantity }) {
+async function updateOrderProduct({ id, quantity }) {
     try {
         const { rows: orderProduct } = await client.query(
             `
             UPDATE order_products
-            SET price = $2, quantity = $3
+            SET  quantity = $2
             WHERE id = $1
             RETURNING *;
             `,
-            [id, price, quantity]
+            [id, quantity]
         );
 
         return orderProduct;

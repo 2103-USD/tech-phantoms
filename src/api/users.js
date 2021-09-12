@@ -136,7 +136,8 @@ export async function adminUpdateUser({
     firstName,
     lastName,
     email,
-    isAdmin
+    isAdmin,
+    isActive
 }) {
     const URL = `${SectionURL}/${id}`
     try {
@@ -148,6 +149,7 @@ export async function adminUpdateUser({
                 lastName,
                 email,
                 isAdmin,
+                isActive
             },
             getHeaders()
         );

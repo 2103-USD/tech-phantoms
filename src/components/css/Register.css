@@ -13,6 +13,7 @@ input {
     text-decoration:none;
     font-family:'Roboto',sans-serif;
     font-weight:300;
+    font-size: large;
     color:#FFFFFF;
     background-color:#4eb5f1;
     text-align:center;
@@ -27,3 +28,7 @@ input {
     margin:0.2em auto
      }
     }
+
+.register-form {
+    height: 75vh;
+}

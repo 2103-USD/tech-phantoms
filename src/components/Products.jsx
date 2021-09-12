@@ -25,7 +25,7 @@ export default function AnimatedMulti() {
     );
 }
 
-export const Products = () => {
+export const Products = ({user}) => {
     const [products, setProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState();
 

@@ -10,7 +10,8 @@ const usersRouter = require ('./users');
 const ordersRouter = require ('./orders');
 const orderProductsRouter = require ('./order_products');
 const productsRouter = require ('./products');
-const reviewsRouter = require ('./products');
+const reviewsRouter = require ('./reviews');
+const stripeRouter = require ('./stripe');
 
 const { getUserById } = require('../db');
 
@@ -60,6 +61,7 @@ apiRouter.use('/orders', ordersRouter)
 apiRouter.use('/products', productsRouter)
 apiRouter.use('/order_products', orderProductsRouter)
 apiRouter.use('/reviews', reviewsRouter)
+apiRouter.use('/pay', stripeRouter)
 
 // Error Handler
 apiRouter.use((error, req, res, next) => {

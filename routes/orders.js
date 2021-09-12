@@ -1,7 +1,6 @@
 // Requires
 const express = require('express');
 const {
-    getOrderById,
     getAllOrders,
     getOrdersByUser,
     getCartByUser,

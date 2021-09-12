@@ -5,37 +5,39 @@ import { adminUpdateUser, getSpecificUser} from "../api";
 
 export const AdminUser = () => {
     const {userId} = useParams();
-    const [user, setUser] = useState([]);
     const history = useHistory();
-    const [form, setForm] = useState({ username: "", email:"", firstname: "", lastname: "", admin:false });
+    const [form, setForm] = useState({ username: "", email:"", firstname: "", lastname: "", admin:false, isActive:true });
     
     useEffect(() => {
         const callback = async () => {
             const usr = await getSpecificUser(userId)
-            console.log(usr)
-            setUser(usr);
-            setForm({ username: usr.username, email:usr.email, firstname: usr.firstName , lastname: usr.lastName, admin:usr.isAdmin })
+            setForm({ username: usr.username, email:usr.email, firstname: usr.firstName , lastname: usr.lastName, admin:usr.isAdmin, isActive:usr.isActive })
         }
         callback();
     }, [userId])
     
     
     const handleInput = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        let value = e.target.value
+        const name = e.target.name
+        if (name === "admin" || name ==="isActive") {
+            value = Boolean(e.target.checked)
+        }
+        setForm({ ...form, [name]: value });
     };
     
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await adminUpdateUser( {
+            await adminUpdateUser( {
                 id: userId,
                 username: form.username,
                 firstName: form.firstname,
                 lastName: form.lastname,
                 email: form.email,
-                isAdmin: form.admin
+                isAdmin: form.admin,
+                isActive: form.isActive
             });
-            setUser(res.user)
             history.push("/admin/users")
         } catch (error) {
             console.error(error);
@@ -79,7 +81,14 @@ export const AdminUser = () => {
                 <input
                     name="admin"
                     type="checkbox"
-                    value={form.admin}
+                    checked={form.admin}
+                    onChange={handleInput}
+                />
+                <label>Active Account: </label>
+                <input
+                    name="isActive"
+                    type="checkbox"
+                    checked={form.isActive}
                     onChange={handleInput}
                 />
                 <button type="submit" className="reg-button">Update</button>

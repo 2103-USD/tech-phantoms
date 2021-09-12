@@ -5,15 +5,12 @@ import { getProduct, updateItem, deleteItem} from "../api";
 
 export const AdminProduct = () => {
     const {productId} = useParams();
-    const [product, setProduct] = useState([]);
     const history = useHistory();
     const [form, setForm] = useState({ name: "", description:"", price: "", imageURL: "", inStock:"", category:"" });
     
     useEffect(() => {
         const callback = async () => {
             const prod = await getProduct(productId)
-            console.log(prod)
-            setProduct(prod);
             setForm({ name: prod.name, description:prod.description, price: prod.price, imageURL: prod.imageURL, inStock:prod.inStock, category:prod.category  })
         }
         callback();
@@ -27,7 +24,7 @@ export const AdminProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await updateItem( {
+            await updateItem( {
                 id: productId,
                 name: form.name,
                 description: form.description,
@@ -36,7 +33,6 @@ export const AdminProduct = () => {
                 inStock: form.inStock,
                 category: form.category
             });
-            setProduct(res.product)
             history.push("/admin/products")
         } catch (error) {
             console.error(error);
@@ -47,11 +43,9 @@ export const AdminProduct = () => {
         e.preventDefault();
         console.log("B")
         try {
-            const res = await deleteItem( {
+            await deleteItem( {
                 id: productId,
             });
-            console.log("REACTProd", res)
-            setProduct(res.product)
             history.push("/admin/products")
         } catch (error) {
             console.error(error);

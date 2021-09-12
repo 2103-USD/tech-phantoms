@@ -21,7 +21,7 @@ async function getOrderById(id) {
       `,
             [id]
         );
-
+        // Get order products
         const { rows: products } = await client.query(
             `
             SELECT
@@ -41,12 +41,10 @@ async function getOrderById(id) {
             `,
             [id]
         );
-
+        
         order.products = products;
-        console.log("getOrderById_Order", order)
         return order;
     } catch (error) {
-        console.log("getOrderById_Error", error)
         throw Error(error);
     }
 }
@@ -238,7 +236,13 @@ async function getCartByUser({ id }) {
             rows: [order],
         } = await client.query(
             `
-                SELECT *
+                SELECT 
+                    orders.*,
+                    (
+                        SELECT SUM( price * quantity)
+                        FROM order_products op
+                        WHERE op."orderId" = orders.id
+                    ) AS total
                 FROM orders
                 WHERE "userId" = $1
                     AND status = 'created';

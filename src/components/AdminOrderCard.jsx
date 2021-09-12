@@ -1,14 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { getSpecificUser } from "../api";
 import "./style.css";
 
 export const AdminOrderCard = ({ order }) => {
-    const { id, status, username, firstName, lastName, email, datePlaced, products} = order;
+    const { id, status, firstName, lastName, email, datePlaced, products} = order;
 
     return (
         <div id={`${id}`} className="admin-order-card">
-            {console.log(order)}
+            {/* {console.log(order)} */}
             <h3>Order #: {id} Placed on: {datePlaced}</h3>
             <h3>Ordered By: {lastName}, {firstName}</h3>
             <h3>{email}</h3>

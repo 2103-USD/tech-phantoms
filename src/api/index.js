@@ -5,6 +5,7 @@ export * from './users'
 export * from './orders'
 export * from './order_products'
 export * from './auth'
+export * from './stripe'
 
 // Site Health functions
 export async function checkServerHealth() {

@@ -29,7 +29,7 @@ async function getStarsByProductId(id) {
         } = await client.query(
             `
                 SELECT 
-                    SUM(stars) / COUNT(*)
+                    SUM(stars) / COUNT(*) AS AvgStars
                 FROM reviews
                 WHERE "productId" = $1;
             `,

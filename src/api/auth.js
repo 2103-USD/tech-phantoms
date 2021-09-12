@@ -1,5 +1,5 @@
 export const BASE_URL = 'https://fast-savannah-33549.herokuapp.com/api';
-//export const BASE_URL = 'http://localhost:5000/api';
+// export const BASE_URL = 'http://localhost:5000/api';
 
 //************* Auth Functions
 export function storeCurrentUser(data) {
@@ -23,13 +23,13 @@ export function GetCurrentUser() {
 }
 
 export function GetCurrentUserID() {
-    const userID = localStorage.getItem('currentUserID');
-    return userID;
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user.id;
 }
 
 export function GetCurrentUsername() {
-    const userName = JSON.parse(localStorage.getItem('currentUsername'));
-    return userName;
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    return user.username;
 }
 
 export function getCurrentToken() {
