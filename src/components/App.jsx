@@ -31,11 +31,10 @@ import {
 
 export const App = () => {
 	const [user, setUser] = useState(GetCurrentUser());
+	console.log('user', user)
 	return (
 		<>
-			<>
-				<Header />
-			</>
+			<Header />
 			<nav>
 				<NavBar user={user} setUser={setUser} />
 				<Route exact path="/login">

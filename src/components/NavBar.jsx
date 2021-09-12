@@ -47,8 +47,11 @@ export const NavBar = ({ user, setUser }) => {
 					<Link to="/" className="nav-item" onClick={handleLogOut}>
 						Logout
 					</Link>
-					<h1 className="nav-item">Welcome back, {user.username}</h1>
-					<NavLink to="/cart">
+					<h1 className="nav-title">Welcome back, {user.firstName}!</h1>
+					<NavLink to='/orders' className="shopping-order">
+						<h1>My Orders</h1>
+					</NavLink>
+					<NavLink to="/cart" >
 						<img
 							className="shopping-cart"
 							src={require('../img/shopping_cart.png')}

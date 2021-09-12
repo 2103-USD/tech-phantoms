@@ -3,6 +3,13 @@
 	margin: 5px;
 }
 
+.cart-form input {
+	background-color: ghostwhite;
+	font-size: large;
+	font-weight: bold;
+	width: 100px;
+}
+
 .update-button:hover {
 	background-color: #4095c6;
 }
@@ -27,4 +34,8 @@
 
 .checkout-button:hover {
 	background-color: orange;
+}
+
+.cart-products {
+	height: 80vh;
 }
