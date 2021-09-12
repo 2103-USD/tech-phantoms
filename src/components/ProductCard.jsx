@@ -26,6 +26,11 @@ export const ProductCard = ({ product, user }) => {
 		}
 	};
 
+	const pleaseLogin = async () => {
+		toast('Please login to add products to cart', { type: 'error' });
+	};
+
+
 	return (
 		<div id={`product${id}`} className="product-card">
 			<Link
@@ -57,7 +62,16 @@ export const ProductCard = ({ product, user }) => {
 					</button>
 				</>
 			) : (
-				''
+				<>
+					<span>Add to Cart</span>
+					<button
+						className="quantity-button"
+						style={{ backgroundColor: '#84f01e' }}
+						onClick={pleaseLogin}
+					>
+						+
+					</button>
+				</>
 			)}
 		</div>
 	);

@@ -31,6 +31,7 @@ export const Login = ({ setUser }) => {
 
             history.push("/")
         } catch (error) {
+            toast('Username or Password is incorrect. Please try again', {type: 'error'});
             console.error(error);
         }
     };
