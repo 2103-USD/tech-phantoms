@@ -4,6 +4,7 @@ import Slider from "react-slick";
 import "./style.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from "react-router-dom";
 
 export const FeaturedItems = () => {
     const [products, setProducts] = useState([]);
@@ -25,7 +26,9 @@ export const FeaturedItems = () => {
         speed: 500,
         slidesToShow: 3,
         slidesToScroll: 1,
-        initialSlide: 0,
+        initialSlide: 1,
+        arrows: false,
+
         responsive: [
             {
                 breakpoint: 1024,
@@ -55,24 +58,135 @@ export const FeaturedItems = () => {
     };
 
     return (
-    <div className="featured-items-div">
-        <div className="featured-items-slider">
-            <h2>Featured Items</h2>
-            <Slider {...settings}>
-                {products.map((product) => {
-                    return (
-                        <div key={product.id}>
+        <div className="featured-main">
+            <div className="featured-items-div">
+                <div className="featured-items-slider">
+                    <h2>Featured Items</h2>
+                    <Slider {...settings}>
+                        {products.map((product) => {
+                            return (
+                                <div key={product.id}>
+                                    <Link
+                                        to={`/product/${product.id}`}
+                                        style={{
+                                            textDecoration: "none",
+                                            color: "#053F5F",
+                                        }}
+                                    >
+                                        <img
+                                            src={product.imageURL}
+                                            alt="product"
+                                            width="300px"
+                                            height="300px"
+                                            className="slick-slide-image"
+                                        />
+                                    </Link>
+                                </div>
+                            );
+                        })}
+                    </Slider>
+                </div>
+            </div>
+
+            <h1 id="motto">
+                BEST PLACE TO LIVE, WORK, PLAY, AND RAISE A FAMILY
+            </h1>
+            <br></br>
+            <div class="lower-featured" id="featured-content-wrapper">
+                <ul
+                    id="featured-content-image-links"
+                    class="strip-ul flex-cont jc-c"
+                >
+                    <li data-hide="!true">
+                        <a
+                            href="https://parentportal.cajonvalley.net"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
                             <img
-                                src={product.imageURL}
-                                alt="product"
-                                width="300px"
-                                height="300px"
+                                className="featured-item-pics"
+                                src="https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Template/GlobalAssets/images/Images/parents_304x350.png"
+                                alt="Parents"
                             />
-                        </div>
-                    );
-                })}
-            </Slider>
+                            <p>
+                                <canvas
+                                    class="double-right-angle-triangles"
+                                    aria-hidden="true"
+                                    width="28px"
+                                    height="56px"
+                                ></canvas>{" "}
+                                <span>Parents</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li data-hide="!true">
+                        <a
+                            href="https://studentportal.cajonvalley.net/"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            <img
+                                class="featured-item-pics"
+                                src="https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Template/GlobalAssets/images/Images/students_304x350.png"
+                                alt="Students"
+                            />
+                            <p>
+                                <canvas
+                                    class="double-right-angle-triangles"
+                                    aria-hidden="true"
+                                    width="28px"
+                                    height="56px"
+                                ></canvas>{" "}
+                                <span>Students</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li data-hide="!true">
+                        <a
+                            href="https://www.cajonvalley.net/staff"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            <img
+                                class="featured-item-pics"
+                                src="https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Template/GlobalAssets/images/Images/staff_304x350.png"
+                                alt="Staff"
+                            />
+                            <p>
+                                <canvas
+                                    class="double-right-angle-triangles"
+                                    aria-hidden="true"
+                                    width="28px"
+                                    height="56px"
+                                ></canvas>{" "}
+                                <span>Staff</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li data-hide="true">
+                        <a
+                            href="https://www.cajonvalley.net/face"
+                            rel="noopener noreferrer"
+                            target="_blank"
+                        >
+                            <img
+                                class="featured-item-pics"
+                                src="https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Template/GlobalAssets/images/Images/community_304x350.png"
+                                alt="Community"
+                            />
+                            <p>
+                                <canvas
+                                    class="double-right-angle-triangles"
+                                    aria-hidden="true"
+                                    width="28px"
+                                    height="56px"
+                                ></canvas>{" "}
+                                <span>Community</span>
+                            </p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
     );
 };

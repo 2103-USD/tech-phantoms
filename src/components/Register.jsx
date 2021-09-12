@@ -1,44 +1,47 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./style.css";
-import { registerNewUser} from "../api";
-
+import { registerNewUser } from "../api";
 export const Register = ({ setUser }) => {
-    const [form, setForm] = useState({ username: "", password: "", confirmpassword: "", firstname: "", lastname: "", email:""});
-
+    const [form, setForm] = useState({
+        username: "",
+        password: "",
+        confirmpassword: "",
+        firstname: "",
+        lastname: "",
+        email: "",
+    });
     const handleInput = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
-    
     const history = useHistory();
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await registerNewUser( {
+            const res = await registerNewUser({
                 username: form.username,
                 password: form.password,
                 firstName: form.firstname,
                 lastName: form.lastname,
                 email: form.email,
             });
-            setUser(res.user)
-            history.push("/")
+            setUser(res.user);
+            history.push("/");
         } catch (error) {
             console.error(error);
         }
     };
-
     return (
         <div className="register-form">
             <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
+            <br></br>
+            <form class="actual-register-form" onSubmit={handleSubmit}>
                 <label>Username: </label>
                 <input
                     name="username"
                     value={form.username}
                     onChange={handleInput}
-                    autoComplete = "username"
+                    autoComplete="username"
                 />
                 <br />
                 <label>Password: </label>
@@ -47,7 +50,7 @@ export const Register = ({ setUser }) => {
                     value={form.password}
                     onChange={handleInput}
                     type="password"
-                    autoComplete = "new-password"
+                    autoComplete="new-password"
                 />
                 <label>Confirm Password: </label>
                 <input
@@ -55,7 +58,7 @@ export const Register = ({ setUser }) => {
                     value={form.confirmpassword}
                     onChange={handleInput}
                     type="password"
-                    autoComplete = "new-password"
+                    autoComplete="new-password"
                 />
                 <br />
                 <label>Email Address: </label>
@@ -64,7 +67,7 @@ export const Register = ({ setUser }) => {
                     value={form.email}
                     onChange={handleInput}
                     type="email"
-                    autoComplete = "email"
+                    autoComplete="email"
                 />
                 <br />
                 <label>First Name: </label>
@@ -72,16 +75,18 @@ export const Register = ({ setUser }) => {
                     name="firstname"
                     value={form.firstname}
                     onChange={handleInput}
-                    autoComplete = "given-name"
+                    autoComplete="given-name"
                 />
                 <label>Last Name: </label>
                 <input
                     name="lastname"
                     value={form.lastname}
                     onChange={handleInput}
-                    autoComplete = "family-name"
+                    autoComplete="family-name"
                 />
-                <button type="submit" className="reg-button">Register</button>
+                <button type="submit" className="reg-button">
+                    Register
+                </button>
             </form>
         </div>
     );

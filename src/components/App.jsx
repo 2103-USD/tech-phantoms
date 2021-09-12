@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import {toast} from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { GetCurrentUser } from "../api";
 import "./style.css";
 import {
@@ -23,7 +23,7 @@ import {
     Order,
 } from ".";
 
-toast.configure() 
+toast.configure();
 
 export const App = () => {
     const [user, setUser] = useState(GetCurrentUser());
@@ -42,45 +42,49 @@ export const App = () => {
                 </Route>
             </nav>
             <div className="App">
-                <Switch>
-                    <Route exact path="/">
-                        <h1>Welcome to the Student Store!</h1>
-                        <FeaturedItems />
-                    </Route>
-                    <Route exact path="/products">
-                        <Products user={user} />
-                    </Route>
-                    <Route exact path="/product/:productId">
-                        <Product user={user} />
-                    </Route>
-                    <Route exact path="/admin/products">
-                        <AdminProducts />
-                    </Route>
-                    <Route exact path="/admin/product/:productId">
-                        <AdminProduct />
-                    </Route>
-                    <Route exact path="/admin/orders">
-                        <AdminOrders />
-                    </Route>
-                    <Route exact path="/admin/users">
-                        <AdminUsers />
-                    </Route>
-                    <Route exact path="/admin/user/:userId">
-                        <AdminUser />
-                    </Route>
-                    {/* <Route exact path="/admin/order/:orderId">
+                <div id="wrap">
+                    <div id="main">
+                        <Switch>
+                            <Route exact path="/">
+                                <h1>Welcome to the Student Store!</h1>
+                                <FeaturedItems />
+                            </Route>
+                            <Route exact path="/products">
+                                <Products user={user} />
+                            </Route>
+                            <Route exact path="/product/:productId">
+                                <Product user={user} />
+                            </Route>
+                            <Route exact path="/admin/products">
+                                <AdminProducts />
+                            </Route>
+                            <Route exact path="/admin/product/:productId">
+                                <AdminProduct />
+                            </Route>
+                            <Route exact path="/admin/orders">
+                                <AdminOrders />
+                            </Route>
+                            <Route exact path="/admin/users">
+                                <AdminUsers />
+                            </Route>
+                            <Route exact path="/admin/user/:userId">
+                                <AdminUser />
+                            </Route>
+                            {/* <Route exact path="/admin/order/:orderId">
 						<AdminOrder />
 					</Route> */}
-                    <Route exact path="/cart">
-                        <Cart />
-                    </Route>
-                    <Route exact path="/checkout">
-                        <Checkout />
-                    </Route>{" "}
-                    <Route exact path="/orders">
-                        <Order />
-                    </Route>
-                </Switch>
+                            <Route exact path="/cart">
+                                <Cart />
+                            </Route>
+                            <Route exact path="/checkout">
+                                <Checkout />
+                            </Route>{" "}
+                            <Route exact path="/orders">
+                                <Order />
+                            </Route>
+                        </Switch>
+                    </div>
+                </div>
             </div>
             <footer>
                 <Footer />
