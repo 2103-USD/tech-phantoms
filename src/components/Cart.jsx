@@ -10,7 +10,7 @@ import './style.css';
 
 export const Cart = (props) => {
 	const [cart, setCart] = useState({});
-	const { id, status, userId, datePlaced, products } = cart || {};
+	const { products } = cart || {};
 	const orderId = GetCurrentCart();
 	const [form, setForm] = useState({
 		orderProductId: '',
@@ -96,7 +96,7 @@ export const Cart = (props) => {
 										<td>{inStock}</td>
 										<td>${price}</td>
 										<td>
-											<form onSubmit={handleSubmit}>
+											<form onSubmit={handleSubmit} className="cart-form">
 												<input
 													name='quantity'
 													type="number"

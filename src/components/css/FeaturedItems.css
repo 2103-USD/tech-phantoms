@@ -1,5 +1,18 @@
 .featured-items-div {
     height: 60vh;
-    width: 100vh;
+    width: auto;
     padding: 40px;
+}
+
+.featured-items-div h2 {
+    color: gray;
+    font-size: xx-large;
+}
+
+.featured-items-slider button {
+    background-color: #4eb5f1;
+}
+
+.featured-items-slider button:hover {
+    background-color: gray;
 }

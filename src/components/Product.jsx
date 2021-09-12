@@ -33,28 +33,30 @@ export const Product = ({ user }) => {
 	};
 
 	return (
-		<div key={productId} id={`singleProduct${id}`} className="product-card">
-			<h3>{name}</h3>
-			<img src={imageURL} alt="product" />
-			<h4>Product Information</h4>
-			<p>Category: {category}</p>
-			<p>description: {description}</p>
-			<p>Price: ${price}</p>
-			<p>In Stock: {inStock}</p>
-			{user ? (
-				<>
-					<span>Add to Cart</span>
-					<button
-						className="quantity-button"
-						style={{ backgroundColor: '#84f01e' }}
-						onClick={addProductToCart}
-					>
-						+
-					</button>
-				</>
-			) : (
-				''
-			)}
+		<div className="product-card-body">
+			<div key={productId} id={`singleProduct${id}`} className="product-card">
+				<h3>{name}</h3>
+				<img src={imageURL} alt="product" />
+				<h4>Product Information</h4>
+				<p>Category: {category}</p>
+				<p>description: {description}</p>
+				<p>Price: ${price}</p>
+				<p>In Stock: {inStock}</p>
+				{user ? (
+					<>
+						<span>Add to Cart</span>
+						<button
+							className="quantity-button"
+							style={{ backgroundColor: '#84f01e' }}
+							onClick={addProductToCart}
+						>
+							+
+						</button>
+					</>
+				) : (
+					''
+				)}
+			</div>
 		</div>
 	);
 };
