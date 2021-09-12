@@ -49,7 +49,7 @@ export const Products = ({ user }) => {
         return {
             ...theme,
             colors: {
-                primary25: "#B7C5DA",
+                primary25: "skyblue",
             },
         };
     }

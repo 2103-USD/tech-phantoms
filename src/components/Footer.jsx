@@ -5,28 +5,30 @@ export const Footer = () => {
     return (
         <>
             <div className="footer">
-            <div className="footer-item2">
+                <div className="footer-item2">
                     <a href="https://www.cajonvalley.net" target="blank">
-                    <img
-                        src={require("../img/cajonvalleylogo.png")}
-                        alt="Cajon Valley Logo"
-                    />
+                        <img
+                            src={
+                                "https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Domain/4/CV_GlobeGear_Medallion.png"
+                            }
+                            alt="Cajon Valley Logo"
+                        />
                     </a>
                 </div>
-            <div className="footer-item1">
+                <div className="footer-item1">
                     <h4>Cajon Valley Union School District</h4>
                     <h5>750 E. Main Street</h5>
                     <h5>El Cajon, CA 92020</h5>
                     <h5>Phone: 619.588.3000</h5>
                 </div>
-                
-            
+
                 <div className="footer-item3">
                     <h4>Connect with us online!</h4>
                     <div className="social-icons">
                         <a
                             className="social-link"
-                            href="https://www.facebook.com/CajonValleyUSD" target="blank"
+                            href="https://www.facebook.com/CajonValleyUSD"
+                            target="blank"
                         >
                             <img
                                 className="social-icon"
@@ -36,7 +38,8 @@ export const Footer = () => {
                         </a>
                         <a
                             className="social-link"
-                            href="https://www.twitter.com/CajonValleyUSD" target="blank"
+                            href="https://www.twitter.com/CajonValleyUSD"
+                            target="blank"
                         >
                             <img
                                 className="social-icon"
@@ -46,7 +49,8 @@ export const Footer = () => {
                         </a>
                         <a
                             className="social-link"
-                            href="https://www.youtube.com/channel/UCBYG3glJvLs6P3-OT7PH9OQ" target="blank"
+                            href="https://www.youtube.com/channel/UCBYG3glJvLs6P3-OT7PH9OQ"
+                            target="blank"
                         >
                             <img
                                 className="social-icon"
@@ -56,7 +60,8 @@ export const Footer = () => {
                         </a>
                         <a
                             className="social-link"
-                            href="https://www.linkedin.com/company/cajonvalleyusd" target="blank"
+                            href="https://www.linkedin.com/company/cajonvalleyusd"
+                            target="blank"
                         >
                             <img
                                 className="social-icon"
@@ -67,18 +72,12 @@ export const Footer = () => {
                     </div>
                 </div>
                 <div className="copyright">
-                <>
-                    2021 &copy; Cajon Valley Union School District. All rights
-                    reserved.
-                </>
-
+                    <>
+                        2021 &copy; Cajon Valley Union School District. All
+                        rights reserved.
+                    </>
+                </div>
             </div>
-            
-
-            </div>
-           
-            
-            
         </>
     );
 };
