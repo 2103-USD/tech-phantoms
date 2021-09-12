@@ -42,35 +42,33 @@ export const App = () => {
                 </Route>
             </nav>
             <div className="App">
-                <div id="wrap">
-                    <div id="main">
-                        <Switch>
-                            <Route exact path="/">
-                                <h1>Welcome to the Student Store!</h1>
-                                <FeaturedItems />
-                            </Route>
-                            <Route exact path="/products">
-                                <Products user={user} />
-                            </Route>
-                            <Route exact path="/product/:productId">
-                                <Product user={user} />
-                            </Route>
-                            <Route exact path="/admin/products">
-                                <AdminProducts />
-                            </Route>
-                            <Route exact path="/admin/product/:productId">
-                                <AdminProduct />
-                            </Route>
-                            <Route exact path="/admin/orders">
-                                <AdminOrders />
-                            </Route>
-                            <Route exact path="/admin/users">
-                                <AdminUsers />
-                            </Route>
-                            <Route exact path="/admin/user/:userId">
-                                <AdminUser />
-                            </Route>
-                            {/* <Route exact path="/admin/order/:orderId">
+                <Switch>
+                    <Route exact path="/">
+                        <h1>Welcome to the Student Store!</h1>
+                        <FeaturedItems />
+                    </Route>
+                    <Route exact path="/products">
+                        <Products user={user} />
+                    </Route>
+                    <Route exact path="/product/:productId">
+                        <Product user={user} />
+                    </Route>
+                    <Route exact path="/admin/products">
+                        <AdminProducts />
+                    </Route>
+                    <Route exact path="/admin/product/:productId">
+                        <AdminProduct />
+                    </Route>
+                    <Route exact path="/admin/orders">
+                        <AdminOrders />
+                    </Route>
+                    <Route exact path="/admin/users">
+                        <AdminUsers />
+                    </Route>
+                    <Route exact path="/admin/user/:userId">
+                        <AdminUser />
+                    </Route>
+                    {/* <Route exact path="/admin/order/:orderId">
 						<AdminOrder />
 					</Route> */}
                             <Route exact path="/cart">
@@ -83,6 +81,7 @@ export const App = () => {
                     </div>
                 </div>
             </div>
+
             <footer>
                 <Footer />
             </footer>

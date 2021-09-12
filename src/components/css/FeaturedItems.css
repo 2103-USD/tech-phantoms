@@ -182,6 +182,10 @@ ul {
 #featured-content-wrapper .region {
     padding-bottom: 42px;
 }
-.slick-slide-image {
+.slick-slide img {
     border-radius: 0% !important;
+}
+
+.slick-track {
+    margin-bottom: 100px;
 }

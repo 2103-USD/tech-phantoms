@@ -28,7 +28,6 @@ export const FeaturedItems = () => {
         slidesToScroll: 1,
         initialSlide: 1,
         arrows: false,
-
         responsive: [
             {
                 breakpoint: 1024,
@@ -78,7 +77,6 @@ export const FeaturedItems = () => {
                                             alt="product"
                                             width="300px"
                                             height="300px"
-                                            className="slick-slide-image"
                                         />
                                     </Link>
                                 </div>
@@ -92,10 +90,10 @@ export const FeaturedItems = () => {
                 BEST PLACE TO LIVE, WORK, PLAY, AND RAISE A FAMILY
             </h1>
             <br></br>
-            <div class="lower-featured" id="featured-content-wrapper">
+            <div className="lower-featured" id="featured-content-wrapper">
                 <ul
                     id="featured-content-image-links"
-                    class="strip-ul flex-cont jc-c"
+                    className="strip-ul flex-cont jc-c"
                 >
                     <li data-hide="!true">
                         <a
@@ -110,7 +108,7 @@ export const FeaturedItems = () => {
                             />
                             <p>
                                 <canvas
-                                    class="double-right-angle-triangles"
+                                    className="double-right-angle-triangles"
                                     aria-hidden="true"
                                     width="28px"
                                     height="56px"
@@ -126,13 +124,13 @@ export const FeaturedItems = () => {
                             target="_blank"
                         >
                             <img
-                                class="featured-item-pics"
+                                className="featured-item-pics"
                                 src="https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Template/GlobalAssets/images/Images/students_304x350.png"
                                 alt="Students"
                             />
                             <p>
                                 <canvas
-                                    class="double-right-angle-triangles"
+                                    className="double-right-angle-triangles"
                                     aria-hidden="true"
                                     width="28px"
                                     height="56px"
@@ -148,13 +146,13 @@ export const FeaturedItems = () => {
                             target="_blank"
                         >
                             <img
-                                class="featured-item-pics"
+                                className="featured-item-pics"
                                 src="https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Template/GlobalAssets/images/Images/staff_304x350.png"
                                 alt="Staff"
                             />
                             <p>
                                 <canvas
-                                    class="double-right-angle-triangles"
+                                    className="double-right-angle-triangles"
                                     aria-hidden="true"
                                     width="28px"
                                     height="56px"
@@ -170,13 +168,13 @@ export const FeaturedItems = () => {
                             target="_blank"
                         >
                             <img
-                                class="featured-item-pics"
+                                className="featured-item-pics"
                                 src="https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Template/GlobalAssets/images/Images/community_304x350.png"
                                 alt="Community"
                             />
                             <p>
                                 <canvas
-                                    class="double-right-angle-triangles"
+                                    className="double-right-angle-triangles"
                                     aria-hidden="true"
                                     width="28px"
                                     height="56px"

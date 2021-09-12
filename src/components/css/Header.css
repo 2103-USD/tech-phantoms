@@ -1,9 +1,10 @@
 .header {
-    display:grid;
+    display: grid;
     align-items: center;
     align-content: center;
     justify-items: center;
-    margin-top: 60px;
+    margin-top: 10px;
+    background-color: lightblue;
 }
 
 .header-item {
@@ -11,7 +12,8 @@
 }
 
 .header-logo {
-    width:150px;
-    height:150px;
-    margin-top: 10px;
+    width: 150px;
+    height: 150px;
+    margin-top: 70px !important;
+    position: relative;
 }
