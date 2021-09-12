@@ -44,7 +44,6 @@ export const AdminProduct = () => {
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        console.log("B")
         try {
             await deleteItem( {
                 id: productId,

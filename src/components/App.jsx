@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GetCurrentUser } from "../api";
 import "./style.css";
@@ -19,7 +19,6 @@ import {
     AdminProducts,
     AdminProduct,
     Cart,
-    Checkout,
     Order,
 } from ".";
 
@@ -30,6 +29,7 @@ export const App = () => {
     return (
         <>
             <Header />
+            <ToastContainer autoClose={3000} position={"bottom-right"} />
             <nav>
                 <NavBar user={user} setUser={setUser} />
                 <Route exact path="/login">
@@ -71,16 +71,15 @@ export const App = () => {
                     {/* <Route exact path="/admin/order/:orderId">
 						<AdminOrder />
 					</Route> */}
-                    <Route exact path="/cart">
-                        <Cart />
-                    </Route>
-                    <Route exact path="/checkout">
-                        <Checkout />
-                    </Route>{" "}
-                    <Route exact path="/orders">
-                        <Order />
-                    </Route>
-                </Switch>
+                            <Route exact path="/cart">
+                                <Cart />
+                            </Route>
+                            <Route exact path="/orders">
+                                <Order />
+                            </Route>
+                        </Switch>
+                    </div>
+                </div>
             </div>
 
             <footer>

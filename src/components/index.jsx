@@ -15,6 +15,5 @@ export { AdminUser } from './AdminUser';
 export { AdminProducts } from './AdminProducts';
 export { AdminProduct } from './AdminProduct';
 export { Cart } from './Cart';
-export { Checkout } from './Checkout';
 export { Order } from './Order';
 export { OrderCard } from './OrderCard';

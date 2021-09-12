@@ -27,6 +27,7 @@ usersRouter.post('/register', async (req, res, next) => {
         const { 
                 username, 
                 password,
+                confirmpassword,
                 firstName,
                 lastName,
                 email, 
@@ -35,25 +36,24 @@ usersRouter.post('/register', async (req, res, next) => {
         const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
         if (_username) {
-            console.log("UserExistsError")
-            // res.status(401);
             next({
                 name: 'UserExistsError',
-                message: 'This username already exists. Please select a new username.'
+                message: 'This username already exists. Please select a new username or login to your account.'
             });
         } else if (_useremail) {
-            console.log("UserExistsError")
-            // res.status(401);
             next({
                 name: 'UserExistsError',
                 message: 'An account already exists for this email address. Please login instead.'
             });
         } else if (password.length < 8 ) {
-            console.log("PassLenError")
-            // res.status(401);
             next({
                 name: 'password-too-short',
-                message: 'Password is too short. 8 or more characters are required. '
+                message: 'Password is too short.\n8 or more characters are required. '
+            });
+        } else if (confirmpassword === password) {
+            next({
+                name: 'passwords-dont-match',
+                message: 'Your passwords do not match.\nPlease try again'
             });
         } else {
             const user = await createUser({
@@ -96,7 +96,6 @@ usersRouter.post('/login', async (req, res, next) => {
         // request must have both username and password
         const { username, password} = req.body;
         if (!username || !password) {
-            res.status(401);
             next({
                 name: "MissingCredentialsError",
                 message: "Please supply both a username and password"
@@ -118,7 +117,6 @@ usersRouter.post('/login', async (req, res, next) => {
             res.send({ user, token});
         }
         else {
-            res.status(401);
             next({
                 name: "InvalidCredentials",
                 message: "Username or Password are incorrect, or this account does not exist."
@@ -178,19 +176,16 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
         const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
         if (_username) {
-            // res.status(401);
             next({
                 name: 'UserExistsError',
                 message: 'This username already exists. Please select a new username.'
             });
         } else if (_useremail) {
-            // res.status(401);
             next({
                 name: 'UserExistsError',
                 message: 'An account already exists for this email address. Please login instead.'
             });
         } else if (password.length < 8 ) {
-            // res.status(401);
             next({
                 name: 'password-too-short',
                 message: 'Password is too short. 8 or more characters are required. '
@@ -275,7 +270,6 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
         if ((_username) || (_useremail)){
             if (_username === username) {
                 console.log("UserExistsError")
-                // res.status(401);
                 next({
                     name: 'UserExistsError',
                     message: 'This username already exists. Please select a new username.'
@@ -283,7 +277,6 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
             }
             else if (_useremail === email) {
                 console.log("UserExistsError")
-                // res.status(401);
                 next({
                     name: 'UserExistsError',
                     message: 'An account already exists for this email address. Please login instead.'

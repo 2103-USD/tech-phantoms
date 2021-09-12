@@ -26,40 +26,52 @@ export const ProductCard = ({ product, user }) => {
         }
     };
 
-    return (
-        <div id={`product${id}`} className="product-card">
-            <Link
-                to={`/product/${id}`}
-                style={{
-                    textDecoration: "none",
-                    color: "#053F5F",
-                }}
-            >
-                <h3>{name}</h3>
-            </Link>
 
-            <img src={imageURL} alt="product" />
-            <h4>Product Information</h4>
-            <p>Category: {category}</p>
-            <p>Description: {description}</p>
-            <p>Price: ${price}</p>
-            <p>In Stock: {inStock}</p>
-            <br></br>
-            <div className="add-to-cart">
-                {user ? (
-                    <>
-                        <span>Add to Cart</span>
-                        <button
-                            className="quantity-button"
-                            onClick={addProductToCart}
-                        >
-                            +
-                        </button>
-                    </>
-                ) : (
-                    ""
-                )}
-            </div>
-        </div>
-    );
+	const pleaseLogin = async () => {
+		toast('Please login to add products to cart', { type: 'error' });
+	};
+
+
+	return (
+		<div id={`product${id}`} className="product-card">
+			<Link
+				to={`/product/${id}`}
+				style={{
+					textDecoration: 'none',
+					color: '#053F5F',
+				}}
+			>
+				<h3>{name}</h3>
+			</Link>
+
+			<img src={imageURL} alt="product" />
+			<h4>Product Information</h4>
+			<p>Category: {category}</p>
+			<p>Description: {description}</p>
+			<p>Price: ${price}</p>
+			<p>In Stock: {inStock}</p>
+			<br></br>
+			{user ? (
+				<>
+					<span>Add to Cart</span>
+					<button
+						className="quantity-button"
+						onClick={addProductToCart}
+					>
+						+
+					</button>
+				</>
+			) : (
+				<>
+					<span>Add to Cart</span>
+					<button
+						className="quantity-button"
+						onClick={pleaseLogin}
+					>
+						+
+					</button>
+				</>
+			)}
+		</div>
+	);
 };
