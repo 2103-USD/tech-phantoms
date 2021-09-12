@@ -25,7 +25,7 @@ export default function AnimatedMulti() {
     );
 }
 
-export const Products = ({user}) => {
+export const Products = ({ user }) => {
     const [products, setProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState();
 
@@ -89,8 +89,9 @@ export const Products = ({user}) => {
                     {products.map((filteredRes) => {
                         return (
                             <ProductCard
-                                key={filteredRes.category}
+                                key={filteredRes.id}
                                 product={filteredRes}
+                                user={user}
                             />
                         );
                     })}
