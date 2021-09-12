@@ -30,7 +30,7 @@ export const Register = ({ setUser }) => {
     };
 
     return (
-        <div>
+        <div className="register-form">
             <h1>Register</h1>
             <form onSubmit={handleSubmit}>
                 <label>Username: </label>

@@ -16,7 +16,7 @@ import StripeCheckout from "react-stripe-checkout";
 export const Cart = (props) => {
 	const [cart, setCart] = useState({});
 	const { products, total } = cart || {};
-    const user = GetCurrentUser();
+  const user = GetCurrentUser();
 	const orderId = GetCurrentCart();
 	const [form, setForm] = useState({
 		orderProductId: '',
@@ -98,7 +98,7 @@ export const Cart = (props) => {
 										<td>{inStock}</td>
 										<td>${price}</td>
 										<td>
-											<form onSubmit={handleSubmit}>
+											<form onSubmit={handleSubmit} className="cart-form">
 												<input
 													name='quantity'
 													type="number"

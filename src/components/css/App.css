@@ -1,3 +1,16 @@
-body {
+.App {
     margin: 10px;
+}
+
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+tr:nth-child(odd) {
+    background-color: gray;
+}
+
+th {
+    padding: 5px;
+    background-color: lightsteelblue;
 }
