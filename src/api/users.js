@@ -8,6 +8,7 @@ const SectionURL = `${BASE_URL}/users`;
 export async function registerNewUser( {
     username, 
     password,
+    confirmpassword,
     firstName,
     lastName,
     email,
@@ -18,22 +19,24 @@ export async function registerNewUser( {
         const { data } = await axios.post(`${URL}`, {
             username,
             password,
+            confirmpassword,
             firstName,
             lastName,
             email, 
             imageURL,
             isAdmin:0
         })
-        storeCurrentUser(data)
-        
-        const cart = await getOpenCart()
-        if (cart.id) {
-            storeCurrentCart(cart)
-        } else {
-            const newCart = await createNewOrder()
-            storeCurrentCart(newCart)
+        if (data.user) {
+            storeCurrentUser(data);
+            
+            const cart = await getOpenCart()
+            if (cart.id) {
+                storeCurrentCart(cart)
+            } else {
+                const newCart = await createNewOrder()
+                storeCurrentCart(newCart)
+            }
         }
-
         return data
     } catch (error) {
         console.error(error);
@@ -44,22 +47,22 @@ export async function registerNewUser( {
 export async function loginExistingUser({username, password}) {
     const URL = `${SectionURL}/login`
     try {
-        const { data , status, message } = await axios.post(`${URL}`, {
+        const { data } = await axios.post(`${URL}`, {
             username,
             password,
         });
-
-        storeCurrentUser(data);
-        
-        const cart = await getOpenCart()
-        if (cart.id) {
-            storeCurrentCart(cart)
-        } else {
-            const newCart = await createNewOrder()
-            storeCurrentCart(newCart)
+        if (data.user) {
+            storeCurrentUser(data);
+            
+            const cart = await getOpenCart()
+            if (cart.id) {
+                storeCurrentCart(cart)
+            } else {
+                const newCart = await createNewOrder()
+                storeCurrentCart(newCart)
+            }
         }
-
-        return {data, status, message};
+        return {data};
     } catch (error) {
         console.error(error);
     }

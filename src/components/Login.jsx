@@ -17,19 +17,17 @@ export const Login = ({ setUser }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const {data, status, message} = await loginExistingUser( {
+            const {data} = await loginExistingUser( {
                 username: form.username,
                 password: form.password,
             });
-            // console.log("BadData", message, status)
-            if (status === 200) {
+            if (!data.message)  {
                 toast(`Welcome back, ${data.user.firstName}`, { type: "success" });
-              } else {
-                toast({message}, { type: "error" });
-              }
-            setUser(data.user)
-
-            history.push("/")
+                setUser(data.user)
+                history.push("/")
+            } else {
+                toast(data.message, { type: "error" });
+            }
         } catch (error) {
             console.error(error);
         }
