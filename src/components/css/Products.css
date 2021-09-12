@@ -21,8 +21,9 @@
 	padding: 5px;
 	text-decoration: none;
 }
+
 h3.product-card {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .product-card {
@@ -37,9 +38,9 @@ h3.product-card {
 }
 
 img {
-	border-radius: 50%;
-	height: 50px;
-	width: 50px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
 }
 
 .quantity-button {
@@ -57,14 +58,24 @@ img {
 	text-align: center;
 	transition: all 0.2s;
 }
+
 .quantity-button:hover {
 	border-color: darkgreen;
 	opacity: 100%;
 }
 
 @media all and (max-width: 30em) {
-	 .quantity-button {
-		display: block;
-		margin: 0.2em auto;
-	}
+     .quantity-button {
+        display: block;
+        margin: 0.2em auto;
+    }
+}
+
+.form {
+    color: black;
+}
+
+.stock-filter {
+    display: flex;
+    align-items: center;
 }
