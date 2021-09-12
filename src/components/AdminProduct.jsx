@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import "./style.css";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import { getProduct, updateItem, deleteItem} from "../api";
 
 export const AdminProduct = () => {
@@ -33,6 +35,7 @@ export const AdminProduct = () => {
                 inStock: form.inStock,
                 category: form.category
             });
+            toast(`${form.name} has been updated.`, { type: "success" });
             history.push("/admin/products")
         } catch (error) {
             console.error(error);
@@ -46,6 +49,7 @@ export const AdminProduct = () => {
             await deleteItem( {
                 id: productId,
             });
+            toast(`${form.name} has been removed.`, { type: "success" });
             history.push("/admin/products")
         } catch (error) {
             console.error(error);

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { addItemToCart, getProduct, GetCurrentCart } from '../api';
 import { useParams } from 'react-router-dom';
 import './style.css';
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 export const Product = ({ user }) => {
 	const { productId } = useParams();
@@ -26,9 +28,9 @@ export const Product = ({ user }) => {
 		);
 
 		if (cartItem) {
-			alert('Product successfully added to cart!');
+            toast(`${name} has been added to your cart`, { type: "success" });
 		} else {
-			alert('Error adding product to cart!');
+            toast("An error occured.", { type: "error" });
 		}
 	};
 

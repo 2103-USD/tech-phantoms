@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { loginExistingUser } from "../api";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import "./style.css";
 
 export const Login = ({ setUser }) => {
@@ -15,11 +17,18 @@ export const Login = ({ setUser }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await loginExistingUser( {
+            const {data, status, message} = await loginExistingUser( {
                 username: form.username,
                 password: form.password,
             });
-            setUser(res.user)
+            // console.log("BadData", message, status)
+            if (status === 200) {
+                toast(`Welcome back, ${data.user.firstName}`, { type: "success" });
+              } else {
+                toast({message}, { type: "error" });
+              }
+            setUser(data.user)
+
             history.push("/")
         } catch (error) {
             console.error(error);
@@ -29,7 +38,6 @@ export const Login = ({ setUser }) => {
     return (
         <div className="login-form">
             <h1>Login</h1>
-
             <form onSubmit={handleSubmit}>
                 <label>Username</label>
                 <input

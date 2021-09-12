@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import "./style.css";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import { adminUpdateUser, getSpecificUser} from "../api";
 
 export const AdminUser = () => {
@@ -38,6 +40,7 @@ export const AdminUser = () => {
                 isAdmin: form.admin,
                 isActive: form.isActive
             });
+            toast(`The account for ${form.username} has been updated.`, { type: "success" });
             history.push("/admin/users")
         } catch (error) {
             console.error(error);

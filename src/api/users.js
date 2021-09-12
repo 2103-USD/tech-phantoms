@@ -44,7 +44,7 @@ export async function registerNewUser( {
 export async function loginExistingUser({username, password}) {
     const URL = `${SectionURL}/login`
     try {
-        const { data } = await axios.post(`${URL}`, {
+        const { data , status, message } = await axios.post(`${URL}`, {
             username,
             password,
         });
@@ -59,7 +59,7 @@ export async function loginExistingUser({username, password}) {
             storeCurrentCart(newCart)
         }
 
-        return data;
+        return {data, status, message};
     } catch (error) {
         console.error(error);
     }

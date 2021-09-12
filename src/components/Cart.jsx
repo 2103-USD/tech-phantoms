@@ -10,6 +10,8 @@ import {
 } from '../api';
 import './style.css';
 import StripeCheckout from "react-stripe-checkout";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 
 
@@ -43,6 +45,7 @@ export const Cart = (props) => {
 				Number(form.quantity)
 			);
 			const res = await getOpenCart();
+            toast(`The item in your cart has been updated.`, { type: "success" });
 
 			setCart(res);
 		} catch (error) {
@@ -54,6 +57,7 @@ export const Cart = (props) => {
 			try {
 				await removeProductFromOrder(e.target.id);
 				const res = await getOpenCart();
+                toast(`The item has been removed from your cart.`, { type: "success" });
 				setCart(res);
 			} catch (error) {
 				throw error;
@@ -134,7 +138,7 @@ export const Cart = (props) => {
                     stripeKey={STRIPE_KEY}
                     token={handleStripeToken}
                     amount={total * 100}
-                    name="Joel"
+                    name="Cajon Valley Student Store"
                     country="US"
                     email = {user.email}
                     billingAddress
