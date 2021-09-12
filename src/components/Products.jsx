@@ -3,7 +3,6 @@ import { ProductCard } from "./ProductCard";
 import { getAllProducts } from "../api";
 import "./style.css";
 import Select from "react-select";
-// import { colourOptions } from "../data";
 import makeAnimated from "react-select/animated";
 
 const animatedComponents = makeAnimated();
@@ -27,13 +26,13 @@ export default function AnimatedMulti() {
 
 export const Products = ({ user }) => {
     const [products, setProducts] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState();
+    const [selectedCategory] = useState();
 
     const handleProducts = async (e) => {
         const res = await getAllProducts();
         if (e) {
             const filteredRes = res.filter(
-                (product) => product.category != e.value
+                (product) => product.category === e.value
             );
             setProducts(filteredRes);
         } else {
@@ -71,14 +70,12 @@ export const Products = ({ user }) => {
                             components={makeAnimated()}
                             theme={customTheme}
                             options={options}
-                            // isMulti
                             placeholder="Category Filter"
                             autoFocus
                             isSearchable
                             noOptionsMessage={() =>
                                 "No other categories available"
                             }
-                            // className="form"
                         />
                     </>
                 </h2>
