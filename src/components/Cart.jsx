@@ -6,7 +6,8 @@ import {
 	updateProductInOrder,
     STRIPE_KEY,
     handleStripeToken,
-    GetCurrentUser
+    GetCurrentUser,
+    emptyCurrentCart
 } from '../api';
 import './style.css';
 import StripeCheckout from "react-stripe-checkout";
@@ -64,6 +65,16 @@ export const Cart = (props) => {
 			}
 	};
 
+    const handleEmptyCart = async (e) => {
+        try {
+            await emptyCurrentCart(orderId);
+            const res = await getOpenCart();
+            toast(`Your cart has been emptied.`, { type: "success" });
+            setCart(res);
+        } catch (error) {
+            throw error;
+        }
+};
 
 	return (
 		<div className="cart-products">
@@ -134,6 +145,13 @@ export const Cart = (props) => {
 					</tbody>
 				</table>
                 <h1>Your total is: ${total}</h1>
+                <button
+                    className="remove-button"
+                    id={`EmptyCartButton${orderId}`}
+                    onClick={handleEmptyCart}
+                >
+                    Clear Cart
+                </button> < br/ >
                 <StripeCheckout
                     stripeKey={STRIPE_KEY}
                     token={handleStripeToken}

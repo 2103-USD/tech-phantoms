@@ -14,7 +14,12 @@ async function getOrderById(id) {
                 u."firstName",
                 u."lastName",
                 u.email,
-                o.*
+                o.*,
+                (
+                    SELECT SUM( price * quantity)
+                    FROM order_products op
+                    WHERE op."orderId" = orders.id
+                ) AS total
             FROM orders o 
                 JOIN users u ON o."userId" = u.id
             WHERE o.id = $1
@@ -87,7 +92,12 @@ async function getAllOrders() {
                 u."firstName",
                 u."lastName",
                 u.email,
-                o.*
+                o.*,
+                (
+                    SELECT SUM( price * quantity)
+                    FROM order_products op
+                    WHERE op."orderId" = orders.id
+                ) AS total
             FROM orders o 
                 JOIN users u ON o."userId" = u.id
             `
@@ -134,7 +144,12 @@ async function getOrdersByUser({ id }) {
         const { rows: orders } = await client.query(
             `
             SELECT 
-                *
+                orders.*,
+                (
+                    SELECT SUM( price * quantity)
+                    FROM order_products op
+                    WHERE op."orderId" = orders.id
+                ) AS total
             FROM orders
             WHERE "userId" = $1;
             `,
@@ -184,7 +199,12 @@ async function getOrdersByProduct({ id }) {
         const { rows: orders } = await client.query(
             `
             SELECT 
-                o.*
+                o.*,
+                (
+                    SELECT SUM( price * quantity)
+                    FROM order_products op
+                    WHERE op."orderId" = orders.id
+                ) AS total
             FROM orders o
                 JOIN order_products op on o.id = op.id
             WHERE op."productId" = $1;

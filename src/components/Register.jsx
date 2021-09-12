@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./style.css";
 import { registerNewUser } from "../api";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+
 export const Register = ({ setUser }) => {
     const [form, setForm] = useState({
         username: "",
@@ -18,15 +21,21 @@ export const Register = ({ setUser }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await registerNewUser({
+            const data = await registerNewUser({
                 username: form.username,
                 password: form.password,
+                confirmpassword: form.confirmpassword,
                 firstName: form.firstname,
                 lastName: form.lastname,
                 email: form.email,
             });
-            setUser(res.user);
-            history.push("/");
+            if (!data.message)  {
+                toast(`Thank you for registering,\n${data.user.firstName}`, { type: "success" });
+                setUser(data.user)
+                history.push("/")
+            } else {
+                toast(data.message, { type: "error" });
+            }
         } catch (error) {
             console.error(error);
         }
@@ -35,7 +44,7 @@ export const Register = ({ setUser }) => {
         <div className="register-form">
             <h1>Register</h1>
             <br></br>
-            <form class="actual-register-form" onSubmit={handleSubmit}>
+            <form className="actual-register-form" onSubmit={handleSubmit}>
                 <label>Username: </label>
                 <input
                     name="username"
