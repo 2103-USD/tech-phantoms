@@ -1,18 +1,15 @@
 .product-card-body-single {
     display: flex;
-}
-
-.product-card-single {
-    border: 3px #053f5f solid;
     height: 600px;
     width: 500px;
+    border: 3px #053f5f solid;
     margin: 5px;
     padding: 5px;
     text-decoration: none;
     font-size: x-large;
 }
 
-.prod-card-pic {
+.product-card-pic-single {
     border-radius: 0%;
     display: flex;
     height: 150px;
@@ -26,7 +23,7 @@
     color: #053f5f;
     font-size: xx-large;
 }
-.prod-info-single-single {
+.product-info-single {
     margin: 30px 0 50px 0;
     font-family: bold;
 }

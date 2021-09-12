@@ -34,43 +34,50 @@ export const Product = ({ user }) => {
         }
     };
 
+    const pleaseLogin = async () => {
+        toast("Please login to add products to cart", { type: "error" });
+    };
 
-	const pleaseLogin = async () => {
-		toast('Please login to add products to cart', { type: 'error' });
-	};
-  
-	return (
-		 <div className="product-card-body-single">
-			<div key={productId} id={`singleProduct${id}`} className="prod-card-pic">
-				<h3>{name}</h3>
-				<img src={imageURL} alt="product" />
-				<h4 className="prod-info-single">Product Information</h4>
-				<p>Category: {category}</p>
-				<p>Description: {description}</p>
-				<p>Price: ${price}</p>
-				<p>In Stock: {inStock}</p>
-				{user ? (
-					<>
-						<span>Add to Cart</span>
-						<button
-							className="quantity-button-single"
-							onClick={addProductToCart}
-						>
-							+
-						</button>
-					</>
-				) : (
-					<>
-					<span>Add to Cart</span>
-					<button
-						className="quantity-button-single"
-						onClick={pleaseLogin}
-					>
-						+
-					</button>
-				</>
-				)}
-			</div>
-		</div>
-	);
+    return (
+        <div className="product-card-body-single">
+            <div
+                key={productId}
+                id={`singleProduct${id}`}
+                className="product-card-single"
+            >
+                <h3>{name}</h3>
+                <img
+                    src={imageURL}
+                    alt="product"
+                    className="product-card-pic-single"
+                />
+                <h4 className="product-info-single">Product Information</h4>
+                <p>Category: {category}</p>
+                <p>Description: {description}</p>
+                <p>Price: ${price}</p>
+                <p>In Stock: {inStock}</p>
+                {user ? (
+                    <>
+                        <span>Add to Cart</span>
+                        <button
+                            className="quantity-button-single"
+                            onClick={addProductToCart}
+                        >
+                            +
+                        </button>
+                    </>
+                ) : (
+                    <>
+                        <span>Add to Cart</span>
+                        <button
+                            className="quantity-button-single"
+                            onClick={pleaseLogin}
+                        >
+                            +
+                        </button>
+                    </>
+                )}
+            </div>
+        </div>
+    );
 };
