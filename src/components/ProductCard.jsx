@@ -2,6 +2,8 @@ import React from 'react';
 import { addItemToCart, GetCurrentCart } from '../api';
 import { Link } from 'react-router-dom';
 import './style.css';
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 export const ProductCard = ({ product, user }) => {
 	const { id, name, description, price, imageURL, inStock, category } =
@@ -16,11 +18,11 @@ export const ProductCard = ({ product, user }) => {
 			'1',
 			GetCurrentCart()
 		);
-		console.log('cartitem', cartItem);
+
 		if (cartItem) {
-			alert('Product successfully added to cart!');
+            toast(`${name} has been added to your cart`, { type: "success" });
 		} else {
-			alert('Error adding product to cart!');
+            toast("An error occured.", { type: "error" });
 		}
 	};
 

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import { GetCurrentUser } from "../api";
 import "./style.css";
 import {
@@ -20,6 +22,8 @@ import {
     Checkout,
     Order,
 } from ".";
+
+toast.configure() 
 
 export const App = () => {
     const [user, setUser] = useState(GetCurrentUser());
