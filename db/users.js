@@ -190,48 +190,33 @@ async function getUserNameByEmail(email) {
 }
 
 // update user
-async function updateUser({
-    id,
-    firstName,
-    lastName,
-    email,
-    imageURL,
-    username,
-    password,
-    isAdmin,
-}) {
+
+async function updateUser(fields = {}) {
+    const { id, password } = fields;
+    const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(', ');
+
+    if(password) {
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    }
+
     try {
+        if(setString.length > 0) {
         const {
             rows: [user],
         } = await client.query(
             `
             UPDATE users
-            SET 
-                "firstName" = $1, 
-                "lastName" = $2, 
-                email = $3, 
-                "imageURL" = $4, 
-                username = $5, 
-                password = $6, 
-                "isAdmin" = $7
-            WHERE id = $8
-            ON CONFLICT (username) DO NOTHING
-            RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
+            SET ${setString}
+            WHERE id = ${id}
+            RETURNING *;
             `,
 
-            [
-                firstName,
-                lastName,
-                email,
-                imageURL,
-                username,
-                hashedPassword,
-                isAdmin,
-                id,
-            ]
+            Object.values(fields)
         );
-        return user;
+
+        return user;}
     } catch (error) {
         throw error;
     }
