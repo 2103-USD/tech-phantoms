@@ -24,9 +24,9 @@ export const FeaturedItems = () => {
         centerMode: true,
         infinite: false,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: 6,
         slidesToScroll: 1,
-        initialSlide: 1,
+        initialSlide: 3,
         arrows: false,
         responsive: [
             {
