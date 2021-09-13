@@ -71,7 +71,6 @@ img {
 .quantity-button:hover {
     background-color: lightblue;
     color: #053f5f;
-    opacity: 100%;
 }
 
 @media all and (max-width: 30em) {
