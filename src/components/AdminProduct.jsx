@@ -60,7 +60,7 @@ export const AdminProduct = () => {
         }
     };
     return (
-        <div>
+        <div className="adminProduct">
             <h3>Update Product information</h3>
             <h4>Only change fields that need to be updated for the item.</h4>
             <form onSubmit={handleSubmit}>
