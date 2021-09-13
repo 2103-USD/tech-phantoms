@@ -50,7 +50,7 @@ usersRouter.post('/register', async (req, res, next) => {
                 name: 'password-too-short',
                 message: 'Password is too short.\n8 or more characters are required. '
             });
-        } else if (confirmpassword === password) {
+        } else if (confirmpassword !== password) {
             next({
                 name: 'passwords-dont-match',
                 message: 'Your passwords do not match.\nPlease try again'

@@ -20,6 +20,7 @@ import {
     AdminProduct,
     Cart,
     Order,
+    MyAccount,
 } from ".";
 
 toast.configure();
@@ -70,9 +71,9 @@ export const App = () => {
                             <Route exact path="/admin/user/:userId">
                                 <AdminUser />
                             </Route>
-                            {/* <Route exact path="/admin/order/:orderId">
-						<AdminOrder />
-					</Route> */}
+                            <Route exact path="/myaccount">
+						        <MyAccount user={user} />
+					        </Route>
                             <Route exact path="/cart">
                                 <Cart />
                             </Route>

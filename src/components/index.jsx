@@ -17,3 +17,4 @@ export { AdminProduct } from './AdminProduct';
 export { Cart } from './Cart';
 export { Order } from './Order';
 export { OrderCard } from './OrderCard';
+export { MyAccount } from './MyAccount';

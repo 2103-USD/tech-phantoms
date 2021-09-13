@@ -112,6 +112,7 @@ export async function updateCurrentUser(
     imageURL
     ) {
     const URL = `${SectionURL}/me`
+    
     try {
         const { data } = await axios.patch(
             `${URL}`,
@@ -126,6 +127,7 @@ export async function updateCurrentUser(
             getHeaders()
         );
         storeCurrentUser(data);
+
         return data;
     } catch (error) {
         console.error(error);
