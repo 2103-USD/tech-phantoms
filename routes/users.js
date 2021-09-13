@@ -50,7 +50,7 @@ usersRouter.post('/register', async (req, res, next) => {
                 name: 'password-too-short',
                 message: 'Password is too short.\n8 or more characters are required. '
             });
-        } else if (confirmpassword === password) {
+        } else if (confirmpassword !== password) {
             next({
                 name: 'passwords-dont-match',
                 message: 'Your passwords do not match.\nPlease try again'
@@ -65,7 +65,6 @@ usersRouter.post('/register', async (req, res, next) => {
                 imageURL,
                 isAdmin:false
             });
-            console.log("CreateUser Result==>>",user)
             if (user){
                 const token = jwt.sign({ 
                     id: user.id, 
@@ -200,7 +199,6 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
                 username,
                 password
             ); 
-            console.log("Update Myself Result==>>",user)
             if (user){
                 const token = jwt.sign({ 
                     id: user.id, 
@@ -269,14 +267,12 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
         const _useremail = await getUserNameByEmail(email);
         if ((_username) || (_useremail)){
             if (_username === username) {
-                console.log("UserExistsError")
                 next({
                     name: 'UserExistsError',
                     message: 'This username already exists. Please select a new username.'
                 });
             }
             else if (_useremail === email) {
-                console.log("UserExistsError")
                 next({
                     name: 'UserExistsError',
                     message: 'An account already exists for this email address. Please login instead.'

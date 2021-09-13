@@ -8,7 +8,8 @@ const {
     addProductToOrder,
     updateOrder,
     cancelOrder,
-    emptyCart
+    emptyCart,
+    completeOrder
 } = require('../db');
 const {
     requireUser, 
@@ -108,6 +109,26 @@ ordersRouter.post('/:orderId/products', verifyUserIsOrderOwner, async (req, res,
             next({
                 name:"ItemNotAdded",
                 message:"The item was not able to be added to this order."
+            })
+        }
+    } catch ({ name, message }) {
+        next({ name, message })
+    }
+})
+
+// USER: Complete an order
+ordersRouter.post('/:orderId/complete', verifyUserIsOrderOwner, async (req, res, next) => {
+    try {
+        const {orderId: id} = req.params
+        const {paymentId, paymentType, paymentAmt, paymentURL} = req.body
+        const order = await completeOrder({id, paymentId, paymentType, paymentAmt, paymentURL})
+        if (order) {
+            res.send(order)
+        }
+        else{
+            next({
+                name:"OrderNotSaved",
+                message:"The order was not able to be saved."
             })
         }
     } catch ({ name, message }) {

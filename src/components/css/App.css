@@ -6,6 +6,10 @@ tr:nth-child(odd) {
     background-color: gray;
 }
 
+tr:hover {
+    background-color: #4eb5f1;
+}
+
 th {
     padding: 5px;
     background-color: lightsteelblue;

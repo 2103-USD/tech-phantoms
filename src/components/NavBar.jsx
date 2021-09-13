@@ -58,6 +58,9 @@ export const NavBar = ({ user, setUser }) => {
                     <NavLink to="/orders" className="nav-item">
                         My Orders
                     </NavLink>
+                    <NavLink to="/myaccount" className="nav-item">
+                        My Account
+                    </NavLink>
                     <Link to="/" className="nav-item" onClick={handleLogOut}>
                         Logout
                     </Link>
