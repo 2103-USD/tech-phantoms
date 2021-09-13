@@ -38,7 +38,7 @@
     margin: 5px;
 }
 
-.cart-products {
-    overflow: auto;
-    padding-bottom: 180px;
+
+.checkout-button:hover {
+    background-color: orange;
 }

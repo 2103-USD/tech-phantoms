@@ -6,9 +6,6 @@
     grid-template-columns: repeat(auto-fill, 300px);
     grid-gap: 1rem;
     justify-content: space-evenly;
-    overflow: auto;
-    padding-bottom: 180px;
-    margin-bottom: 180px;
 }
 
 .products h2 {
@@ -23,6 +20,7 @@
     margin: 5px;
     padding: 5px;
     text-decoration: none;
+    overflow: auto;
 }
 .product-card img {
     border-radius: 0%;

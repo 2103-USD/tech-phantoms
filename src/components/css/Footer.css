@@ -4,11 +4,14 @@
     align-items: center;
     justify-items: center;
     bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 1rem;
     width: 100%;
     text-align: center;
-    margin-top: auto;
-
     max-height: 187px;
+    margin-top: -187px;
+    top: 100%;
 }
 
 .footer-item1 {
