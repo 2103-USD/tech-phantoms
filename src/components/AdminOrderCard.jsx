@@ -1,12 +1,13 @@
 import React from "react";
+import moment from 'moment';
 import "./style.css";
 
 export const AdminOrderCard = ({ order }) => {
     const { id, status, firstName, lastName, email, datePlaced, products} = order;
-
+    const date = moment(datePlaced).format('MMMM Do YYYY')
     return (
         <div id={`${id}`} className="admin-order-card">
-            <h3>Order #: {id} Placed on: {datePlaced}</h3>
+            <h3>Order #: {id} Placed on: {date}</h3>
             <h3>Ordered By: {lastName}, {firstName}</h3>
             <h3>{email}</h3>
             <h3>Status: {status}</h3>

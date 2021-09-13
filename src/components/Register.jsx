@@ -64,6 +64,7 @@ export const Register = ({ setUser }) => {
                     type="password"
                     autoComplete="new-password"
                 />
+                <br />
                 <label>Confirm Password: </label>
                 <input
                     required
@@ -92,6 +93,7 @@ export const Register = ({ setUser }) => {
                     onChange={handleInput}
                     autoComplete="given-name"
                 />
+                <br />
                 <label>Last Name: </label>
                 <input
                     required
@@ -100,6 +102,7 @@ export const Register = ({ setUser }) => {
                     onChange={handleInput}
                     autoComplete="family-name"
                 />
+                <br />
                 <button type="submit" className="reg-button">
                     Register
                 </button>
