@@ -18,7 +18,7 @@ async function getOrderById(id) {
                 (
                     SELECT SUM( price * quantity)
                     FROM order_products op
-                    WHERE op."orderId" = orders.id
+                    WHERE op."orderId" = o.id
                 ) AS total
             FROM orders o 
                 JOIN users u ON o."userId" = u.id
@@ -96,7 +96,7 @@ async function getAllOrders() {
                 (
                     SELECT SUM( price * quantity)
                     FROM order_products op
-                    WHERE op."orderId" = orders.id
+                    WHERE op."orderId" = o.id
                 ) AS total
             FROM orders o 
                 JOIN users u ON o."userId" = u.id
@@ -203,7 +203,7 @@ async function getOrdersByProduct({ id }) {
                 (
                     SELECT SUM( price * quantity)
                     FROM order_products op
-                    WHERE op."orderId" = orders.id
+                    WHERE op."orderId" = o.id
                 ) AS total
             FROM orders o
                 JOIN order_products op on o.id = op.id
