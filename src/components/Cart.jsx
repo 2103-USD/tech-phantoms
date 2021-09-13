@@ -151,6 +151,7 @@ export const Cart = (props) => {
 													name='quantity'
 													type="number"
 													min="1"
+                                                    max={inStock}
 													defaultValue={quantity}
 													onChange={(e) => handleInput(e, orderProductId)}
 												/>

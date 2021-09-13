@@ -4,17 +4,23 @@ import { GetCurrentUser } from "../api";
 import "./style.css";
 
 export const OrderCard = ({ order }) => {
-    const { id, status, firstName, lastName, email, datePlaced, products} = order;
+    const { id, status, lastName, datePlaced, products, total, paymentURL} = order;
     const user = GetCurrentUser();
     const date = moment(datePlaced).format('MMMM Do YYYY')
     return (
         <>
             {(user.lastName === lastName) ? (
                 <div id={`${id}`} className="admin-order-card">
-                    <h3>Order #: {id} Placed on: {date}</h3>
-                    <h3>Ordered By: {lastName}, {firstName}</h3>
-                    <h3>{email}</h3>
+                    <h3>Order #: {id}</h3>
+                    {datePlaced ? 
+                        <h3>Placed on: {date}</h3>
+                    : ""
+                    }
                     <h3>Status: {status}</h3>
+                    {paymentURL ? 
+                        <h3><a href={paymentURL}>Order Receipt</a></h3>
+                    : ""
+                    }
                     {(products) ? 
                         <table className="orderProducts">
                             <thead>
@@ -36,6 +42,16 @@ export const OrderCard = ({ order }) => {
                                         </tr>
                                     )
                                 })}
+                                {products?
+                                    <tr>
+                                        <td></td>
+                                        <td>Grand Total:</td>
+                                        <td></td>
+                                        <td>${total}</td>
+                                    </tr>                                
+                                : "" 
+                                }
+
                             </tbody>
                         </table>
                     : ""

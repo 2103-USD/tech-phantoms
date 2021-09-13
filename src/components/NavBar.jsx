@@ -40,27 +40,28 @@ export const NavBar = ({ user, setUser }) => {
             </NavLink>
             {user ? (
                 <>
-                    {user.isAdmin ? (
-                        <>
-                            <NavLink to="/Admin/Products" className="nav-item">
-                                Manage Products
-                            </NavLink>
-                            <NavLink to="/Admin/Orders" className="nav-item">
-                                View All Orders
-                            </NavLink>
-                            <NavLink to="/Admin/Users" className="nav-item">
-                                View All Users
-                            </NavLink>
-                        </>
-                    ) : (
-                        ""
-                    )}
                     <NavLink to="/orders" className="nav-item">
                         My Orders
                     </NavLink>
                     <NavLink to="/myaccount" className="nav-item">
                         My Account
                     </NavLink>
+
+                    {user.isAdmin ? (
+                        <>
+                            <NavLink to="/Admin/Products" className="nav-item">
+                                Manage Products
+                            </NavLink>
+                            <NavLink to="/Admin/Orders" className="nav-item">
+                                Manage Orders
+                            </NavLink>
+                            <NavLink to="/Admin/Users" className="nav-item">
+                                Manage Users
+                            </NavLink>
+                        </>
+                    ) : (
+                        ""
+                    )}
                     <Link to="/" className="nav-item" onClick={handleLogOut}>
                         Logout
                     </Link>
