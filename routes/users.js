@@ -163,8 +163,9 @@ usersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
 usersRouter.patch('/me', requireUser, async (req, res, next) => {
     // Allows user to update their own account information.
     try {
-        const {userId: id} = req.params;
+        // const {userId: id} = req.params;
         const {
+            id,
             firstName,
             lastName,
             email, 
@@ -172,24 +173,21 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
             username,
             password
         } = req.body;
-        const _username = await getUserByUsername(username);
+        // const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
-        if (_username) {
-            next({
-                name: 'UserExistsError',
-                message: 'This username already exists. Please select a new username.'
-            });
-        } else if (_useremail) {
+
+        if (_useremail) {
             next({
                 name: 'UserExistsError',
                 message: 'An account already exists for this email address. Please login instead.'
             });
-        } else if (password.length < 8 ) {
-            next({
-                name: 'password-too-short',
-                message: 'Password is too short. 8 or more characters are required. '
-            });
+        // } else if (password.length < 8 ) {
+        //     next({
+        //         name: 'password-too-short',
+        //         message: 'Password is too short. 8 or more characters are required. '
+        //     });
         } else {
+
             const user = await updateUser(
                 id,
                 firstName,
@@ -222,6 +220,7 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
             res.send(user) 
         }
     } catch ({ name, message }) {
+        console.error(name, message)
         next({ name, message })
     }
 })

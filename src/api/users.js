@@ -117,6 +117,7 @@ export async function updateCurrentUser(
         const { data } = await axios.patch(
             `${URL}`,
             {
+                id,
                 username,
                 password,
                 firstName,
