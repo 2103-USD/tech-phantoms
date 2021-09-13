@@ -23,7 +23,6 @@
 .slick-dots li button {
     border-radius: 50%;
     background-color: lightskyblue !important;
-    opacity: 30%;
     color: lightskyblue !important;
 }
 .slick-dots li button:before {
@@ -137,7 +136,7 @@ ul#featured-content-image-links {
     left: 0;
     width: 30px;
     height: 100%;
-    opacity: 0.8;
+    opacity: 0;
     -webkit-transition: opacity 0.4s ease 0s;
     -moz-transition: opacity 0.4s ease 0s;
     transition: opacity 0.4s ease 0s;
