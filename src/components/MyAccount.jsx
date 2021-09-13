@@ -44,7 +44,7 @@ export const MyAccount = ({ user }) => {
 
 		try {
 			await updateCurrentUser({
-                id: user.id,
+				id: user.id,
 				username: form.username,
 				firstName: form.firstname,
 				lastName: form.lastname,
@@ -52,7 +52,7 @@ export const MyAccount = ({ user }) => {
 				imageURL: user.imageURL,
 			});
 
-            toast(`The account for ${form.username} has been updated.`, {
+			toast(`The account for ${form.username} has been updated.`, {
 				type: 'success',
 			});
 			history.push('/');
