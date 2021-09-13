@@ -42,6 +42,11 @@ export const AdminProduct = () => {
         }
     };
 
+    const handleCancel = (e) => {
+        e.preventDefault();
+        history.push("/admin/products")
+    }
+
     const handleDelete = async (e) => {
         e.preventDefault();
         try {
@@ -105,6 +110,7 @@ export const AdminProduct = () => {
                 />
                 <button type="submit" className="reg-button">Update Item</button>
                 <button type="button" className="reg-button" onClick={handleDelete} >Delete Item</button>
+                <button className="reg-button"onClick={handleCancel}>Cancel</button>
             </form>
         </div>
     );

@@ -23,13 +23,17 @@ export const MyAccount = ({ user }) => {
 
         setForm({ ...form, [name]: value });
     };
+
+    const handleCancel = (e) => {
+        e.preventDefault();
+        history.push("/")
+    }
     
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // try {
         //     await updateCurrentUser( {
-        //         id: user.id,
         //         username: form.username,
         //         firstName: form.firstname,
         //         lastName: form.lastname,
@@ -37,7 +41,7 @@ export const MyAccount = ({ user }) => {
         //     });
 
         //   toast(`The account for ${form.username} has been updated.`, { type: "success" });
-        //     history.push("/orders")
+        //     history.push("/")
         // } catch (error) {
         //     console.error(error);
         // }
@@ -77,6 +81,7 @@ export const MyAccount = ({ user }) => {
                     onChange={handleInput}
                 />
                 <button type="submit" className="reg-button">Update</button>
+                <button className="reg-button" onClick={handleCancel}>Cancel</button>
             </form>
         </div>
     );

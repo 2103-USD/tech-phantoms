@@ -27,6 +27,11 @@ export const AdminUser = () => {
         }
         setForm({ ...form, [name]: value });
     };
+
+    const handleCancel = (e) => {
+        e.preventDefault();
+        history.push("/admin/users")
+    }
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -95,6 +100,7 @@ export const AdminUser = () => {
                     onChange={handleInput}
                 />
                 <button type="submit" className="reg-button">Update</button>
+                <button className="reg-button" onClick={handleCancel}>Cancel</button>
             </form>
         </div>
     );
