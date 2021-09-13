@@ -5,15 +5,18 @@ import {
 	removeProductFromOrder,
 	updateProductInOrder,
     STRIPE_KEY,
-    handleStripeToken,
     GetCurrentUser,
-    emptyCurrentCart
+    emptyCurrentCart,
+    updateOrderStatus
 } from '../api';
 import './style.css';
 import StripeCheckout from "react-stripe-checkout";
 import {toast} from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
+import axios from 'axios';
+import {BASE_URL, getHeaders} from '../api/auth'
 
+const StripeURL = `${BASE_URL}/stripe`;
 
 
 export const Cart = (props) => {
@@ -74,7 +77,27 @@ export const Cart = (props) => {
         } catch (error) {
             throw error;
         }
-};
+    };
+
+    const handleStripeToken = async (token) => {
+        await updateOrderStatus(orderId, "processing")
+
+        const URL = `${StripeURL}/pay`
+        const {data} = await axios.post(`${URL}`, {
+            token, total
+        }, getHeaders());
+        console.log("ReturnedChargeData", data)
+        const status = data.status;
+        console.log("Status",status)
+        if (status === "succeeded") {
+            toast("Success! Your payment has been approved.\nFinalizing order....", { type: "success" });
+            await updateOrderStatus(orderId, "completed")
+        } else {
+            toast("Something went wrong", { type: "error" });
+            await updateOrderStatus(orderId, "created")
+        }
+        return data
+      }
 
 	return (
 		<div className="cart-products">
