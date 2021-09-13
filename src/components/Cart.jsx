@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import {
 	GetCurrentCart,
 	getOpenCart,
@@ -7,22 +8,25 @@ import {
     STRIPE_KEY,
     GetCurrentUser,
     emptyCurrentCart,
-    updateOrderStatus
+    updateOrderStatus,
+    completeOrder,
+    createNewOrder
 } from '../api';
 import './style.css';
 import StripeCheckout from "react-stripe-checkout";
 import {toast} from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css'; 
 import axios from 'axios';
-import {BASE_URL, getHeaders} from '../api/auth'
+import {BASE_URL, getHeaders, storeCurrentCart} from '../api/auth'
 
 const StripeURL = `${BASE_URL}/stripe`;
 
 
 export const Cart = (props) => {
+    const history = useHistory();
 	const [cart, setCart] = useState({});
 	const { products, total } = cart || {};
-  const user = GetCurrentUser();
+    const user = GetCurrentUser();
 	const orderId = GetCurrentCart();
 	const [form, setForm] = useState({
 		orderProductId: '',
@@ -86,14 +90,20 @@ export const Cart = (props) => {
         const {data} = await axios.post(`${URL}`, {
             token, total
         }, getHeaders());
-        console.log("ReturnedChargeData", data)
         const status = data.status;
-        console.log("Status",status)
+
         if (status === "succeeded") {
             toast("Success! Your payment has been approved.\nFinalizing order....", { type: "success" });
-            await updateOrderStatus(orderId, "completed")
+            await completeOrder(orderId, data.id, data.source.brand, total, data.receipt_url)
+            const newCart = await createNewOrder()
+            storeCurrentCart(newCart)
+            history.push("/orders")
         } else {
-            toast("Something went wrong", { type: "error" });
+            if (data.decline_code === "stolen_card") {
+                toast(`This is a stolen card.\nThe police are on their way.`, { type: "error" });    
+            } else {
+                toast(`Transaction failed. ${data.message}`, { type: "error" });
+            }
             await updateOrderStatus(orderId, "created")
         }
         return data

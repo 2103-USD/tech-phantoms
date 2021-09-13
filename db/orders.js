@@ -342,7 +342,7 @@ async function updateOrder({ id, status, userId }) {
 }
 
 //complete order
-async function completeOrder({ id }) {
+async function completeOrder({ id, paymentId, paymentType, paymentAmt, paymentURL }) {
     try {
         //update order
         const {
@@ -350,14 +350,39 @@ async function completeOrder({ id }) {
         } = await client.query(
             `
             UPDATE orders
-            SET status = 'completed'
+            SET 
+                status = 'completed',
+                "paymentType" = $2,
+                "paymentAmt" = $3,
+                "paymentURL" = $4,
+                "paymentId" = $5,
+                "datePlaced" = now()
             WHERE id = $1
             RETURNING *;
             `,
+            [id, paymentType, paymentAmt, paymentURL, paymentId ]
+        );
+
+        const {
+            rows: [prod],
+        } = await client.query(
+            `
+            UPDATE products p
+            SET 
+                "inStock" = p."inStock" - op.quantity
+            FROM order_products op
+            WHERE p.id = op."productId" 
+                AND op."orderId" = $1
+            RETURNING p.*;
+            `,
             [id]
         );
+
+            console.log("products,", prod)
+
         return order;
     } catch (error) {
+        console.log(error)
         throw error;
     }
 }

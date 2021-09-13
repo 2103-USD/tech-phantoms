@@ -69,6 +69,22 @@ export async function updateOrderStatus(orderId, status) {
     }
 }
 
+export async function completeOrder(orderId, paymentId, paymentType, paymentAmt, paymentURL) {
+    const URL = `${SectionURL}/${orderId}/complete`
+    try {
+        const {data} = await axios.post(`${URL}`,{
+            paymentId,
+            paymentType,
+            paymentAmt,
+            paymentURL
+        }, getHeaders());
+        return data;
+    }
+    catch (error) {
+        throw error;
+    }
+}
+
 export async function emptyCurrentCart(orderId) {
     const URL = `${SectionURL}/${orderId}/empty`
     try {

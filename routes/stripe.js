@@ -48,10 +48,11 @@ stripeRouter.post('/pay', requireUser, async (req, res, next) => {
 
         res.send(charge)
 
-      } catch (error) {
-        console.error("Error:", error);
+    } catch (error) {
         res.status = "failure";
-      }
+        console.error("Error:", error);
+        res.send(error.raw)
+    }
 });
 
 

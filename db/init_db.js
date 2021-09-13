@@ -52,7 +52,11 @@ async function buildTables() {
                 id            SERIAL PRIMARY KEY,
                 status        VARCHAR(255) DEFAULT 'created',
                 "userId"      INT REFERENCES users(id),
-                "datePlaced"  DATE
+                "datePlaced"  DATE,
+                "paymentId"   VARCHAR(50),
+                "paymentType" VARCHAR(50),
+                "paymentAmt"  REAL,
+                "paymentURL"  VARCHAR(255)              
             );
 
             CREATE TABLE order_products (
