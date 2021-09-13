@@ -2,12 +2,14 @@
     padding: 5px;
     padding-bottom: 0px;
     display: flex;
+    flex-flow: row nowrap;
     overflow: hidden;
     position: fixed;
     top: 0;
     width: 100%;
     background-color: #053f5f;
     max-height: 66px;
+    clear: both; 
 }
 
 .nav-item {
@@ -24,8 +26,23 @@
     max-width: calc(100% + 8px);
 }
 
-.nav-title {
+
+#search {
+    display: flex;
+    align-self: center;
     margin-left: auto !important;
+    color: black !important;
+}
+
+#search-no-login {
+    display: flex;
+    align-self: center;
+    margin-left: auto !important;
+    margin-right: 20px;
+    color: black !important;
+}
+
+.nav-title {
     display: flex;
     font-weight: lighter;
     align-items: center;
@@ -33,11 +50,11 @@
     text-decoration: none;
     margin: 0.5rem;
     font-size: x-large;
-    max-width: calc(100% + 8px);
     color: white !important;
     max-height: calc(100% + 8px);
     max-width: calc(100% + 8px);
 }
+
 
 .shopping-cart {
     display: flex;

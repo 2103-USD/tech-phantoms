@@ -35,8 +35,3 @@
 .checkout-button:hover {
     background-color: orange;
 }
-
-.cart-products {
-    overflow: auto;
-    padding-bottom: 180px;
-}

@@ -3,7 +3,9 @@
     align-items: center;
     align-content: center;
     justify-items: center;
+    width: 100% !important;
     margin-top: 10px;
+    clear: both; 
     background-color: lightblue;
 }
 
