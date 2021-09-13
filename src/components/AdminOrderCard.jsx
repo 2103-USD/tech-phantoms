@@ -6,7 +6,6 @@ export const AdminOrderCard = ({ order }) => {
 
     return (
         <div id={`${id}`} className="admin-order-card">
-            {/* {console.log(order)} */}
             <h3>Order #: {id} Placed on: {datePlaced}</h3>
             <h3>Ordered By: {lastName}, {firstName}</h3>
             <h3>{email}</h3>
