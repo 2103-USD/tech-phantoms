@@ -1,5 +1,10 @@
+.cart-products h2 {
+    color: black;
+}
+
 .update-button {
-    background-color: #4eb5f1;
+    color: white;
+    background-color: #053f5f;
     margin: 5px;
 }
 
@@ -11,16 +16,17 @@
 }
 
 .update-button:hover {
-    background-color: #4095c6;
+    background-color: lightblue;
 }
 
 .remove-button {
-    background-color: #4eb5f1;
+    color: white;
+    background-color: #053f5f;
     margin: 5px;
 }
 
 .remove-button:hover {
-    background-color: #4095c6;
+    background-color: lightblue;
 }
 
 .checkout-button {
@@ -30,10 +36,6 @@
     height: 40px;
     width: 100px;
     margin: 5px;
-}
-
-.checkout-button:hover {
-    background-color: orange;
 }
 
 .cart-products {

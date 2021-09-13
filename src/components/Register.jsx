@@ -43,10 +43,12 @@ export const Register = ({ setUser }) => {
     return (
         <div className="register-form">
             <h1>Register</h1>
+            <h5>All fields are required</h5>
             <br></br>
             <form className="actual-register-form" onSubmit={handleSubmit}>
                 <label>Username: </label>
                 <input
+                    required
                     name="username"
                     value={form.username}
                     onChange={handleInput}
@@ -55,6 +57,7 @@ export const Register = ({ setUser }) => {
                 <br />
                 <label>Password: </label>
                 <input
+                    required
                     name="password"
                     value={form.password}
                     onChange={handleInput}
@@ -63,6 +66,7 @@ export const Register = ({ setUser }) => {
                 />
                 <label>Confirm Password: </label>
                 <input
+                    required
                     name="confirmpassword"
                     value={form.confirmpassword}
                     onChange={handleInput}
@@ -72,6 +76,7 @@ export const Register = ({ setUser }) => {
                 <br />
                 <label>Email Address: </label>
                 <input
+                    required
                     name="email"
                     value={form.email}
                     onChange={handleInput}
@@ -81,6 +86,7 @@ export const Register = ({ setUser }) => {
                 <br />
                 <label>First Name: </label>
                 <input
+                    required
                     name="firstname"
                     value={form.firstname}
                     onChange={handleInput}
@@ -88,6 +94,7 @@ export const Register = ({ setUser }) => {
                 />
                 <label>Last Name: </label>
                 <input
+                    required
                     name="lastname"
                     value={form.lastname}
                     onChange={handleInput}

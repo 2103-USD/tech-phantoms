@@ -48,7 +48,7 @@ export const AdminUser = () => {
     };
 
     return (
-        <div>
+        <div className="user-card">
             <h3>Update User information for </h3>
             <h4>Only change fields that need to be updated for the user.</h4>
             <form onSubmit={handleSubmit}>
