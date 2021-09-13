@@ -121,13 +121,11 @@ async function getAllOrders() {
                 JOIN products p on op."productId" = p.id;
             `
         );
-            console.log("DBProducts", products)
         //combine orders with their products
         const ordersWithProducts = orders.map((order) => {
             order.products = products.filter(
                 (product) => product.orderId === order.id
             );
-            console.log("DBOrder>>>",order)
             return order;
         });
 
