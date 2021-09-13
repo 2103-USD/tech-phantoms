@@ -61,7 +61,7 @@ apiRouter.use('/orders', ordersRouter)
 apiRouter.use('/products', productsRouter)
 apiRouter.use('/order_products', orderProductsRouter)
 apiRouter.use('/reviews', reviewsRouter)
-apiRouter.use('/pay', stripeRouter)
+apiRouter.use('/stripe', stripeRouter)
 
 // Error Handler
 apiRouter.use((error, req, res, next) => {

@@ -5,7 +5,7 @@ export * from './users'
 export * from './orders'
 export * from './order_products'
 export * from './auth'
-export * from './stripe'
+export const STRIPE_KEY="pk_test_51JYbIZJjKKlhCIcocvja3IsGjuWw87lUfiw5NV5Z4ipnFyVOPHJlou88I48cSE3m0fUQ6ziMNROYdo1wS0xFEX9p00d2EYIung"
 
 // Site Health functions
 export async function checkServerHealth() {
