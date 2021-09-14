@@ -81,9 +81,9 @@ ordersRouter.post('/:orderId/empty', verifyUserIsOrderOwner, async (req, res, ne
 ordersRouter.get('/mine', requireUser, async (req, res, next) => {
     try {
         const {id} = req.user
-        const orders = await getOrdersByUser({id});
-        if (orders) {
-            res.send(orders)
+        const order = await getOrdersByUser(id);
+        if (order) {
+            res.send(order)
         }
         else {
             next({
