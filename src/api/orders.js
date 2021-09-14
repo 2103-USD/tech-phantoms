@@ -15,7 +15,7 @@ export async function getAllOrders() {
 	}
 }
 
-export async function getMyOrders() {
+export async function getAllOrders() {
     const URL = `${SectionURL}/mine`
 	try {
 		const {data} = await axios.get(`${URL}`,
