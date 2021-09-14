@@ -15,17 +15,6 @@ export async function getAllOrders() {
 	}
 }
 
-export async function getAllOrders() {
-    const URL = `${SectionURL}/mine`
-	try {
-		const {data} = await axios.get(`${URL}`,
-            getHeaders());
-		return data;
-	} catch (error) {
-		throw error;
-	}
-}
-
 export async function createNewOrder() {
     const URL = `${SectionURL}/`
     const status = "created"

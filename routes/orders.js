@@ -78,7 +78,7 @@ ordersRouter.post('/:orderId/empty', verifyUserIsOrderOwner, async (req, res, ne
 })
 
 // USER: Get all orders for user
-ordersRouter.get('/mine', requireUser, async (req, res, next) => {
+ordersRouter.get('/orders', requireUser, async (req, res, next) => {
     try {
         const {id} = req.user
         const order = await getOrdersByUser(id);
@@ -184,6 +184,7 @@ ordersRouter.get('/', requireAdmin, async (req, res, next) => {
             res.send(orders)
         }
         else {
+            res.status(500)
             next({
                 name:"OrdersNotFound",
                 message:"There are currently no orders in the system. Start advertising the site."
