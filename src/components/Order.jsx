@@ -4,10 +4,10 @@ import { getAllOrders } from '../api';
 import './style.css';
 
 export const Order = (props) => {
-	const [orders, setOrders] = useState([getAllOrders()]);
+	const [orders, setOrders] = useState([getMyOrders()]);
 
 	const handleOrders = async () => {
-		const res = await getAllOrders();
+		const res = await getMyOrders();
 		if (res.length > 0) setOrders(res);
 	};
 
