@@ -71,9 +71,11 @@ export const ProductCard = ({ product, user }) => {
                 <button className="twitter-hashtag-button">
                     <a
                         href={
-                            "https://twitter.com/intent/tweet?hashtags=CajonValley%2C&original_referer=https%3A%2F%2Fpublish.twitter.com%2F&text=" +
+                            "https://twitter.com/intent/tweet?hashtags=CajonValley%2C&original_referer=https%3A%2F%2Fpublish.twitter.com%2F&text=Checkout%20" +
                             name
                         }
+                        rel="noopener noreferrer"
+                        target="_blank"
                         data-show-count="false"
                         className="twitter-hashtag-button"
                     >

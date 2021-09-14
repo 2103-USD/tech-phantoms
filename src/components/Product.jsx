@@ -30,7 +30,7 @@ export const Product = ({ user }) => {
         if (cartItem) {
             toast(`${name} has been added to your cart`, { type: "success" });
         } else {
-            toast("An error occured.", { type: "error" });
+            toast("An error occurred.", { type: "error" });
         }
     };
 
@@ -81,9 +81,11 @@ export const Product = ({ user }) => {
                     <button className="twitter-hashtag-button-large">
                         <a
                             href={
-                                "https://twitter.com/intent/tweet?hashtags=CajonValley%2C&original_referer=https%3A%2F%2Fpublish.twitter.com%2F&text=" +
+                                "https://twitter.com/intent/tweet?hashtags=CajonValley%2C&original_referer=https%3A%2F%2Fpublish.twitter.com%2F&text=Checkout%20" +
                                 name
                             }
+                            rel="noopener noreferrer"
+                            target="_blank"
                             data-show-count="false"
                             className="twitter-hashtag-button-large"
                         >
