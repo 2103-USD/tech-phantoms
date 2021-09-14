@@ -77,6 +77,25 @@ export const Product = ({ user }) => {
                         </button>
                     </>
                 )}
+                <div>
+                    <button className="twitter-hashtag-button-large">
+                        <a
+                            href={
+                                "https://twitter.com/intent/tweet?hashtags=CajonValley%2C&original_referer=https%3A%2F%2Fpublish.twitter.com%2F&text=" +
+                                name
+                            }
+                            data-show-count="false"
+                            className="twitter-hashtag-button-large"
+                        >
+                            Tweet #CajonValley
+                        </a>
+                        <script
+                            async
+                            src="https://platform.twitter.com/widgets.js"
+                            charset="utf-8"
+                        ></script>
+                    </button>
+                </div>
             </div>
         </div>
     );

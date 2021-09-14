@@ -58,3 +58,28 @@
 .product-card-single p {
     margin: 10px 0 10px 0;
 }
+
+.twitter-hashtag-button-large {
+    position: relative;
+    height: 20px;
+    margin-top: 2rem;
+    box-sizing: border-box;
+    border: none;
+    font-size: xx-large !important;
+    font-weight: 500;
+    overflow: hidden;
+    min-height: 40px;
+    white-space: nowrap;
+    padding: 1px 8px 1px 6px;
+    background-color: #1b95e0;
+    font: normal normal normal 11px/18px "Helvetica Neue", Arial, sans-serif;
+    color: #fff !important;
+    text-decoration: none;
+    border-radius: 3px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.twitter-hashtag-button-large:hover {
+    background-color: #0c7abf;
+}

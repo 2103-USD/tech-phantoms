@@ -6,11 +6,9 @@ export const Footer = () => {
         <>
             <div className="footer">
                 <div className="footer-item2">
-                    <a href="https://www.cajonvalley.net" target="blank">
+                    <a href="https://www.worldofwork.net/" target="blank">
                         <img
-                            src={
-                                "https://www.cajonvalley.net/cms/lib/CA01902277/Centricity/Domain/4/CV_GlobeGear_Medallion.png"
-                            }
+                            src={require("../img/WoW-Logo-Web.png")}
                             alt="Cajon Valley Logo"
                         />
                     </a>
@@ -32,7 +30,7 @@ export const Footer = () => {
                         >
                             <img
                                 className="social-icon"
-                                src={require("../img/facebook.png")}
+                                src={require("../img/f_logo_RGB-Blue_58.png")}
                                 alt="Facebook Logo"
                             />
                         </a>
@@ -43,7 +41,7 @@ export const Footer = () => {
                         >
                             <img
                                 className="social-icon"
-                                src={require("../img/twitter.png")}
+                                src={require("../img/Twittersocialiconscircleblue.png")}
                                 alt="Link to Cajon Valley's Twitter Feed"
                             />
                         </a>
@@ -54,7 +52,7 @@ export const Footer = () => {
                         >
                             <img
                                 className="social-icon"
-                                src={require("../img/youtube.png")}
+                                src={require("../img/yt_logo_rgb_light.png")}
                                 alt="Link to Cajon Valley's Youtube Channel"
                             />
                         </a>
@@ -65,7 +63,7 @@ export const Footer = () => {
                         >
                             <img
                                 className="social-icon"
-                                src={require("../img/linkedin.png")}
+                                src={require("../img/In-Blue-48@2x.png")}
                                 alt="Link to Cajon Valley's Linked In Feed"
                             />
                         </a>

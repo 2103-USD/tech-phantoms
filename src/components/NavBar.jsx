@@ -8,13 +8,12 @@ import "./style.css";
 export const NavBar = ({ user, setUser }) => {
     const history = useHistory();
     const [search, setSearch] = useState([]);
-    const google = "https://www.google.com/search?q=site%3A";
-    const site = "https://fast-savannah-33549.herokuapp.com/";
+    const google = "https://www.google.com/search?q=";
 
     const initiateSearch = async ({ query }) => {
         const searchString = queryString.parse(query.query);
         console.log(searchString);
-        const url = google + site + "+" + query;
+        const url = google + query;
         const win = window.open(url, "_blank");
         win.focus();
     };
@@ -67,7 +66,7 @@ export const NavBar = ({ user, setUser }) => {
                     </Link>
                     <input
                         type="text"
-                        placeholder="Search . . ."
+                        placeholder="Search"
                         onChange={(event) => {
                             setSearch({ query: event.target.value });
                         }}

@@ -79,3 +79,25 @@ img {
         margin: 0.2em auto;
     }
 }
+
+.twitter-hashtag-button {
+    position: relative;
+    height: 20px;
+    margin-top: 2rem;
+    box-sizing: border-box;
+    border: none;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 1px 8px 1px 6px;
+    background-color: #1b95e0;
+    font: normal normal normal 11px/18px "Helvetica Neue", Arial, sans-serif;
+    color: #fff !important;
+    text-decoration: none;
+    border-radius: 3px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.twitter-hashtag-button:hover {
+    background-color: #0c7abf;
+}
