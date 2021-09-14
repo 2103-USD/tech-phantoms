@@ -82,7 +82,7 @@ export const ProductCard = ({ product, user }) => {
                     <script
                         async
                         src="https://platform.twitter.com/widgets.js"
-                        charset="utf-8"
+                        charSet="utf-8"
                     ></script>
                 </button>
             </div>
