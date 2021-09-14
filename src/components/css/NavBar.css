@@ -1,5 +1,6 @@
 .nav-bar {
     padding: 5px;
+    z-index: 1;
     padding-bottom: 0px;
     display: flex;
     flex-flow: row nowrap;
@@ -9,7 +10,7 @@
     width: 100%;
     background-color: #053f5f;
     max-height: 66px;
-    clear: both; 
+    clear: both;
 }
 
 .nav-item {
@@ -25,7 +26,6 @@
     color: white !important;
     max-width: calc(100% + 8px);
 }
-
 
 #search {
     display: flex;
@@ -54,7 +54,6 @@
     max-height: calc(100% + 8px);
     max-width: calc(100% + 8px);
 }
-
 
 .shopping-cart {
     display: flex;
