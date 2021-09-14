@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { OrderCard } from '.';
-import { getAllOrders } from '../api';
+import { getMyOrders } from '../api';
 import './style.css';
 
 export const Order = (props) => {
@@ -8,6 +8,7 @@ export const Order = (props) => {
 
 	const handleOrders = async () => {
 		const res = await getMyOrders();
+        console.log("JSX RES", res)
 		if (res.length > 0) setOrders(res);
 	};
 
