@@ -9,24 +9,44 @@ async function getOrderById(id) {
             rows: [order],
         } = await client.query(
             `
-            SELECT *
-            FROM orders
-            WHERE id = $1
+            SELECT 
+                u.username,
+                u."firstName",
+                u."lastName",
+                u.email,
+                o.*,
+                (
+                    SELECT SUM( price * quantity)
+                    FROM order_products op
+                    WHERE op."orderId" = o.id
+                ) AS total
+            FROM orders o 
+                JOIN users u ON o."userId" = u.id
+            WHERE o.id = $1
       `,
             [id]
         );
-
+        // Get order products
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, op.quantity, 
-                p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join products p on op."productId" = p.id;
-            where op."orderId" = $1;
+            SELECT
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price,
+                op.quantity, 
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN products p on op."productId" = p.id
+            WHERE op."orderId" = $1;
             `,
             [id]
         );
-
+        
         order.products = products;
         return order;
     } catch (error) {
@@ -40,12 +60,22 @@ async function getAllOrderProducts() {
         //get order products
         const { rows: orderProducts } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join products p on op."productId" = p.id;
+            SELECT
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN products p on op."productId" = p.id;
             `
         );
+        return orderProducts;
     } catch (error) {
         throw Error(error);
     }
@@ -57,30 +87,49 @@ async function getAllOrders() {
         //get orders
         const { rows: orders } = await client.query(
             `
-                SELECT *
-                FROM orders;
+            SELECT 
+                u.username,
+                u."firstName",
+                u."lastName",
+                u.email,
+                o.*,
+                (
+                    SELECT SUM( price * quantity)
+                    FROM order_products op
+                    WHERE op."orderId" = o.id
+                ) AS total
+            FROM orders o 
+                JOIN users u ON o."userId" = u.id
             `
         );
 
         //get products
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join products p on op."productId" = p.id;
+            SELECT 
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN products p on op."productId" = p.id;
             `
         );
-
         //combine orders with their products
-        const orderProducts = orders.map((order) => {
+        const ordersWithProducts = orders.map((order) => {
             order.products = products.filter(
                 (product) => product.orderId === order.id
             );
             return order;
         });
 
-        return orderProducts;
+        return ordersWithProducts;
     } catch (error) {
         throw Error(error);
     }
@@ -92,22 +141,37 @@ async function getOrdersByUser({ id }) {
         //get user's orders
         const { rows: orders } = await client.query(
             `
-                SELECT *
-                FROM orders
-                WHERE "userId" = $1;
-                `,
+            SELECT 
+                orders.*,
+                (
+                    SELECT SUM( price * quantity)
+                    FROM order_products op
+                    WHERE op."orderId" = orders.id
+                ) AS total
+            FROM orders
+            WHERE "userId" = $1;
+            `,
             [id]
         );
 
         //get products
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join orders o on op."orderId" = o.id
-            join products p on op."productId" = p.id;
-            where o."userId" = $1;
+            SELECT
+                op.id as "orderProductId",
+                op."productId",
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN orders o on op."orderId" = o.id
+                JOIN products p on op."productId" = p.id
+            WHERE o."userId" = $1;
             `,
             [id]
         );
@@ -132,10 +196,16 @@ async function getOrdersByProduct({ id }) {
         //get orders
         const { rows: orders } = await client.query(
             `
-            select o.*
-            from orders o
-            join order_products op on o.id = op.id
-            where op."productId" = $1;
+            SELECT 
+                o.*,
+                (
+                    SELECT SUM( price * quantity)
+                    FROM order_products op
+                    WHERE op."orderId" = o.id
+                ) AS total
+            FROM orders o
+                JOIN order_products op on o.id = op.id
+            WHERE op."productId" = $1;
             `,
             [id]
         );
@@ -143,12 +213,21 @@ async function getOrdersByProduct({ id }) {
         //get products
         const { rows: products } = await client.query(
             `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join orders o on op."orderId" = o.id
-            join products p on op."productId" = p.id;
-            where op."productId" = $1;
+            SELECT
+                op.id as "orderProductId",
+                op."productId", 
+                op."orderId",
+                op.price, 
+                op.quantity,
+                p.name,
+                p.description,
+                p."imageURL",
+                p."inStock",
+                p.category
+            FROM order_products op
+                JOIN orders o on op."orderId" = o.id
+                JOIN products p on op."productId" = p.id
+            WHERE op."productId" = $1;
             `,
             [id]
         );
@@ -170,34 +249,51 @@ async function getOrdersByProduct({ id }) {
 //get cart by user
 async function getCartByUser({ id }) {
     try {
-        //get user's orders
+        //get user's order cart
         const {
             rows: [order],
         } = await client.query(
             `
-                SELECT *
+                SELECT 
+                    orders.*,
+                    (
+                        SELECT SUM( price * quantity)
+                        FROM order_products op
+                        WHERE op."orderId" = orders.id
+                    ) AS total
                 FROM orders
                 WHERE "userId" = $1
                     AND status = 'created';
                 `,
             [id]
         );
+        
+        if (order) {
+            //get products
+            const { rows: products } = await client.query(
+                `
+                SELECT
+                    op.id as "orderProductId",
+                    op."productId",
+                    op."orderId",
+                    op.price, 
+                    op.quantity,
+                    p.name,
+                    p.description,
+                    p."imageURL",
+                    p."inStock",
+                    p.category
+                FROM order_products op
+                    JOIN orders o on op."orderId" = o.id
+                    JOIN products p on op."productId" = p.id
+                WHERE o."userId" = $1
+                    AND o.status = 'created';
+                `,
+                [id]
+            );
+            order.products = products;
+        }
 
-        //get products
-        const { rows: products } = await client.query(
-            `
-            select op.id as "orderProductId", op."productId", op."orderId", op.price, 
-                op.quantity, p. name, p.description, p."imageURL", p."inStock", p.category
-            from order_products op
-            join orders o on op."orderId" = o.id
-            join products p on op."productId" = p.id;
-            where op."userId" = $1
-                AND o.status = 'created';
-            `,
-            [id]
-        );
-
-        order.products = products;
         return order;
     } catch (error) {
         throw error;
@@ -246,7 +342,7 @@ async function updateOrder({ id, status, userId }) {
 }
 
 //complete order
-async function completeOrder({ id }) {
+async function completeOrder({ id, paymentId, paymentType, paymentAmt, paymentURL }) {
     try {
         //update order
         const {
@@ -254,13 +350,74 @@ async function completeOrder({ id }) {
         } = await client.query(
             `
             UPDATE orders
-            SET status = 'completed'
+            SET 
+                status = 'completed',
+                "paymentType" = $2,
+                "paymentAmt" = $3,
+                "paymentURL" = $4,
+                "paymentId" = $5,
+                "datePlaced" = now()
             WHERE id = $1
             RETURNING *;
             `,
+            [id, paymentType, paymentAmt, paymentURL, paymentId ]
+        );
+
+        const {
+            rows: [prod],
+        } = await client.query(
+            `
+            UPDATE products p
+            SET 
+                "inStock" = p."inStock" - op.quantity
+            FROM order_products op
+            WHERE p.id = op."productId" 
+                AND op."orderId" = $1
+            RETURNING p.*;
+            `,
             [id]
         );
+
+            console.log("products,", prod)
+
         return order;
+    } catch (error) {
+        console.log(error)
+        throw error;
+    }
+}
+
+//empty shopping cart
+async function emptyCart({ id }) {
+    try {
+        //Get the parent order
+        const {
+            rows: [order],
+        } = await client.query(
+            `
+                SELECT *
+                FROM orders
+                WHERE id = $1
+                    AND status = 'created';
+                `,
+            [id]
+        );
+        
+        if (order) {
+            //get newly-emptied item list
+            const { rows: products } = await client.query(
+                `
+                DELETE 
+                FROM order_products op
+                WHERE op."orderId" = $1
+                RETURNING *
+                `,
+                [id]
+            );
+            order.products = products;
+        }
+        return order;
+
     } catch (error) {
         throw error;
     }
@@ -298,4 +455,5 @@ module.exports = {
     updateOrder,
     completeOrder,
     cancelOrder,
+    emptyCart
 };

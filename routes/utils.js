@@ -1,5 +1,4 @@
 // Requires
-const express = require('express');
 const {
     getOrderById,
     getOrderProductById,
@@ -7,7 +6,7 @@ const {
 } = require('../db');
 
 
-function requireUser(req, res, next) {
+async function requireUser(req, res, next) {
     if (!req.user) {
         res.status(401)
         next({
@@ -26,8 +25,7 @@ async function requireAdmin(req, res, next) {
             message: "You must log in first."
         });
     }
-    const _user = await getUserById(id); 
-    if (!_user.isAdmin){
+    if (!req.user.isAdmin){
         res.status(403)
         next({
             name: "AdminLoginRequired",
@@ -90,9 +88,10 @@ async function verifyUserIsOrderProductOwner(req, res, next) {
         }
 
         const {orderProductId} = req.params
-        const orderProduct = await getOrderProductById(orderProductId)
+        const [orderProduct] = await getOrderProductById(orderProductId)
         if (orderProduct) {
             const {id:UserId} = req.user;
+            const orderId = orderProduct.orderId
             const order = await getOrderById(orderId);
             if (order) {
                 //Check if user is order owner
@@ -100,7 +99,7 @@ async function verifyUserIsOrderProductOwner(req, res, next) {
                     next();
                 }
                 else {
-                    res.status(403)
+                    // res.status(403)
                     next({
                         name:"NotYourOrder",
                         message:"This is not your order."
@@ -108,7 +107,7 @@ async function verifyUserIsOrderProductOwner(req, res, next) {
                 }
             }
             else {
-                res.status(404)
+                // res.status(404)
                 next({
                     name:"OrderNotFound",
                     message:"The order was not found."

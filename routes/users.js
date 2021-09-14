@@ -9,7 +9,8 @@ const {
     getUserByUsername, 
     getUserNameByEmail,
     updateUser,
-    getOrdersbyUser
+    updateUserByAdmin,
+    getOrdersByUser
 } = require('../db');
 const {
     requireUser, 
@@ -20,12 +21,13 @@ const {
 const usersRouter = express.Router();
 
 
-// User side calls
+// GUEST: Register a new user account
 usersRouter.post('/register', async (req, res, next) => {
     try {
         const { 
                 username, 
                 password,
+                confirmpassword,
                 firstName,
                 lastName,
                 email, 
@@ -34,25 +36,24 @@ usersRouter.post('/register', async (req, res, next) => {
         const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
         if (_username) {
-            console.log("UserExistsError")
-            // res.status(401);
             next({
                 name: 'UserExistsError',
-                message: 'This username already exists. Please select a new username.'
+                message: 'This username already exists. Please select a new username or login to your account.'
             });
         } else if (_useremail) {
-            console.log("UserExistsError")
-            // res.status(401);
             next({
                 name: 'UserExistsError',
                 message: 'An account already exists for this email address. Please login instead.'
             });
         } else if (password.length < 8 ) {
-            console.log("PassLenError")
-            // res.status(401);
             next({
                 name: 'password-too-short',
-                message: 'Password is too short. 8 or more characters are required. '
+                message: 'Password is too short.\n8 or more characters are required. '
+            });
+        } else if (confirmpassword !== password) {
+            next({
+                name: 'passwords-dont-match',
+                message: 'Your passwords do not match.\nPlease try again'
             });
         } else {
             const user = await createUser({
@@ -61,9 +62,9 @@ usersRouter.post('/register', async (req, res, next) => {
                 firstName,
                 lastName,
                 email,
-                imageURL
+                imageURL,
+                isAdmin:false
             });
-            console.log("CreateUser Result==>>",user)
             if (user){
                 const token = jwt.sign({ 
                     id: user.id, 
@@ -88,13 +89,12 @@ usersRouter.post('/register', async (req, res, next) => {
     } 
 });
 
-
+// GUEST: Login with an existing user ID
 usersRouter.post('/login', async (req, res, next) => {
     try {
         // request must have both username and password
         const { username, password} = req.body;
         if (!username || !password) {
-            res.status(401);
             next({
                 name: "MissingCredentialsError",
                 message: "Please supply both a username and password"
@@ -116,7 +116,6 @@ usersRouter.post('/login', async (req, res, next) => {
             res.send({ user, token});
         }
         else {
-            res.status(401);
             next({
                 name: "InvalidCredentials",
                 message: "Username or Password are incorrect, or this account does not exist."
@@ -127,7 +126,7 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 })
 
-
+// USER: Show user's account information.
 usersRouter.get('/me', requireUser, async (req, res, next) => {
     try {
         const {id} = req.user
@@ -140,10 +139,11 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
     }
 })
 
+// USER: get a user's orders
 usersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
     try {
         const {userId: id} = req.params;
-        const orders = await getOrdersbyUser(id); // Do we want to pass in a userId or a user object? 
+        const orders = await getOrdersByUser(id);
         if (orders) {
             res.send(orders)
         }
@@ -159,11 +159,13 @@ usersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
     }
 })
 
+// USER: Update user's own info
 usersRouter.patch('/me', requireUser, async (req, res, next) => {
     // Allows user to update their own account information.
     try {
-        const {userId: id} = req.params;
+        // const {userId: id} = req.params;
         const {
+            id,
             firstName,
             lastName,
             email, 
@@ -171,30 +173,21 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
             username,
             password
         } = req.body;
-        const _username = await getUserByUsername(username);
+        // const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
-        if (_username) {
-            console.log("UserExistsError")
-            // res.status(401);
-            next({
-                name: 'UserExistsError',
-                message: 'This username already exists. Please select a new username.'
-            });
-        } else if (_useremail) {
-            console.log("UserExistsError")
-            // res.status(401);
+
+        if (_useremail) {
             next({
                 name: 'UserExistsError',
                 message: 'An account already exists for this email address. Please login instead.'
             });
-        } else if (password.length < 8 ) {
-            console.log("PassLenError")
-            // res.status(401);
-            next({
-                name: 'password-too-short',
-                message: 'Password is too short. 8 or more characters are required. '
-            });
+        // } else if (password.length < 8 ) {
+        //     next({
+        //         name: 'password-too-short',
+        //         message: 'Password is too short. 8 or more characters are required. '
+        //     });
         } else {
+
             const user = await updateUser(
                 id,
                 firstName,
@@ -204,7 +197,6 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
                 username,
                 password
             ); 
-            console.log("Update Myself Result==>>",user)
             if (user){
                 const token = jwt.sign({ 
                     id: user.id, 
@@ -228,10 +220,12 @@ usersRouter.patch('/me', requireUser, async (req, res, next) => {
             res.send(user) 
         }
     } catch ({ name, message }) {
+        console.error(name, message)
         next({ name, message })
     }
 })
 
+// ADMIN: Get users list
 usersRouter.get('/', requireAdmin, async (req, res, next) => {
     try {
         const users = await getAllUsers(); 
@@ -243,6 +237,20 @@ usersRouter.get('/', requireAdmin, async (req, res, next) => {
     }
 })
 
+// ADMIN: Get specific user info
+usersRouter.get('/:userId', requireAdmin, async (req, res, next) => {
+    try {
+        const {userId: id} = req.params;
+        const users = await getUserById(id); 
+        if (users) {
+            res.send(users)
+        }
+    } catch ({ name, message }) {
+        next({ name, message })
+    }
+})
+
+// ADMIN: Update a user
 usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
     try {
         const {userId: id} = req.params;
@@ -250,67 +258,43 @@ usersRouter.patch('/:userId', requireAdmin, async (req, res, next) => {
             firstName,
             lastName,
             email, 
-            imageURL, 
             username,
-            password,
-            isAdmin
+            isAdmin,
+            isActive
         } = req.body;
         const _username = await getUserByUsername(username);
         const _useremail = await getUserNameByEmail(email);
-        if (_username) {
-            console.log("UserExistsError")
-            // res.status(401);
-            next({
-                name: 'UserExistsError',
-                message: 'This username already exists. Please select a new username.'
-            });
-        } else if (_useremail) {
-            console.log("UserExistsError")
-            // res.status(401);
-            next({
-                name: 'UserExistsError',
-                message: 'An account already exists for this email address. Please login instead.'
-            });
-        } else if (password.length < 8 ) {
-            console.log("PassLenError")
-            // res.status(401);
-            next({
-                name: 'password-too-short',
-                message: 'Password is too short. 8 or more characters are required. '
-            });
-        } else {
-            const user = await updateUser(
-                id,
-                firstName,
-                lastName,
-                email, 
-                imageURL, 
-                username,
-                password,
-                isAdmin
-            ); 
-            console.log("Update Some User Result==>>",user)
-            if (user){
-                const token = jwt.sign({ 
-                    id: user.id, 
-                    username
-                }, process.env.JWT_SECRET, {
-                    expiresIn: '1w'
-                });
-                res.status(201)
-                res.send({ 
-                    user, token
-                });
-            } else {
+        if ((_username) || (_useremail)){
+            if (_username === username) {
                 next({
-                    // We need to test to see if this occurs, and what may prompt it.
-                    name: 'Uh OH',
-                    message: 'It dont work'
-                })
+                    name: 'UserExistsError',
+                    message: 'This username already exists. Please select a new username.'
+                });
             }
-        }
+            else if (_useremail === email) {
+                next({
+                    name: 'UserExistsError',
+                    message: 'An account already exists for this email address. Please login instead.'
+                });
+            }
+        } 
+        const user = await updateUserByAdmin(
+            id,
+            firstName,
+            lastName,
+            email, 
+            username,
+            isAdmin,
+            isActive
+        ); 
         if (user) {
             res.send(user) 
+        } else {
+            next({
+                // We need to test to see if this occurs, and what may prompt it.
+                name: 'Uh OH',
+                message: 'It dont work Internal'
+            })
         }
     } catch ({ name, message }) {
         next({ name, message })

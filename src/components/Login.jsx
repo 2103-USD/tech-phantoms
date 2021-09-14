@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { BASE_URL, storeCurrentUser } from "../api";
+import { useHistory } from "react-router-dom";
+import { loginExistingUser } from "../api";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 import "./style.css";
 
 export const Login = ({ setUser }) => {
@@ -10,31 +12,38 @@ export const Login = ({ setUser }) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    const history = useHistory();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${BASE_URL}/login`, {
+            const {data} = await loginExistingUser( {
                 username: form.username,
                 password: form.password,
             });
-
-            setUser(res.data.user);
-            storeCurrentUser(res.data.user, res.data.token);
+            if (!data.message)  {
+                toast(`Welcome back, ${data.user.firstName}`, { type: "success" });
+                setUser(data.user)
+                history.push("/")
+            } else {
+                toast(data.message, { type: "error" });
+            }
         } catch (error) {
+            toast('Username or Password is incorrect. Please try again', {type: 'error'});
             console.error(error);
         }
     };
 
     return (
-        <div>
+        <div className="login-form">
             <h1>Login</h1>
-
             <form onSubmit={handleSubmit}>
                 <label>Username</label>
                 <input
                     name="username"
                     value={form.username}
                     onChange={handleInput}
+                    autoComplete = "username"
                 />
                 <label>Password</label>
                 <input
@@ -42,8 +51,9 @@ export const Login = ({ setUser }) => {
                     value={form.password}
                     onChange={handleInput}
                     type="password"
+                    autoComplete = "current-password"
                 />
-                <button type="submit">Login</button>
+                <button type="submit" className="login-button">Login</button>
             </form>
         </div>
     );

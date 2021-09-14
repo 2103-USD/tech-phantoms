@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { GetCurrentUser } from "../api";
 import "./style.css";
 import {
     Header,
@@ -10,25 +13,26 @@ import {
     Register,
     FeaturedItems,
     Footer,
+    AdminOrders,
+    AdminUsers,
+    AdminUser,
+    AdminProducts,
+    AdminProduct,
+    Cart,
+    Order,
+    MyAccount,
 } from ".";
 
-// export const [products, setProducts] = useState([]);
-
-// useEffect(() => {
-// 	setProducts().then((products) => {
-// 		setProducts(products);
-// 	})
-// },[])
+toast.configure();
 
 export const App = () => {
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState(GetCurrentUser());
     return (
         <>
-            <header>
-                <Header />
-            </header>
+            <Header />
+            <ToastContainer autoClose={3000} position={"bottom-right"} />
             <nav>
-                <NavBar currentUser />
+                <NavBar user={user} setUser={setUser} />
                 <Route exact path="/login">
                     {" "}
                     <Login setUser={setUser} />
@@ -38,19 +42,47 @@ export const App = () => {
                     <Register setUser={setUser} />
                 </Route>
             </nav>
-            <div className="App">
-                <Switch>
-                    <Route exact path="/">
-                        <h1>Welcome to the Student Store!</h1>
-                        <FeaturedItems />
-                    </Route>
-                    <Route exact path="/products">
-                        <Products />
-                    </Route>
-                    <Route exact path="/product/:productId">
-                        <Product />
-                    </Route>
-                </Switch>
+            <div id="wrap">
+                <div id="main">
+                    <div className="App">
+                        <Switch>
+                            <Route exact path="/">
+                                <h1>Welcome to the Student Store!</h1>
+                                <FeaturedItems />
+                            </Route>
+                            <Route exact path="/products">
+                                <Products user={user} />
+                            </Route>
+                            <Route exact path="/product/:productId">
+                                <Product user={user} />
+                            </Route>
+                            <Route exact path="/admin/products">
+                                <AdminProducts />
+                            </Route>
+                            <Route exact path="/admin/product/:productId">
+                                <AdminProduct />
+                            </Route>
+                            <Route exact path="/admin/orders">
+                                <AdminOrders />
+                            </Route>
+                            <Route exact path="/admin/users">
+                                <AdminUsers />
+                            </Route>
+                            <Route exact path="/admin/user/:userId">
+                                <AdminUser />
+                            </Route>
+                            <Route exact path="/myaccount">
+						        <MyAccount user={user} />
+					        </Route>
+                            <Route exact path="/cart">
+                                <Cart />
+                            </Route>
+                            <Route exact path="/orders">
+                                <Order />
+                            </Route>
+                        </Switch>
+                    </div>
+                </div>
             </div>
             <footer>
                 <Footer />

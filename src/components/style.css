@@ -1,26 +1,25 @@
+@import "./css/Admin.css";
 @import "./css/App.css";
+@import "./css/Cart.css";
+@import "./css/FeaturedItems.css";
+@import "./css/Footer.css";
+@import "./css/Header.css";
 @import "./css/Login.css";
 @import "./css/NavBar.css";
-@import "./css/Login.css";
+@import "./css/Product.css";
 @import "./css/Products.css";
-@import "./css/Footer.css";
+@import "./css/Order.css";
+@import "./css/Register.css";
+@import "./css/User.css";
 
-form {
-    margin: 5px;
+body {
+    background-color: whitesmoke;
 }
 
-button {
-    margin: 5px;
+div {
+    background-color: whitesmoke;
 }
 
-.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: center;
-}
-
-.header-item {
-    margin: 0.25rem;
+input {
+    height: 1.5rem;
 }

@@ -21,6 +21,46 @@ async function getReviewsByProductId(id) {
     }
 }
 
+//Get all reviews for product
+async function getStarsByProductId(id) {
+    try {
+        const {
+            rows: [product],
+        } = await client.query(
+            `
+                SELECT 
+                    SUM(stars) / COUNT(*) AS AvgStars
+                FROM reviews
+                WHERE "productId" = $1;
+            `,
+            [id]
+        );
+        return product;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
+//Get review by ID
+async function getReviewById(id) {
+    try {
+        const {
+            rows: [product],
+        } = await client.query(
+            `
+                SELECT *
+                FROM reviews
+                WHERE id = $1;
+            `,
+            [id]
+        );
+        return product;
+
+    } catch (error) {
+        throw error;
+    }
+}
 
 //Crete product review
 async function createReview({ 
@@ -104,4 +144,6 @@ module.exports = {
     createReview,
     updateReview,
     deleteReview,
+    getReviewById,
+    getStarsByProductId
 };

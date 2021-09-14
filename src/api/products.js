@@ -68,18 +68,18 @@ export async function createNewItem(
     }
 };
 
-export async function UpdateItem( 
+export async function updateItem({
     id,
     name,
     description,
     price,
     imageURL,
     inStock,
-    category
+    category}
     ) {
     const URL = `${SectionURL}/${id}`
     try {
-        const {data} = await axios.post(`${URL}`, {
+        const {data} = await axios.patch(`${URL}`, {
             name,
             description,
             price,
@@ -87,6 +87,17 @@ export async function UpdateItem(
             inStock,
             category
         }, getHeaders())
+        return data
+    } catch (error) {
+        console.error(error)
+    }
+};
+
+export async function deleteItem({productId}) {
+    const URL = `${SectionURL}/${productId}`
+    try {
+        const {data} = await axios.delete(`${URL}`
+            , getHeaders())
         return data
     } catch (error) {
         console.error(error)

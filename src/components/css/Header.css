@@ -1,0 +1,21 @@
+.header {
+    display: grid;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    width: 100% !important;
+    margin-top: 10px;
+    clear: both; 
+    background-color: lightblue;
+}
+
+.header-item {
+    margin: 0.25rem;
+}
+
+.header-logo {
+    width: 150px;
+    height: 150px;
+    margin-top: 70px !important;
+    position: relative;
+}

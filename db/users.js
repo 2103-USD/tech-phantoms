@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const client = require("./client");
-
+const SALT_COUNT = 10;
 //create user
 async function createUser({
     firstName,
@@ -11,7 +11,6 @@ async function createUser({
     password,
     isAdmin,
 }) {
-    const SALT_COUNT = 10;
     const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
     try {
         const {
@@ -23,7 +22,7 @@ async function createUser({
             ON CONFLICT (username) DO NOTHING
             RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
             `,
-            
+
             [
                 firstName,
                 lastName,
@@ -46,15 +45,13 @@ async function getUser({ username, password }) {
         if (!username || !password) {
             return "";
         }
-
-        const user = await getUserByUsername(username);
+        const user = await _getUserByUsername(username);
         if (user) {
             const hashedPassword = user.password;
             const passwordsMatch = await bcrypt.compare(
                 password,
                 hashedPassword
             );
-
             if (passwordsMatch) {
                 delete user.password;
                 return user;
@@ -70,11 +67,19 @@ async function getAllUsers() {
     try {
         const { rows: users } = await client.query(
             `
-            SELECT "firstName", "lastName", email, "imageURL", username, "isAdmin"
-            FROM users
-            `,
-            []
+            SELECT 
+                id,
+                "firstName",
+                "lastName",
+                email,
+                "imageURL",
+                username,
+                "isAdmin",
+                "isActive"
+            FROM users;
+            `
         );
+        return users
     } catch (error) {
         throw error;
     }
@@ -87,11 +92,41 @@ async function getUserById(id) {
             rows: [user],
         } = await client.query(
             `
-            SELECT *
+            SELECT 
+                id,
+                "firstName",
+                "lastName",
+                email,
+                "imageURL",
+                username,
+                "isAdmin",
+                "isActive"
             FROM users
             WHERE id = $1;
             `,
             [id]
+        );
+
+        return user;
+    } catch (error) {
+        throw error;
+    }
+}
+
+//get user by username-INTERNAL
+async function _getUserByUsername(username) {
+    try {
+        const {
+            rows: [user],
+        } = await client.query(
+            `
+            SELECT 
+                *
+            FROM users
+            WHERE username = $1
+                AND "isActive" = true;
+            `,
+            [username]
         );
 
         return user;
@@ -107,7 +142,14 @@ async function getUserByUsername(username) {
             rows: [user],
         } = await client.query(
             `
-            SELECT *
+            SELECT 
+                id,
+                "firstName",
+                "lastName",
+                email,
+                "imageURL",
+                username,
+                "isAdmin"
             FROM users
             WHERE username = $1;
             `,
@@ -127,7 +169,14 @@ async function getUserNameByEmail(email) {
             rows: [user],
         } = await client.query(
             `
-            SELECT *
+            SELECT 
+                id,
+                "firstName",
+                "lastName",
+                email,
+                "imageURL",
+                username,
+                "isAdmin"
             FROM users
             WHERE email = $1;
             `,
@@ -141,18 +190,48 @@ async function getUserNameByEmail(email) {
 }
 
 // update user
-async function updateUser({
+
+async function updateUser(fields = {}) {
+    const { id, password } = fields;
+    const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(', ');
+
+    if(password) {
+    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    }
+
+    try {
+        if(setString.length > 0) {
+        const {
+            rows: [user],
+        } = await client.query(
+            `
+            UPDATE users
+            SET ${setString}
+            WHERE id = ${id}
+            RETURNING *;
+            `,
+
+            Object.values(fields)
+        );
+
+        return user;}
+    } catch (error) {
+        throw error;
+    }
+}
+
+// ADMINupdate user
+async function updateUserByAdmin(
     id,
     firstName,
     lastName,
     email,
-    imageURL,
     username,
-    password,
     isAdmin,
-}) {
-    const SALT_COUNT = 10;
-    const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+    isActive
+) {
     try {
         const {
             rows: [user],
@@ -163,24 +242,19 @@ async function updateUser({
                 "firstName" = $1, 
                 "lastName" = $2, 
                 email = $3, 
-                "imageURL" = $4, 
-                username = $5, 
-                password = $6, 
-                "isAdmin" = $7
-            WHERE id = $8
-            VALUES($1, $2, $3, $4, $5, $6, $7, $8)
-            ON CONFLICT (username) DO NOTHING
-            RETURNING id, "firstName", "lastName", email, "imageURL", username, "isAdmin";
+                username = $4, 
+                "isAdmin" = $5,
+                "isActive" = $6
+            WHERE id = $7
+            RETURNING id, "firstName", "lastName", email, username, "isAdmin", "isActive";
             `,
-            
             [
                 firstName,
                 lastName,
                 email,
-                imageURL,
                 username,
-                hashedPassword,
                 isAdmin,
+                isActive,
                 id
             ]
         );
@@ -189,7 +263,6 @@ async function updateUser({
         throw error;
     }
 }
-
 module.exports = {
     createUser,
     getUser,
@@ -197,5 +270,6 @@ module.exports = {
     getUserById,
     getUserByUsername,
     getUserNameByEmail,
-    updateUser
+    updateUser,
+    updateUserByAdmin
 };

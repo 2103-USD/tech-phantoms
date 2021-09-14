@@ -6,9 +6,17 @@ async function getOrderProductById(id) {
     try {
         const { rows: orderProducts } = await client.query(
             `
-            SELECT *
-            FROM order_products
-            WHERE id = $1
+            SELECT 
+                u.username,
+                u."firstName",
+                u."lastName",
+                u.email,
+                o.*,
+                op.*
+            FROM order_products op
+                JOIN orders o on op."orderId" = o.id
+                JOIN users u on o."userId" = u.id
+            WHERE op.id = $1
             `,
             [id]
         );
@@ -25,6 +33,9 @@ async function addProductToOrder({ orderId, productId, price, quantity }) {
             `
             INSERT INTO order_products ("orderId", "productId", price, quantity)
             VALUES ($1, $2, $3, $4)
+            ON CONFLICT ON CONSTRAINT idx_orderProducts
+            DO UPDATE
+            SET quantity = order_products.quantity + 1
             RETURNING *;
             `,
             [orderId, productId, price, quantity]
@@ -37,16 +48,16 @@ async function addProductToOrder({ orderId, productId, price, quantity }) {
 }
 
 //update Order product
-async function updateOrderProduct({ id, price, quantity }) {
+async function updateOrderProduct({ id, quantity }) {
     try {
         const { rows: orderProduct } = await client.query(
             `
             UPDATE order_products
-            SET price = $2, quantity = $3
+            SET  quantity = $2
             WHERE id = $1
             RETURNING *;
             `,
-            [id, price, quantity]
+            [id, quantity]
         );
 
         return orderProduct;

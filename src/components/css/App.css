@@ -1,0 +1,28 @@
+tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+tr:nth-child(odd) {
+    background-color: gray;
+}
+
+tr:hover {
+    background-color: #4eb5f1;
+}
+
+th {
+    padding: 5px;
+    background-color: lightsteelblue;
+}
+
+#main {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: calc(100vh - 187px);
+}
+
+#wrap {
+    padding: 15px;
+    margin-bottom: 187px;
+}

@@ -1,0 +1,187 @@
+.featured-items-div {
+    width: auto;
+    margin: 100px;
+    overflow: auto;
+    padding-bottom: 2rem;
+    text-align: center;
+}
+
+.featured-items-div h2 {
+    color: #053f5f;
+    margin-bottom: 4rem;
+    font: normal 500 36px/1.1 "Josefin Sans", sans-serif !important;
+}
+
+.featured-items-slider button {
+    background-color: #4eb5f1;
+}
+
+.featured-items-slider button:hover {
+    background-color: gray;
+}
+
+.slick-dots li button {
+    border-radius: 50%;
+    background-color: lightskyblue !important;
+    color: lightskyblue !important;
+}
+.slick-dots li button:before {
+    color: lightskyblue !important;
+}
+
+#featured-content-wrapper {
+    display: flex;
+    padding: 59px 0 68px;
+    text-align: center;
+}
+
+#motto {
+    display: flex !important;
+    text-align: center !important;
+    width: 100% !important;
+    align-items: center;
+    justify-content: center;
+    font: normal 500 36px/1.1 "Josefin Sans", sans-serif;
+    font-weight: lighter;
+}
+
+ul#featured-content-image-links {
+    max-width: 296px;
+}
+
+.lower-featured ul {
+    display: inline;
+}
+
+.lower-featured li {
+    list-style: none;
+    text-decoration: none;
+    display: inline;
+    margin-left: 100px;
+    float: left;
+}
+
+#featured-links {
+    display: flex !important;
+    flex-flow: row wrap !important;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.featured-item-pics {
+    border-radius: 0%;
+    height: 200px;
+    width: 200px;
+}
+
+.jc-c {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+#featured-content-image-links {
+    width: 100%;
+    display: flex;
+}
+
+#featured-content-image-links a:after {
+    font: normal 400 36px "cajon-valley-icons";
+    color: #fff;
+    bottom: 15px;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    height: 100%;
+    background: transparent;
+    opacity: 0;
+}
+#featured-content-image-links a > p span {
+    display: block;
+    padding: 18px 4px 9px;
+    background: rgba(255, 255, 255, 0.8);
+    -webkit-transition: background 0.4s ease 0s;
+    -moz-transition: background 0.4s ease 0s;
+    transition: background 0.4s ease 0s;
+}
+#featured-content-image-links a > p {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    font: normal 400 30px/1 "Josefin Sans", sans-serif;
+    color: #000;
+    padding-left: 30px;
+    letter-spacing: -0.9px;
+    text-transform: uppercase;
+}
+#featured-content-image-links img {
+    width: 100%;
+    height: auto;
+}
+#featured-content-image-links a {
+    display: block;
+    position: relative;
+    text-decoration: none;
+}
+#featured-content-image-links .double-right-angle-triangles {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 100%;
+    opacity: 0;
+    -webkit-transition: opacity 0.4s ease 0s;
+    -moz-transition: opacity 0.4s ease 0s;
+    transition: opacity 0.4s ease 0s;
+}
+
+ul#featured-content-image-links {
+    max-width: calc(100% + 8px);
+    margin-left: -4px;
+    overflow: hidden;
+}
+.jc-c {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+.flex-cont {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+.strip-ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+#featured-content-wrapper .region:empty {
+    display: none;
+}
+#featured-content-wrapper .region {
+    padding-bottom: 42px;
+}
+.slick-slide img {
+    border-radius: 0% !important;
+}
+
+.slick-track {
+    margin-bottom: 100px;
+}

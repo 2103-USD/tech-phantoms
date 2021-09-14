@@ -4,9 +4,7 @@ const client = require("./client");
 //get product by id
 async function getProductById(id) {
     try {
-        const {
-            rows: [product],
-        } = await client.query(
+        const { rows: products } = await client.query(
             `
                 SELECT *
                 FROM products
@@ -14,7 +12,38 @@ async function getProductById(id) {
             `,
             [id]
         );
-        return product;
+
+        // Get Stars
+        const { rows: stars } = await client.query(
+            `
+                SELECT 
+                    "productId",
+                    SUM(stars) / COUNT(*) AS AvgStars
+                FROM reviews
+                GROUP BY "productId"
+            `
+        );
+        
+        // Get Reviews
+        const { rows: reviews } = await client.query(
+            `
+                SELECT 
+                    *
+                FROM reviews
+            `
+        );
+
+        const productsWithReviews = products.map((product) => {
+            product.stars = stars.filter(
+                (_star) => _star.productId === product.id
+            );
+            product.reviews = reviews.filter(
+                (_review) => _review.productId === product.id
+            );
+            return product;
+        });
+
+        return productsWithReviews;
     } catch (error) {
         throw error;
     }
@@ -22,13 +51,33 @@ async function getProductById(id) {
 
 async function getAllProducts() {
     try {
+        //Get Products
         const { rows: products } = await client.query(
             `
                 SELECT *
                 FROM products;
             `
         );
-        return products;
+        // Get Stars
+        const { rows: stars } = await client.query(
+            `
+                SELECT 
+                    "productId",
+                    SUM(stars) / COUNT(*) AS AvgStars
+                FROM reviews
+                GROUP BY "productId"
+            `
+        );
+
+        const productsWithReviews = products.map((product) => {
+            product.stars = stars.filter(
+                (_star) => _star.productId === product.id
+            );
+
+            return product;
+        });
+
+        return productsWithReviews;
     } catch (error) {
         throw error;
     }
@@ -76,6 +125,7 @@ async function createProduct({
 
 async function getAllProductsByCategory(category) {
     try {
+        //Get Products
         const { rows: products } = await client.query(
             `
                 SELECT *
@@ -84,7 +134,26 @@ async function getAllProductsByCategory(category) {
             `,
             [category]
         );
-        return products;
+        // Get Stars
+        const { rows: stars } = await client.query(
+            `
+                SELECT 
+                    "productId",
+                    SUM(stars) / COUNT(*) AS AvgStars
+                FROM reviews
+                GROUP BY "productId"
+            `
+        );
+
+        const productsWithReviews = products.map((product) => {
+            product.stars = stars.filter(
+                (_star) => _star.productId === product.id
+            );
+
+            return product;
+        });
+
+        return productsWithReviews;
     } catch (error) {
         throw error;
     }
@@ -131,7 +200,6 @@ async function updateProduct({
                 inStock = $5,
                 category = $6
             WHERE id = $7
-            VALUES($1, $2, $3, $4, $5, $6, $7)
             RETURNING *;
             `,
             
@@ -163,14 +231,15 @@ async function destroyProduct({ id }) {
             WHERE id = $1
               AND id NOT IN (
                 SELECT "productId"
-                FROM order_products
+                FROM order_products op
+                    JOIN orders o 
+                        ON o.id = op."orderId"
                 WHERE status <> 'completed'
               )
             RETURNING *;   
             `,
             [id]
         );
-
         //If the product was deleted, delete order_products
         if (product) {
             const {

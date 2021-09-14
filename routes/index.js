@@ -1,5 +1,6 @@
 // Constants
-const { JWT_SECRET } = process.env;
+// const  {JWT_SECRET}  = process.env;
+// When JWTSecret is defined here, it is unavailable for use in apiRouter. Why???
 
 // Requires
 const express = require('express');
@@ -9,7 +10,8 @@ const usersRouter = require ('./users');
 const ordersRouter = require ('./orders');
 const orderProductsRouter = require ('./order_products');
 const productsRouter = require ('./products');
-const reviewsRouter = require ('./products');
+const reviewsRouter = require ('./reviews');
+const stripeRouter = require ('./stripe');
 
 const { getUserById } = require('../db');
 
@@ -23,6 +25,7 @@ apiRouter.get("/", (req, res, next) => {
 apiRouter.use(async (req, res, next) => {
     const prefix = 'Bearer ';
     const auth = req.header('Authorization');
+    const  {JWT_SECRET}  = process.env;
     if (!auth) { // nothing to see here
         next();
     } else if (auth.startsWith(prefix)) {
@@ -44,11 +47,21 @@ apiRouter.use(async (req, res, next) => {
     }
 });   
 
+apiRouter.get('/health', async (req, res) => {
+    console.log(`Dr. Server says we're ok.`);
+    res.status(200);
+    res.send({
+        name:"Healthy",
+        message: "Server is up."
+    })
+});
+
 apiRouter.use('/users', usersRouter)
 apiRouter.use('/orders', ordersRouter)
 apiRouter.use('/products', productsRouter)
 apiRouter.use('/order_products', orderProductsRouter)
 apiRouter.use('/reviews', reviewsRouter)
+apiRouter.use('/stripe', stripeRouter)
 
 // Error Handler
 apiRouter.use((error, req, res, next) => {

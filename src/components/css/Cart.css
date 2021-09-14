@@ -1,0 +1,44 @@
+.cart-products h2 {
+    color: black;
+}
+
+.update-button {
+    color: white;
+    background-color: #053f5f;
+    margin: 5px;
+}
+
+.cart-form input {
+    background-color: ghostwhite;
+    font-size: large;
+    font-weight: bold;
+    width: 100px;
+}
+
+.update-button:hover {
+    background-color: lightblue;
+}
+
+.remove-button {
+    color: white;
+    background-color: #053f5f;
+    margin: 5px;
+}
+
+.remove-button:hover {
+    background-color: lightblue;
+}
+
+.checkout-button {
+    background-color: #4eb5f1;
+    font: bold;
+    font-size: larger;
+    height: 40px;
+    width: 100px;
+    margin: 5px;
+}
+
+
+.checkout-button:hover {
+    background-color: orange;
+}
