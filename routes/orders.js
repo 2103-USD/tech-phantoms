@@ -177,7 +177,7 @@ ordersRouter.delete('/:orderId', verifyUserIsOrderOwner, async (req, res, next) 
 })
 
 // ADMIN: Get all orders from system
-ordersRouter.get('/', requireAdmin, async (req, res, next) => {
+ordersRouter.get('/', requireUser, async (req, res, next) => {
     try {
         const orders = await getAllOrders(); 
         if (orders) {
