@@ -149,7 +149,7 @@ async function getOrdersByUser({ id }) {
                     WHERE op."orderId" = orders.id
                 ) AS total
             FROM orders
-            WHERE orders."userId" = $1;
+            WHERE "userId" = $1;
             `,
             [id]
         );
@@ -186,7 +186,7 @@ async function getOrdersByUser({ id }) {
 
         return orderProducts;
     } catch (error) {
-        throw error;
+        throw Error(error);
     }
 }
 

@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { OrderCard } from '.';
-import { getMyOrders } from '../api';
+import { getAllOrders } from '../api';
 import './style.css';
 
-export const Order = () => {
-	const [orders, setOrders] = useState([getMyOrders()]);
+export const Order = (props) => {
+	const [orders, setOrders] = useState([getAllOrders()]);
 
 	const handleOrders = async () => {
-		const res = await getMyOrders();
-        console.log("JSX RES ------------>", res)
+		const res = await getAllOrders();
 		if (res.length > 0) setOrders(res);
 	};
 
@@ -16,17 +15,15 @@ export const Order = () => {
 		handleOrders();
 	}, []);
 
-	console.log('this is the thing', orders)
-
 	return (
-		<div className="user-orders">
-			{orders ?
-				orders.map((order) => {
+		<div className="admin-orders">
+			<div>
+				{orders.map((order) => {
 					return (
 						<OrderCard key={`orderList${order.id}`} order={order} />
 					);
-				})
-			: '' }
+				})}
+			</div>
 		</div>
 	);
 };
