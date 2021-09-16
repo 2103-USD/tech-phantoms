@@ -1,20 +1,21 @@
 import React from "react";
 import moment from "moment";
+import { GetCurrentUser } from "../api";
 import "./style.css";
 
 export const OrderCard = ({ order }) => {
-    console.log('shlweifwjef ORDER', order)
-    const { id, status, datePlaced, products, total, paymentURL } =
+    const { id, status, lastName, datePlaced, products, total, paymentURL } =
         order;
+    const user = GetCurrentUser();
     const date = moment(datePlaced).format("MMMM Do YYYY");
 
     return (
         <>
-            {order ? (
+            {user.lastName === lastName ? (
                 <div id={`${id}`} className="admin-order-card">
                     <h3>Order #: {id}</h3>
                     {datePlaced ? <h3>Placed on: {date}</h3> : ""}
-                    <h3>Status: {status ? status.toUpperCase() : ""}</h3>
+                    <h3>Status: {status.toUpperCase()}</h3>
                     {paymentURL ? (
                         <h3>
                             <a
