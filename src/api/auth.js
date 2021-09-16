@@ -1,5 +1,5 @@
 export const BASE_URL = 'https://fast-savannah-33549.herokuapp.com/api';
-// export const BASE_URL = 'http://localhost:5000/api';
+//export const BASE_URL = 'http://localhost:5000/api';
 
 //************* Auth Functions
 export function storeCurrentUser(data) {
